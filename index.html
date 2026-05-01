@@ -1,0 +1,2541 @@
+<!DOCTYPE html>
+<html lang="es" id="htmlRoot">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative Art Video | Cinematic Wedding Films</title>
+  <meta name="description"
+    content="Capturamos los momentos mas preciosos de tu boda con arte y elegancia. Videografia cinematografica profesional.">
+  <meta name="theme-color" content="#0a1628">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Configuracion externa (no subir a Git) -->
+  <script src="config.js"></script>
+
+  <style>
+    /* ==================== VARIABLES Y RESET ==================== */
+    :root {
+      --background: #0a1628;
+      --background-light: #0f2137;
+      --foreground: #f0f6fc;
+      --card: #112240;
+      --card-hover: #1a3358;
+      --primary: #64d2ff;
+      --primary-dark: #40c4ff;
+      --primary-light: #9be7ff;
+      --accent: #7dd3fc;
+      --accent-gold: #e8d5a3;
+      --muted: #8ba2c1;
+      --border: #234670;
+      --crystal-blue: #7dd3fc;
+      --crystal-blue-light: #bae6fd;
+      --crystal-blue-dark: #38bdf8;
+      --crystal-aqua: #67e8f9;
+      --overlay: rgba(10, 22, 40, 0.95);
+      --font-heading: 'Cormorant Garamond', serif;
+      --font-body: 'Montserrat', sans-serif;
+      --glow-color: rgba(125, 211, 252, 0.4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--background);
+      color: var(--foreground);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--background);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary);
+    }
+
+    /* ==================== LOADING SCREEN ==================== */
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--background) 0%, var(--background-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    .loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loading-logo {
+      width: 220px;
+      animation: logo-glow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes logo-glow {
+
+      0%,
+      100% {
+        filter: drop-shadow(0 0 15px rgba(125, 211, 252, 0.3)) drop-shadow(0 0 30px rgba(125, 211, 252, 0.2));
+        transform: scale(1);
+      }
+
+      50% {
+        filter: drop-shadow(0 0 25px rgba(125, 211, 252, 0.6)) drop-shadow(0 0 50px rgba(125, 211, 252, 0.4)) drop-shadow(0 0 75px rgba(103, 232, 249, 0.3));
+        transform: scale(1.03);
+      }
+    }
+
+    .loading-bar {
+      position: absolute;
+      bottom: 100px;
+      width: 200px;
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .loading-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--crystal-aqua), var(--crystal-blue-light));
+      width: 0%;
+      animation: loading 2.5s ease-out forwards;
+    }
+
+    @keyframes loading {
+      0% {
+        width: 0%;
+      }
+
+      100% {
+        width: 100%;
+      }
+    }
+
+    /* ==================== LANGUAGE SWITCH ==================== */
+    .lang-switch {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1001;
+      display: flex;
+      gap: 0.25rem;
+      background: rgba(17, 34, 64, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 0.25rem;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+    }
+
+    .lang-btn {
+      padding: 0.5rem 1rem;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+    }
+
+    .lang-btn.active {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--crystal-aqua) 100%);
+      color: var(--background);
+    }
+
+    .lang-btn:hover:not(.active) {
+      color: var(--foreground);
+    }
+
+    /* ==================== HEADER ==================== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1rem 2rem;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+
+    .header.scrolled {
+      background: rgba(10, 22, 40, 0.95);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-logo {
+      height: 50px;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 0 10px rgba(125, 211, 252, 0.3));
+    }
+
+    .header-logo:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 20px rgba(125, 211, 252, 0.5));
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--foreground);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg, var(--primary), var(--crystal-aqua));
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--foreground);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--overlay);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .mobile-nav.active {
+      display: flex;
+    }
+
+    .mobile-nav a {
+      color: var(--foreground);
+      text-decoration: none;
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      transition: color 0.3s ease;
+    }
+
+    .mobile-nav a:hover {
+      color: var(--primary);
+    }
+
+    .close-mobile-menu {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: none;
+      border: none;
+      color: var(--foreground);
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    /* ==================== HERO SECTION ==================== */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70%;
+      object-fit: cover;
+      filter: brightness(0.9) saturate(1.1);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70%;
+      background: linear-gradient(to bottom,
+          rgba(10, 22, 40, 0.1) 0%,
+          rgba(10, 22, 40, 0.2) 60%,
+          rgba(10, 22, 40, 1) 100%);
+    }
+
+    .hero-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      text-align: center;
+      padding: 3rem 2rem;
+      background: var(--background);
+      animation: fadeInUp 1s ease-out 0.5s both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--crystal-aqua);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--foreground) 0%, var(--crystal-blue) 50%, var(--crystal-aqua) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-description {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      line-height: 1.8;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      padding: 1rem 3rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--crystal-aqua) 100%);
+      border: none;
+      color: var(--background);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(125, 211, 252, 0.3);
+    }
+
+    .hero-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 40px rgba(125, 211, 252, 0.5);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 10rem;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+      z-index: 5;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(10px);
+      }
+    }
+
+    .scroll-indicator svg {
+      width: 30px;
+      height: 30px;
+      color: var(--primary);
+    }
+
+    /* ==================== SECTION STYLES ==================== */
+    .section {
+      padding: 6rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--crystal-aqua);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--foreground) 0%, var(--crystal-blue) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-line {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--crystal-aqua));
+      margin: 0 auto;
+      border-radius: 1px;
+    }
+
+    /* ==================== ABOUT SECTION ==================== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-images {
+      position: relative;
+      height: 500px;
+    }
+
+    .about-img {
+      position: absolute;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      transition: transform 0.5s ease;
+      cursor: pointer;
+    }
+
+    .about-img:hover {
+      transform: scale(1.02);
+    }
+
+    .about-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-img-1 {
+      width: 60%;
+      height: 70%;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
+
+    .about-img-2 {
+      width: 55%;
+      height: 60%;
+      bottom: 0;
+      right: 0;
+      z-index: 1;
+    }
+
+    .about-content h3 {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      color: var(--crystal-blue);
+    }
+
+    .about-content p {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .about-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--crystal-aqua) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ==================== CAROUSEL SECTION ==================== */
+    .carousel-section {
+      padding: 6rem 0;
+      overflow: hidden;
+      background: linear-gradient(180deg, var(--background) 0%, var(--background-light) 50%, var(--background) 100%);
+    }
+
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      cursor: grab;
+    }
+
+    .carousel-container:active {
+      cursor: grabbing;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 1.5rem;
+      transition: transform 0.3s ease;
+      will-change: transform;
+    }
+
+    .carousel-slide {
+      flex-shrink: 0;
+      width: 350px;
+      height: 450px;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      cursor: pointer;
+    }
+
+    .carousel-slide:hover {
+      transform: scale(1.02);
+      box-shadow: 0 20px 60px rgba(125, 211, 252, 0.2);
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .carousel-slide:hover img {
+      transform: scale(1.1);
+    }
+
+    /* ==================== ALBUMS SECTION ==================== */
+    .albums-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .album-card {
+      position: relative;
+      aspect-ratio: 4/5;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.5s ease;
+    }
+
+    .album-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .album-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .album-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .album-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem;
+      background: linear-gradient(transparent, rgba(10, 22, 40, 0.9));
+      transform: translateY(100%);
+      transition: transform 0.5s ease;
+    }
+
+    .album-card:hover .album-overlay {
+      transform: translateY(0);
+    }
+
+    .album-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .album-count {
+      font-size: 0.85rem;
+      color: var(--crystal-aqua);
+    }
+
+    /* ==================== ALBUM MODAL ==================== */
+    .album-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--overlay);
+      backdrop-filter: blur(20px);
+      z-index: 2000;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .album-modal.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .album-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto 2rem;
+    }
+
+    .album-modal-title {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+    }
+
+    .album-modal-close {
+      background: none;
+      border: none;
+      color: var(--foreground);
+      font-size: 2rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .album-modal-close:hover {
+      color: var(--primary);
+    }
+
+    .album-modal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .album-modal-img {
+      aspect-ratio: 4/3;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .album-modal-img:hover {
+      transform: scale(1.02);
+    }
+
+    .album-modal-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ==================== IMAGE ZOOM MODAL ==================== */
+    .zoom-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 3000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .zoom-modal.active {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .zoom-modal img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .zoom-modal-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: none;
+      border: none;
+      color: var(--foreground);
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    /* ==================== VIDEOS SECTION ==================== */
+    .video-principal {
+      position: relative;
+      aspect-ratio: 16/9;
+      max-width: 1000px;
+      margin: 0 auto 4rem;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    }
+
+    .video-principal img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px;
+      height: 100px;
+      background: rgba(125, 211, 252, 0.2);
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .video-play-btn:hover {
+      background: var(--primary);
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    .video-play-btn svg {
+      width: 40px;
+      height: 40px;
+      color: var(--foreground);
+      margin-left: 5px;
+    }
+
+    .video-play-btn:hover svg {
+      color: var(--background);
+    }
+
+    .videos-carousel {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      padding: 1rem 0;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .videos-carousel::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .video-card {
+      flex-shrink: 0;
+      width: 280px;
+      scroll-snap-align: start;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .video-card img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+
+    .video-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .video-card:hover .video-card-overlay {
+      opacity: 1;
+    }
+
+    .video-card-play {
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .video-card-play svg {
+      width: 20px;
+      height: 20px;
+      color: var(--background);
+      margin-left: 3px;
+    }
+
+    /* ==================== ENTERTAINMENT SECTION ==================== */
+    .entertainment-section {
+      background: linear-gradient(180deg, var(--background) 0%, var(--background-light) 50%, var(--background) 100%);
+    }
+
+    .entertainment-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .entertainment-item {
+      aspect-ratio: 1;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.5s ease;
+    }
+
+    .entertainment-item:hover {
+      transform: scale(1.05);
+    }
+
+    .entertainment-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .entertainment-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .entertainment-logo {
+      grid-column: span 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--card) 0%, var(--background-light) 100%);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .entertainment-logo img {
+      width: 60%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 20px rgba(125, 211, 252, 0.4));
+      animation: logo-glow 3s ease-in-out infinite;
+    }
+
+    /* ==================== CONTACT SECTION ==================== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    .contact-info h3 {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--crystal-blue);
+    }
+
+    .contact-info p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--card) 0%, var(--background-light) 100%);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .contact-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .contact-text {
+      color: var(--foreground);
+    }
+
+    .contact-text a {
+      color: var(--foreground);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-text a:hover {
+      color: var(--primary);
+    }
+
+    .contact-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .contact-form {
+      background: linear-gradient(135deg, var(--card) 0%, var(--background-light) 100%);
+      padding: 3rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 1rem;
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--foreground);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 15px rgba(125, 211, 252, 0.2);
+    }
+
+    .form-input::placeholder {
+      color: var(--muted);
+    }
+
+    textarea.form-input {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-btn {
+      width: 100%;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--crystal-aqua) 100%);
+      border: none;
+      border-radius: 50px;
+      color: var(--background);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(125, 211, 252, 0.3);
+    }
+
+    .form-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(125, 211, 252, 0.5);
+    }
+
+    .form-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      color: var(--crystal-aqua);
+    }
+
+    .form-success.show {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    /* ==================== FOOTER ==================== */
+    .footer {
+      padding: 4rem 2rem;
+      background: linear-gradient(180deg, var(--background) 0%, var(--card) 100%);
+      text-align: center;
+    }
+
+    .footer-logo {
+      width: 150px;
+      margin-bottom: 2rem;
+      filter: drop-shadow(0 0 15px rgba(125, 211, 252, 0.3));
+      animation: logo-glow 3s ease-in-out infinite;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-social a {
+      width: 45px;
+      height: 45px;
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--foreground);
+      transition: all 0.3s ease;
+    }
+
+    .footer-social a:hover {
+      background: var(--primary);
+      color: var(--background);
+      border-color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .footer-social svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .footer-address {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-copy {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    /* ==================== WOOW CHATBOT ==================== */
+    .woow-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 65px;
+      height: 65px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--crystal-aqua) 100%);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 40px rgba(125, 211, 252, 0.4);
+      transition: all 0.3s ease;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .woow-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 15px 50px rgba(125, 211, 252, 0.6);
+    }
+
+    .woow-btn span {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.7rem;
+      color: var(--background);
+      letter-spacing: 0.5px;
+    }
+
+    .woow-chat {
+      display: none;
+      position: fixed;
+      bottom: 6rem;
+      right: 2rem;
+      width: 360px;
+      max-height: 520px;
+      background: var(--card);
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border);
+      z-index: 1001;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    .woow-chat.active {
+      display: flex;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .woow-header {
+      padding: 1.25rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--crystal-aqua) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .woow-header-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .woow-avatar {
+      width: 42px;
+      height: 42px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--background);
+      font-size: 0.9rem;
+    }
+
+    .woow-name {
+      font-weight: 600;
+      color: var(--background);
+      font-size: 0.95rem;
+    }
+
+    .woow-status {
+      font-size: 0.7rem;
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    .woow-close {
+      background: none;
+      border: none;
+      color: var(--background);
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .woow-messages {
+      flex: 1;
+      padding: 1.25rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-height: 320px;
+      background: var(--background);
+    }
+
+    .woow-message {
+      max-width: 85%;
+      padding: 0.875rem 1rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .woow-message.bot {
+      background: var(--card);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .woow-message.user {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--crystal-aqua) 100%);
+      color: var(--background);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .woow-input-container {
+      padding: 1rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 0.5rem;
+      background: var(--card);
+    }
+
+    .woow-input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      color: var(--foreground);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+    }
+
+    .woow-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .woow-send {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--crystal-aqua) 100%);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .woow-send:hover {
+      transform: scale(1.05);
+    }
+
+    .woow-send svg {
+      width: 18px;
+      height: 18px;
+      color: var(--background);
+    }
+
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 0.875rem 1rem;
+      background: var(--card);
+      border-radius: 16px;
+      border-bottom-left-radius: 4px;
+      align-self: flex-start;
+    }
+
+    .typing-indicator span {
+      width: 8px;
+      height: 8px;
+      background: var(--muted);
+      border-radius: 50%;
+      animation: typing 1.4s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+
+      0%,
+      60%,
+      100% {
+        transform: translateY(0);
+        opacity: 0.4;
+      }
+
+      30% {
+        transform: translateY(-4px);
+        opacity: 1;
+      }
+    }
+
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 1024px) {
+      .albums-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .entertainment-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .entertainment-logo {
+        grid-column: span 2;
+      }
+
+      .lang-switch {
+        top: auto;
+        bottom: 1rem;
+        left: 1rem;
+        right: auto;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-images {
+        height: 350px;
+      }
+
+      .albums-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .carousel-slide {
+        width: 280px;
+        height: 360px;
+      }
+
+      .entertainment-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .woow-chat {
+        right: 1rem;
+        left: 1rem;
+        width: auto;
+        bottom: 5rem;
+        max-height: 70vh;
+      }
+
+      .woow-btn {
+        bottom: 1rem;
+        right: 1rem;
+        width: 55px;
+        height: 55px;
+      }
+
+      .woow-btn span {
+        font-size: 0.6rem;
+      }
+
+      .hero-content {
+        padding: 2rem 1.5rem;
+      }
+
+      .hero-bg {
+        height: 65%;
+      }
+
+      .hero-overlay {
+        height: 65%;
+      }
+
+      .lang-switch {
+        top: 0.75rem;
+        right: 4rem;
+        bottom: auto;
+        left: auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section {
+        padding: 4rem 1rem;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .entertainment-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .entertainment-logo {
+        grid-column: span 1;
+        aspect-ratio: 16/9;
+      }
+
+      .about-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .contact-form {
+        padding: 2rem 1.5rem;
+      }
+
+      .lang-btn {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.65rem;
+      }
+    }
+
+    /* ==================== VIDEO MODAL ==================== */
+    .video-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.96);
+      z-index: 4000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .video-modal.active {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .video-modal-inner {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+    }
+
+    .video-modal-inner video {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .video-modal-close {
+      position: absolute;
+      top: -2.5rem;
+      right: 0;
+      background: none;
+      border: none;
+      color: var(--foreground);
+      font-size: 2rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .video-modal-close:hover {
+      color: var(--primary);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ==================== LOADING SCREEN ==================== -->
+  <div class="loading-screen" id="loadingScreen">
+    <img src="assets/logoCreative.png" alt="Creative Art Video" class="loading-logo">
+    <div class="loading-bar">
+      <div class="loading-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- ==================== LANGUAGE SWITCH ==================== -->
+  <div class="lang-switch">
+    <button class="lang-btn active" id="langEs" onclick="setLanguage('es')">ES</button>
+    <button class="lang-btn" id="langEn" onclick="setLanguage('en')">EN</button>
+  </div>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="header" id="header">
+    <div class="header-content">
+      <a href="#inicio">
+        <img src="assets/logoCreative.png" alt="Creative Art Video" class="header-logo">
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#inicio" data-es="Inicio" data-en="Home">Inicio</a></li>
+          <li><a href="#nosotros" data-es="Nosotros" data-en="About">Nosotros</a></li>
+          <li><a href="#galeria" data-es="Galeria" data-en="Gallery">Galeria</a></li>
+          <li><a href="#videos" data-es="Videos" data-en="Videos">Videos</a></li>
+          <li><a href="#entretenimiento" data-es="Entretenimiento" data-en="Entertainment">Entretenimiento</a></li>
+          <li><a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav" id="mobileNav">
+    <button class="close-mobile-menu" id="closeMobileMenu">&times;</button>
+    <a href="#inicio" data-es="Inicio" data-en="Home">Inicio</a>
+    <a href="#nosotros" data-es="Nosotros" data-en="About">Nosotros</a>
+    <a href="#galeria" data-es="Galeria" data-en="Gallery">Galeria</a>
+    <a href="#videos" data-es="Videos" data-en="Videos">Videos</a>
+    <a href="#entretenimiento" data-es="Entretenimiento" data-en="Entertainment">Entretenimiento</a>
+    <a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a>
+  </div>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="hero" id="inicio">
+    <img src="assets/hero-principal.jpg" alt="Wedding" class="hero-bg">
+    <div class="hero-overlay"></div>
+    <div class="scroll-indicator">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </div>
+    <div class="hero-content">
+      <p class="hero-subtitle" data-es="Cinematografia de Bodas" data-en="Wedding Cinematography">Cinematografia de
+        Bodas</p>
+      <h1 class="hero-title" data-es="Capturamos Tu Historia de Amor" data-en="We Capture Your Love Story">Capturamos Tu
+        Historia de Amor</h1>
+      <p class="hero-description"
+        data-es="Transformamos los momentos mas preciosos de tu boda en obras de arte cinematograficas que perduraran por siempre."
+        data-en="We transform the most precious moments of your wedding into cinematic works of art that will last forever.">
+        Transformamos los momentos mas preciosos de tu boda en obras de arte cinematograficas que perduraran por
+        siempre.
+      </p>
+      <a href="#contacto" class="hero-btn" data-es="Reserva Tu Cita" data-en="Book Your Appointment">Reserva Tu Cita</a>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT SECTION ==================== -->
+  <section class="section" id="nosotros">
+    <div class="section-header">
+      <p class="section-subtitle" data-es="Conoce Nuestro Trabajo" data-en="Know Our Work">Conoce Nuestro Trabajo</p>
+      <h2 class="section-title" data-es="Sobre Nosotros" data-en="About Us">Sobre Nosotros</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-images">
+        <div class="about-img about-img-1" onclick="openZoom('assets/about-foto1.jpg')">
+          <img src="assets/about-foto1.jpg" alt="Nuestro trabajo">
+        </div>
+        <div class="about-img about-img-2" onclick="openZoom('assets/about-foto2.jpg')">
+          <img src="assets/about-foto2.jpg" alt="Nuestro equipo">
+        </div>
+      </div>
+      <div class="about-content">
+        <h3 data-es="Arte y Pasion en Cada Toma" data-en="Art and Passion in Every Shot">Arte y Pasion en Cada Toma</h3>
+        <p data-es="En Creative Art Video, nos dedicamos a capturar la esencia de cada momento especial. Con anos de experiencia en la industria, hemos perfeccionado el arte de contar historias a traves del lente."
+          data-en="At Creative Art Video, we dedicate ourselves to capturing the essence of every special moment. With years of experience in the industry, we have perfected the art of storytelling through the lens.">
+          En Creative Art Video, nos dedicamos a capturar la esencia de cada momento especial. Con anos de experiencia
+          en la industria, hemos perfeccionado el arte de contar historias a traves del lente.
+        </p>
+        <p data-es="Nuestro equipo de profesionales combina tecnica, creatividad y pasion para crear videos cinematograficos que emocionan y perduran en el tiempo."
+          data-en="Our team of professionals combines technique, creativity and passion to create cinematic videos that move and endure through time.">
+          Nuestro equipo de profesionales combina tecnica, creatividad y pasion para crear videos cinematograficos que
+          emocionan y perduran en el tiempo.
+        </p>
+        <div class="about-stats">
+          <div class="stat">
+            <div class="stat-number">500+</div>
+            <div class="stat-label" data-es="Bodas Filmadas" data-en="Weddings Filmed">Bodas Filmadas</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">10+</div>
+            <div class="stat-label" data-es="Anos de Experiencia" data-en="Years of Experience">Anos de Experiencia
+            </div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">100%</div>
+            <div class="stat-label" data-es="Clientes Felices" data-en="Happy Clients">Clientes Felices</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CAROUSEL SECTION ==================== -->
+  <section class="carousel-section" id="galeria">
+    <div class="section-header" style="padding: 0 2rem;">
+      <p class="section-subtitle" data-es="Nuestro Trabajo" data-en="Our Work">Nuestro Trabajo</p>
+      <h2 class="section-title" data-es="Galeria" data-en="Gallery">Galeria</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="carousel-container" id="carouselContainer" style="margin-top: 3rem;">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto1.jpg')"><img src="assets/carousel-foto1.jpg" alt="Boda 1">
+        </div>
+        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto2.jpg')"><img src="assets/carousel-foto2.jpg" alt="Boda 2">
+        </div>
+        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto3.jpg')"><img src="assets/carousel-foto3.jpg" alt="Boda 3">
+        </div>
+        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto4.jpg')"><img src="assets/carousel-foto4.jpg" alt="Boda 4">
+        </div>
+        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto5.jpg')"><img src="assets/carousel-foto5.jpg" alt="Boda 5">
+        </div>
+        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto6.jpg')"><img src="assets/carousel-foto6.jpg" alt="Boda 6">
+        </div>
+        <!-- Duplicados para loop infinito -->
+        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto1.jpg')"><img src="assets/carousel-foto1.jpg" alt="Boda 1">
+        </div>
+        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto2.jpg')"><img src="assets/carousel-foto2.jpg" alt="Boda 2">
+        </div>
+        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto3.jpg')"><img src="assets/carousel-foto3.jpg" alt="Boda 3">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ALBUMS SECTION ==================== -->
+  <section class="section" id="albums">
+    <div class="section-header">
+      <p class="section-subtitle" data-es="Colecciones Completas" data-en="Complete Collections">Colecciones Completas
+      </p>
+      <h2 class="section-title" data-es="Albums" data-en="Albums">Albums</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="albums-grid">
+      <div class="album-card" onclick="openAlbum(1, 'Maria & Carlos')">
+        <img src="assets/album1-foto1.jpg" alt="Album 1">
+        <div class="album-overlay">
+          <h3 class="album-title">Maria & Carlos</h3>
+          <p class="album-count">4 fotos</p>
+        </div>
+      </div>
+      <div class="album-card" onclick="openAlbum(2, 'Andrea & Luis')">
+        <img src="assets/album2-foto1.jpg" alt="Album 2">
+        <div class="album-overlay">
+          <h3 class="album-title">Andrea & Luis</h3>
+          <p class="album-count">4 fotos</p>
+        </div>
+      </div>
+      <div class="album-card" onclick="openAlbum(3, 'Sofia & Miguel')">
+        <img src="assets/album3-foto1.jpg" alt="Album 3">
+        <div class="album-overlay">
+          <h3 class="album-title">Sofia & Miguel</h3>
+          <p class="album-count">4 fotos</p>
+        </div>
+      </div>
+      <div class="album-card" onclick="openAlbum(4, 'Valentina & Diego')">
+        <img src="assets/album4-foto1.jpg" alt="Album 4">
+        <div class="album-overlay">
+          <h3 class="album-title">Valentina & Diego</h3>
+          <p class="album-count">4 fotos</p>
+        </div>
+      </div>
+      <div class="album-card" onclick="openAlbum(5, 'Camila & Javier')">
+        <img src="assets/album5-foto1.jpg" alt="Album 5">
+        <div class="album-overlay">
+          <h3 class="album-title">Camila & Javier</h3>
+          <p class="album-count">4 fotos</p>
+        </div>
+      </div>
+      <div class="album-card" onclick="openAlbum(6, 'Isabella & Andres')">
+        <img src="assets/album6-foto1.jpg" alt="Album 6">
+        <div class="album-overlay">
+          <h3 class="album-title">Isabella & Andres</h3>
+          <p class="album-count">4 fotos</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Album Modal -->
+  <div class="album-modal" id="albumModal">
+    <div class="album-modal-header">
+      <h2 class="album-modal-title" id="albumModalTitle"></h2>
+      <button class="album-modal-close" onclick="closeAlbum()">&times;</button>
+    </div>
+    <div class="album-modal-grid" id="albumModalGrid"></div>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="video-modal" id="videoModal" onclick="closeVideoModal(event)">
+    <div class="video-modal-inner">
+      <button class="video-modal-close" onclick="closeVideoModal()">&times;</button>
+      <video id="videoModalPlayer" controls playsinline style="background:#000;"></video>
+    </div>
+  </div>
+
+  <!-- Zoom Modal -->
+  <div class="zoom-modal" id="zoomModal" onclick="closeZoom()">
+    <button class="zoom-modal-close">&times;</button>
+    <img src="" alt="Zoom" id="zoomImage">
+  </div>
+
+  <!-- ==================== VIDEOS SECTION ==================== -->
+  <section class="section" id="videos">
+    <div class="section-header">
+      <p class="section-subtitle" data-es="Nuestros Films" data-en="Our Films">Nuestros Films</p>
+      <h2 class="section-title" data-es="Videos" data-en="Videos">Videos</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <!-- Video Principal -->
+    <div class="video-principal" onclick="openVideoModal('assets/video-principal.mp4')">
+      <video src="assets/video-principal.mp4" muted playsinline preload="metadata"
+        style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div class="video-play-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- Videos Carousel -->
+    <h3
+      style="text-align: center; font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 2rem; color: var(--crystal-blue);"
+      data-es="Mas Videos" data-en="More Videos">Mas Videos</h3>
+    <div class="videos-carousel">
+      <div class="video-card" onclick="openVideoModal('assets/video-carousel1.mp4')">
+        <video src="assets/video-carousel1.mp4" muted playsinline preload="metadata"
+          style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;"></video>
+        <div class="video-card-overlay">
+          <div class="video-card-play">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="video-card" onclick="openVideoModal('assets/video-carousel2.mp4')">
+        <video src="assets/video-carousel2.mp4" muted playsinline preload="metadata"
+          style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;"></video>
+        <div class="video-card-overlay">
+          <div class="video-card-play">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="video-card" onclick="openVideoModal('assets/video-carousel3.mp4')">
+        <video src="assets/video-carousel3.mp4" muted playsinline preload="metadata"
+          style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;"></video>
+        <div class="video-card-overlay">
+          <div class="video-card-play">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="video-card" onclick="openVideoModal('assets/video-carousel4.mp4')">
+        <video src="assets/video-carousel4.mp4" muted playsinline preload="metadata"
+          style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;"></video>
+        <div class="video-card-overlay">
+          <div class="video-card-play">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="video-card" onclick="openVideoModal('assets/video-carousel5.mp4')">
+        <video src="assets/video-carousel5.mp4" muted playsinline preload="metadata"
+          style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;"></video>
+        <div class="video-card-overlay">
+          <div class="video-card-play">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="video-card" onclick="openVideoModal('assets/video-carousel6.mp4')">
+        <video src="assets/video-carousel6.mp4" muted playsinline preload="metadata"
+          style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;"></video>
+        <div class="video-card-overlay">
+          <div class="video-card-play">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ENTERTAINMENT SECTION ==================== -->
+  <section class="section entertainment-section" id="entretenimiento">
+    <div class="section-header">
+      <p class="section-subtitle" data-es="Eventos Especiales" data-en="Special Events">Eventos Especiales</p>
+      <h2 class="section-title" data-es="Entretenimiento" data-en="Entertainment">Entretenimiento</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="entertainment-grid">
+      <div class="entertainment-item" onclick="openZoom('assets/entertainment-foto1.jpg')">
+        <img src="assets/entertainment-foto1.jpg" alt="Entretenimiento 1">
+      </div>
+      <div class="entertainment-item" onclick="openZoom('assets/entertainment-foto2.jpg')">
+        <img src="assets/entertainment-foto2.jpg" alt="Entretenimiento 2">
+      </div>
+      <div class="entertainment-logo">
+        <img src="assets/logoCreative.png" alt="Creative Art Video">
+      </div>
+      <div class="entertainment-item" onclick="openZoom('assets/entertainment-foto3.jpg')">
+        <img src="assets/entertainment-foto3.jpg" alt="Entretenimiento 3">
+      </div>
+      <div class="entertainment-item" onclick="openZoom('assets/entertainment-foto4.jpg')">
+        <img src="assets/entertainment-foto4.jpg" alt="Entretenimiento 4">
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT SECTION ==================== -->
+  <section class="section" id="contacto">
+    <div class="section-header">
+      <p class="section-subtitle" data-es="Hablemos" data-en="Let's Talk">Hablemos</p>
+      <h2 class="section-title" data-es="Contacto" data-en="Contact">Contacto</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3 data-es="Hagamos Realidad Tu Sueno" data-en="Let's Make Your Dream Come True">Hagamos Realidad Tu Sueno</h3>
+        <p data-es="Estamos listos para capturar los momentos mas especiales de tu vida. Contactanos para conocer mas sobre nuestros servicios y paquetes personalizados."
+          data-en="We are ready to capture the most special moments of your life. Contact us to learn more about our services and personalized packages.">
+          Estamos listos para capturar los momentos mas especiales de tu vida. Contactanos para conocer mas sobre
+          nuestros servicios y paquetes personalizados.
+        </p>
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+            </div>
+            <div>
+              <div class="contact-label" data-es="Telefono" data-en="Phone">Telefono</div>
+              <div class="contact-text"><a href="tel:+12135870282">+1 213-587-0282</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <div class="contact-label">Email</div>
+              <div class="contact-text"><a href="mailto:info@creativeartvideo.com">info@creativeartvideo.com</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div>
+              <div class="contact-label" data-es="Ubicacion" data-en="Location">Ubicacion</div>
+              <div class="contact-text"><a
+                  href="https://maps.google.com/?q=11490+Burbank+Blvd+%233A,+North+Hollywood,+CA+91601"
+                  target="_blank">11490 Burbank Blvd #3A, North Hollywood, CA 91601</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label class="form-label" data-es="Nombre" data-en="Name">Nombre</label>
+            <input type="text" class="form-input" name="nombre" id="formNombre" placeholder="Tu nombre completo" data-placeholder-es="Tu nombre completo" data-placeholder-en="Your full name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" name="email" id="formEmail" placeholder="tu@email.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-es="Telefono" data-en="Phone">Telefono</label>
+            <input type="tel" class="form-input" name="telefono" id="formTelefono" placeholder="+1 213-587-0282">
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-es="Mensaje" data-en="Message">Mensaje</label>
+            <textarea class="form-input" name="mensaje" id="formMensaje" placeholder="Cuentanos sobre tu evento..." data-placeholder-es="Cuentanos sobre tu evento..." data-placeholder-en="Tell us about your event..."></textarea>
+          </div>
+          <button type="submit" class="form-btn" id="formBtn" data-es="Enviar Mensaje" data-en="Send Message">Enviar Mensaje</button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <h3 data-es="Mensaje Enviado!" data-en="Message Sent!">Mensaje Enviado!</h3>
+          <p data-es="Gracias por contactarnos. Nos pondremos en contacto contigo pronto."
+            data-en="Thank you for contacting us. We will get back to you soon.">Gracias por contactarnos. Nos pondremos
+            en contacto contigo pronto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <img src="assets/logoCreative.png" alt="Creative Art Video" class="footer-logo">
+    <div class="footer-links">
+      <a href="#inicio" data-es="Inicio" data-en="Home">Inicio</a>
+      <a href="#nosotros" data-es="Nosotros" data-en="About">Nosotros</a>
+      <a href="#galeria" data-es="Galeria" data-en="Gallery">Galeria</a>
+      <a href="#videos" data-es="Videos" data-en="Videos">Videos</a>
+      <a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a>
+    </div>
+    <div class="footer-social">
+      <a href="https://www.facebook.com/creativeartv?mibextid=wwXIfr" target="_blank" aria-label="Facebook">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg>
+      </a>
+      <a href="https://www.instagram.com/creativeartvideo?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr" target="_blank"
+        aria-label="Instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+        </svg>
+      </a>
+      <a href="https://www.youtube.com/@creativeartvideo" target="_blank" aria-label="YouTube">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+        </svg>
+      </a>
+    </div>
+    <p class="footer-address">11490 Burbank Blvd #3A, North Hollywood, CA 91601</p>
+    <p class="footer-copy">&copy; 2024 Creative Art Video.
+      <span data-es="Todos los derechos reservados." data-en="All rights reserved.">Todos los derechos reservados.</span>
+    </p>
+  </footer>
+
+  <!-- ==================== WOOW CHATBOT ==================== -->
+  <button class="woow-btn" id="woowBtn">
+    <span>WOOW</span>
+  </button>
+
+  <div class="woow-chat" id="woowChat">
+    <div class="woow-header">
+      <div class="woow-header-info">
+        <div class="woow-avatar">W</div>
+        <div>
+          <div class="woow-name">Woow</div>
+          <div class="woow-status">IA de Teocalli</div>
+        </div>
+      </div>
+      <button class="woow-close" id="woowClose">&times;</button>
+    </div>
+    <div class="woow-messages" id="woowMessages">
+      <div class="woow-message bot" id="woowGreeting">
+        Hola! Soy Woow, tu asistente virtual de Creative Art Video. Estoy aqui para ayudarte a reservar tu cita y
+        resolver tus dudas sobre nuestros servicios de videografia. Como puedo ayudarte hoy?
+      </div>
+    </div>
+    <div class="woow-input-container">
+      <input type="text" class="woow-input" id="woowInput" placeholder="Escribe un mensaje..." data-placeholder-es="Escribe un mensaje..." data-placeholder-en="Type a message...">
+      <button class="woow-send" id="woowSend">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+    // ==================== LANGUAGE SYSTEM ====================
+    let currentLang = 'es';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.getElementById('langEs').classList.toggle('active', lang === 'es');
+      document.getElementById('langEn').classList.toggle('active', lang === 'en');
+      document.getElementById('htmlRoot').setAttribute('lang', lang);
+      
+      // Update all text elements
+      document.querySelectorAll('[data-es]').forEach(el => {
+        el.textContent = el.getAttribute('data-' + lang);
+      });
+      
+      // Update placeholders
+      document.querySelectorAll('[data-placeholder-es]').forEach(el => {
+        el.placeholder = el.getAttribute('data-placeholder-' + lang);
+      });
+
+      // Update Woow greeting
+      const greeting = document.getElementById('woowGreeting');
+      if (lang === 'es') {
+        greeting.textContent = 'Hola! Soy Woow, tu asistente virtual de Creative Art Video. Estoy aqui para ayudarte a reservar tu cita y resolver tus dudas sobre nuestros servicios de videografia. Como puedo ayudarte hoy?';
+      } else {
+        greeting.textContent = 'Hello! I\'m Woow, your virtual assistant at Creative Art Video. I\'m here to help you book your appointment and answer questions about our videography services. How can I help you today?';
+      }
+      
+      localStorage.setItem('preferredLang', lang);
+    }
+
+    // Load saved language preference
+    const savedLang = localStorage.getItem('preferredLang');
+    if (savedLang) {
+      setLanguage(savedLang);
+    }
+
+    // ==================== LOADING SCREEN ====================
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.getElementById('loadingScreen').classList.add('hidden');
+      }, 2800);
+    });
+
+    // ==================== HEADER SCROLL ====================
+    let lastScroll = 0;
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('header');
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      lastScroll = window.scrollY;
+    }, { passive: true });
+
+    // ==================== MOBILE MENU ====================
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    const closeMobileMenu = document.getElementById('closeMobileMenu');
+
+    mobileMenuBtn.addEventListener('click', function() {
+      mobileNav.classList.add('active');
+    });
+
+    closeMobileMenu.addEventListener('click', function() {
+      mobileNav.classList.remove('active');
+    });
+
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', function() {
+        mobileNav.classList.remove('active');
+      });
+    });
+
+    // ==================== CAROUSEL ====================
+    const carouselTrack = document.getElementById('carouselTrack');
+    const carouselContainer = document.getElementById('carouselContainer');
+    let carouselPosition = 0;
+    let isDragging = false;
+    let startX = 0;
+    let scrollLeft = 0;
+    let autoScrollInterval;
+    let isPaused = false;
+
+    function startAutoScroll() {
+      autoScrollInterval = setInterval(() => {
+        if (!isPaused && !isDragging) {
+          carouselPosition -= 0.8;
+          carouselTrack.style.transform = `translateX(${carouselPosition}px)`;
+          
+          const slideWidth = 350 + 24;
+          const resetPoint = -slideWidth * 6;
+          if (carouselPosition <= resetPoint) {
+            carouselPosition = 0;
+            carouselTrack.style.transition = 'none';
+            carouselTrack.style.transform = `translateX(${carouselPosition}px)`;
+            requestAnimationFrame(() => {
+              carouselTrack.style.transition = 'transform 0.3s ease';
+            });
+          }
+        }
+      }, 30);
+    }
+
+    startAutoScroll();
+
+    carouselContainer.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      isPaused = true;
+      startX = e.pageX;
+      scrollLeft = carouselPosition;
+    });
+
+    carouselContainer.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX;
+      const walk = (x - startX);
+      carouselPosition = scrollLeft + walk;
+      carouselTrack.style.transform = `translateX(${carouselPosition}px)`;
+    });
+
+    carouselContainer.addEventListener('mouseup', () => {
+      isDragging = false;
+      setTimeout(() => { isPaused = false; }, 2000);
+    });
+
+    carouselContainer.addEventListener('mouseleave', () => {
+      isDragging = false;
+      setTimeout(() => { isPaused = false; }, 2000);
+    });
+
+    carouselContainer.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      isPaused = true;
+      startX = e.touches[0].pageX;
+      scrollLeft = carouselPosition;
+    }, { passive: true });
+
+    carouselContainer.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const x = e.touches[0].pageX;
+      const walk = (x - startX);
+      carouselPosition = scrollLeft + walk;
+      carouselTrack.style.transform = `translateX(${carouselPosition}px)`;
+    }, { passive: true });
+
+    carouselContainer.addEventListener('touchend', () => {
+      isDragging = false;
+      setTimeout(() => { isPaused = false; }, 2000);
+    });
+
+    // ==================== ALBUMS ====================
+    function openAlbum(albumNum, title) {
+      const modal = document.getElementById('albumModal');
+      const modalTitle = document.getElementById('albumModalTitle');
+      const modalGrid = document.getElementById('albumModalGrid');
+      
+      modalTitle.textContent = title;
+      modalGrid.innerHTML = '';
+      
+      for (let i = 1; i <= 4; i++) {
+        const div = document.createElement('div');
+        div.className = 'album-modal-img';
+        div.onclick = function() { openZoom(`assets/album${albumNum}-foto${i}.jpg`); };
+        div.innerHTML = `<img src="assets/album${albumNum}-foto${i}.jpg" alt="Foto ${i}" loading="lazy">`;
+        modalGrid.appendChild(div);
+      }
+      
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAlbum() {
+      document.getElementById('albumModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // ==================== ZOOM ====================
+    function openZoom(src) {
+      const modal = document.getElementById('zoomModal');
+      const img = document.getElementById('zoomImage');
+      img.src = src;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeZoom() {
+      document.getElementById('zoomModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // ==================== VIDEOS ====================
+    function openVideoModal(src) {
+      const modal = document.getElementById('videoModal');
+      const player = document.getElementById('videoModalPlayer');
+      player.src = src;
+      player.load();
+      player.play();
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeVideoModal(e) {
+      if (e && e.target !== document.getElementById('videoModal') && !e.target.classList.contains('video-modal-close')) return;
+      const modal = document.getElementById('videoModal');
+      const player = document.getElementById('videoModalPlayer');
+      player.pause();
+      player.src = '';
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // ==================== WOOW CHATBOT ====================
+    const woowBtn = document.getElementById('woowBtn');
+    const woowChat = document.getElementById('woowChat');
+    const woowClose = document.getElementById('woowClose');
+    const woowInput = document.getElementById('woowInput');
+    const woowSend = document.getElementById('woowSend');
+    const woowMessages = document.getElementById('woowMessages');
+
+    /*
+    =====================================================
+    CONFIGURACION DE GROQ API
+    =====================================================
+    Pega tu API Key de Groq aqui:
+    */
+    const GROQ_API_KEY = (typeof CONFIG !== 'undefined') ? CONFIG.GROQ_API_KEY : 'TU_LLAVE_DE_GROQ_AQUI';
+
+    const WOOW_IDENTITY = `Eres Woow, la inteligencia artificial creada por la empresa Teocalli. Eres el asistente virtual de Creative Art Video, una empresa de videografia cinematografica de bodas ubicada en 11490 Burbank Blvd #3A, North Hollywood, CA 91601.
+
+INFORMACION DE CONTACTO QUE SIEMPRE DEBES PROPORCIONAR:
+- Telefono: +1 213-587-0282
+- Email: info@creativeartvideo.com
+- Direccion: 11490 Burbank Blvd #3A, North Hollywood, CA 91601
+- Instagram: @creativeartvideo
+- Facebook: Creative Art Video
+
+SERVICIOS DE CREATIVE ART VIDEO:
+- Videografia cinematografica de bodas
+- Fotografia de bodas
+- Videos de eventos especiales
+- Entretenimiento para eventos
+- Mas de 500 bodas filmadas
+- Mas de 10 anos de experiencia
+- 100% clientes satisfechos
+
+TU PERSONALIDAD:
+- Siempre te presentas como: "Hola! Soy Woow, tu asistente de Creative Art Video"
+- Eres amable, profesional, entusiasta y servicial
+- Respondes en el idioma que te hablen (espanol o ingles)
+- Siempre invitas a reservar una cita
+- Siempre proporcionas el telefono +1 213-587-0282 y el email info@creativeartvideo.com
+- Invitas a llenar el formulario de contacto en la pagina
+- Solo hablas sobre Creative Art Video y sus servicios
+- Si te preguntan quien te creo, dices que fuiste creado por Teocalli
+
+OBJETIVO PRINCIPAL:
+Tu objetivo es ayudar a los visitantes a reservar su cita para sus servicios de videografia. Siempre cierra con una invitacion a contactar por telefono, email o llenar el formulario.`;
+
+    woowBtn.addEventListener('click', function() {
+      woowChat.classList.toggle('active');
+    });
+
+    woowClose.addEventListener('click', function() {
+      woowChat.classList.remove('active');
+    });
+
+    function addMessage(text, isUser) {
+      const div = document.createElement('div');
+      div.className = 'woow-message ' + (isUser ? 'user' : 'bot');
+      div.textContent = text;
+      woowMessages.appendChild(div);
+      woowMessages.scrollTop = woowMessages.scrollHeight;
+    }
+
+    function showTyping() {
+      const div = document.createElement('div');
+      div.className = 'typing-indicator';
+      div.id = 'typingIndicator';
+      div.innerHTML = '<span></span><span></span><span></span>';
+      woowMessages.appendChild(div);
+      woowMessages.scrollTop = woowMessages.scrollHeight;
+    }
+
+    function hideTyping() {
+      const typing = document.getElementById('typingIndicator');
+      if (typing) typing.remove();
+    }
+
+    async function sendToGroq(message) {
+      if (GROQ_API_KEY === 'TU_LLAVE_DE_GROQ_AQUI') {
+        return currentLang === 'es' 
+          ? 'Hola! Soy Woow, tu asistente de Creative Art Video. Para activar mi inteligencia artificial completa, el administrador debe agregar la llave de Groq. Mientras tanto, puedes contactarnos al +1 213-587-0282 o escribir a info@creativeartvideo.com. Tambien puedes llenar el formulario de contacto en esta pagina!'
+          : 'Hello! I\'m Woow, your Creative Art Video assistant. To activate my full AI, the administrator needs to add the Groq API key. Meanwhile, you can contact us at +1 213-587-0282 or email info@creativeartvideo.com. You can also fill out the contact form on this page!';
+      }
+
+      try {
+        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${GROQ_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: 'llama-3.1-70b-versatile',
+            messages: [
+              { role: 'system', content: WOOW_IDENTITY },
+              { role: 'user', content: message }
+            ],
+            temperature: 0.7,
+            max_tokens: 1024
+          })
+        });
+
+        const data = await response.json();
+        return data.choices[0].message.content;
+      } catch (error) {
+        return currentLang === 'es'
+          ? 'Disculpa, hubo un problema. Por favor contactanos directamente al +1 213-587-0282 o escribe a info@creativeartvideo.com'
+          : 'Sorry, there was an issue. Please contact us directly at +1 213-587-0282 or email info@creativeartvideo.com';
+      }
+    }
+
+    async function handleSend() {
+      const message = woowInput.value.trim();
+      if (!message) return;
+
+      addMessage(message, true);
+      woowInput.value = '';
+      showTyping();
+
+      const response = await sendToGroq(message);
+      
+      hideTyping();
+      addMessage(response, false);
+    }
+
+    woowSend.addEventListener('click', handleSend);
+    woowInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') handleSend();
+    });
+
+    // ==================== CONTACT FORM ====================
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const btn = document.getElementById('formBtn');
+      const form = this;
+      const success = document.getElementById('formSuccess');
+      
+      btn.disabled = true;
+      btn.textContent = currentLang === 'es' ? 'Enviando...' : 'Sending...';
+      
+      // Get form data
+      const nombre = document.getElementById('formNombre').value;
+      const email = document.getElementById('formEmail').value;
+      const telefono = document.getElementById('formTelefono').value;
+      const mensaje = document.getElementById('formMensaje').value;
+      
+      // Create mailto link and open it
+      const subject = encodeURIComponent('Nueva consulta de ' + nombre);
+      const body = encodeURIComponent(
+        'Nombre: ' + nombre + '\n' +
+        'Email: ' + email + '\n' +
+        'Telefono: ' + telefono + '\n\n' +
+        'Mensaje:\n' + mensaje
+      );
+      
+      window.location.href = 'mailto:info@creativeartvideo.com?subject=' + subject + '&body=' + body;
+      
+      // Show success message
+      setTimeout(() => {
+        form.style.display = 'none';
+        success.classList.add('show');
+        btn.disabled = false;
+        btn.textContent = currentLang === 'es' ? 'Enviar Mensaje' : 'Send Message';
+      }, 1000);
+    });
+
+    // ==================== SMOOTH SCROLL ====================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // ==================== INTERSECTION OBSERVER FOR ANIMATIONS ====================
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.section').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(30px)';
+      section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(section);
+    });
+  </script>
+</body>
+
+</html>
