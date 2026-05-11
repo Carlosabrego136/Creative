@@ -187,20 +187,13 @@
 
     /* ==================== HEADER ==================== */
     .header {
-      position: fixed;
-      top: 0;
+      position: absolute;
+      bottom: 0;
       left: 0;
       right: 0;
-      z-index: 1000;
-      padding: 1rem 2rem;
-      transition: all 0.3s ease;
+      z-index: 100;
+      padding: 0 2rem;
       background: transparent;
-    }
-
-    .header.scrolled {
-      background: rgba(10, 22, 40, 0.95);
-      backdrop-filter: blur(20px);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
     }
 
     .header-content {
@@ -209,10 +202,27 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 0.75rem 0;
+      border-top: 1px solid rgba(125, 211, 252, 0.15);
+    }
+
+    /* Header fijo al hacer scroll */
+    .header-fixed {
+      position: fixed;
+      top: 0;
+      bottom: auto;
+      background: rgba(10, 22, 40, 0.97);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+    }
+
+    .header-fixed .header-content {
+      border-top: none;
     }
 
     .header-logo {
-      height: 50px;
+      height: 45px;
       transition: all 0.3s ease;
       filter: drop-shadow(0 0 10px rgba(125, 211, 252, 0.3));
     }
@@ -231,9 +241,9 @@
     .nav-links a {
       color: var(--foreground);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 500;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       transition: color 0.3s ease;
       position: relative;
@@ -325,7 +335,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 70%;
+      height: 72%;
       object-fit: cover;
       filter: brightness(0.9) saturate(1.1);
     }
@@ -335,11 +345,20 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 70%;
+      height: 72%;
       background: linear-gradient(to bottom,
           rgba(10, 22, 40, 0.1) 0%,
-          rgba(10, 22, 40, 0.2) 60%,
+          rgba(10, 22, 40, 0.15) 60%,
           rgba(10, 22, 40, 1) 100%);
+    }
+
+    /* Contenedor del header dentro del hero */
+    .hero-header-wrapper {
+      position: absolute;
+      bottom: 28%;
+      left: 0;
+      right: 0;
+      z-index: 50;
     }
 
     .hero-content {
@@ -368,8 +387,8 @@
 
     .hero-subtitle {
       font-family: var(--font-body);
-      font-size: 0.85rem;
-      letter-spacing: 4px;
+      font-size: 0.8rem;
+      letter-spacing: 5px;
       text-transform: uppercase;
       color: var(--crystal-aqua);
       margin-bottom: 1rem;
@@ -377,22 +396,48 @@
 
     .hero-title {
       font-family: var(--font-heading);
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-size: clamp(2.2rem, 5.5vw, 4rem);
       font-weight: 300;
       line-height: 1.2;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
       background: linear-gradient(135deg, var(--foreground) 0%, var(--crystal-blue) 50%, var(--crystal-aqua) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
+    .hero-services {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-service-tag {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      opacity: 0.9;
+      position: relative;
+      padding: 0 1rem;
+    }
+
+    .hero-service-tag:not(:last-child)::after {
+      content: '·';
+      position: absolute;
+      right: -0.25rem;
+      color: var(--border);
+    }
+
     .hero-description {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--muted);
-      max-width: 600px;
+      max-width: 560px;
       margin: 0 auto 2rem;
-      line-height: 1.8;
+      line-height: 1.9;
     }
 
     .hero-btn {
@@ -402,7 +447,7 @@
       border: none;
       color: var(--background);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -414,33 +459,6 @@
     .hero-btn:hover {
       transform: translateY(-3px);
       box-shadow: 0 10px 40px rgba(125, 211, 252, 0.5);
-    }
-
-    .scroll-indicator {
-      position: absolute;
-      bottom: 10rem;
-      left: 50%;
-      transform: translateX(-50%);
-      animation: bounce 2s infinite;
-      z-index: 5;
-    }
-
-    @keyframes bounce {
-
-      0%,
-      100% {
-        transform: translateX(-50%) translateY(0);
-      }
-
-      50% {
-        transform: translateX(-50%) translateY(10px);
-      }
-    }
-
-    .scroll-indicator svg {
-      width: 30px;
-      height: 30px;
-      color: var(--primary);
     }
 
     /* ==================== SECTION STYLES ==================== */
@@ -490,44 +508,30 @@
       align-items: center;
     }
 
-    .about-images {
+    .about-image-single {
       position: relative;
-      height: 500px;
-    }
-
-    .about-img {
-      position: absolute;
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-      transition: transform 0.5s ease;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
       cursor: pointer;
+      transition: transform 0.5s ease;
+      aspect-ratio: 4/5;
     }
 
-    .about-img:hover {
+    .about-image-single:hover {
       transform: scale(1.02);
     }
 
-    .about-img img {
+    .about-image-single img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.5s ease;
+      display: block;
     }
 
-    .about-img-1 {
-      width: 60%;
-      height: 70%;
-      top: 0;
-      left: 0;
-      z-index: 2;
-    }
-
-    .about-img-2 {
-      width: 55%;
-      height: 60%;
-      bottom: 0;
-      right: 0;
-      z-index: 1;
+    .about-image-single:hover img {
+      transform: scale(1.05);
     }
 
     .about-content h3 {
@@ -570,115 +574,338 @@
       letter-spacing: 1px;
     }
 
-    /* ==================== CAROUSEL SECTION ==================== */
-    .carousel-section {
+    /* ==================== SLIDESHOW SECTION ==================== */
+    .slideshow-section {
+      position: relative;
       padding: 6rem 0;
-      overflow: hidden;
       background: linear-gradient(180deg, var(--background) 0%, var(--background-light) 50%, var(--background) 100%);
-    }
-
-    .carousel-container {
-      position: relative;
       overflow: hidden;
-      cursor: grab;
     }
 
-    .carousel-container:active {
-      cursor: grabbing;
+    .slideshow-section .section-header {
+      padding: 0 2rem;
     }
 
-    .carousel-track {
-      display: flex;
-      gap: 1.5rem;
-      transition: transform 0.3s ease;
-      will-change: transform;
-    }
-
-    .carousel-slide {
-      flex-shrink: 0;
-      width: 350px;
-      height: 450px;
-      border-radius: 12px;
-      overflow: hidden;
+    .slideshow-wrapper {
       position: relative;
-      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      max-width: 1100px;
+      margin: 3rem auto 0;
+      padding: 0 2rem;
+    }
+
+    .slideshow-track {
+      position: relative;
+      height: 580px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
       cursor: pointer;
     }
 
-    .carousel-slide:hover {
-      transform: scale(1.02);
-      box-shadow: 0 20px 60px rgba(125, 211, 252, 0.2);
+    .slide-item {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.8s ease;
     }
 
-    .carousel-slide img {
+    .slide-item.active {
+      opacity: 1;
+    }
+
+    .slide-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
+      display: block;
     }
 
-    .carousel-slide:hover img {
-      transform: scale(1.1);
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top,
+          rgba(10, 22, 40, 0.85) 0%,
+          rgba(10, 22, 40, 0.2) 50%,
+          transparent 100%);
     }
 
-    /* ==================== ALBUMS SECTION ==================== */
-    .albums-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-    }
-
-    .album-card {
-      position: relative;
-      aspect-ratio: 4/5;
-      border-radius: 12px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.5s ease;
-    }
-
-    .album-card:hover {
-      transform: translateY(-10px);
-    }
-
-    .album-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .album-card:hover img {
-      transform: scale(1.1);
-    }
-
-    .album-overlay {
+    .slide-caption {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 2rem;
-      background: linear-gradient(transparent, rgba(10, 22, 40, 0.9));
-      transform: translateY(100%);
-      transition: transform 0.5s ease;
+      padding: 3rem;
+      z-index: 10;
     }
 
-    .album-card:hover .album-overlay {
+    .slide-caption-tag {
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--crystal-aqua);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .slide-caption-text {
+      font-family: var(--font-heading);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 300;
+      color: var(--foreground);
+      line-height: 1.3;
+      max-width: 600px;
+    }
+
+    .slide-zoom-hint {
+      position: absolute;
+      bottom: 3rem;
+      right: 3rem;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .slide-zoom-hint svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Flechas de navegación */
+    .slide-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background: rgba(10, 22, 40, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 20;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .slide-arrow:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .slide-arrow svg {
+      width: 20px;
+      height: 20px;
+      color: var(--foreground);
+    }
+
+    .slide-arrow:hover svg {
+      color: var(--background);
+    }
+
+    .slide-arrow-prev {
+      left: -25px;
+    }
+
+    .slide-arrow-next {
+      right: -25px;
+    }
+
+    /* Dots */
+    .slide-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .slide-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      padding: 0;
+    }
+
+    .slide-dot.active {
+      background: var(--primary);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    /* ==================== ALBUMS ==================== */
+    .albums-cta-section {
+      text-align: center;
+    }
+
+    .albums-open-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.1rem 3rem;
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .albums-open-btn:hover {
+      background: var(--primary);
+      color: var(--background);
+      box-shadow: 0 10px 40px rgba(125, 211, 252, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .albums-open-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Albums Page (overlay) */
+    .albums-page {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--background);
+      z-index: 2000;
+      overflow-y: auto;
+      animation: pageSlideIn 0.4s ease;
+    }
+
+    .albums-page.active {
+      display: block;
+    }
+
+    @keyframes pageSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .albums-page-header {
+      position: sticky;
+      top: 0;
+      background: rgba(10, 22, 40, 0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+    }
+
+    .albums-page-title {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      color: var(--crystal-blue);
+    }
+
+    .albums-page-close {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--foreground);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .albums-page-close:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .albums-page-body {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .albums-page-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .album-thumb {
+      position: relative;
+      aspect-ratio: 4/5;
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+
+    .album-thumb:hover {
+      transform: translateY(-8px);
+    }
+
+    .album-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+
+    .album-thumb:hover img {
+      transform: scale(1.08);
+    }
+
+    .album-thumb-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.75rem;
+      background: linear-gradient(transparent, rgba(10, 22, 40, 0.9));
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+    }
+
+    .album-thumb:hover .album-thumb-overlay {
       transform: translateY(0);
     }
 
-    .album-title {
+    .album-thumb-title {
       font-family: var(--font-heading);
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+      margin-bottom: 0.3rem;
     }
 
-    .album-count {
-      font-size: 0.85rem;
+    .album-thumb-count {
+      font-size: 0.8rem;
       color: var(--crystal-aqua);
     }
 
-    /* ==================== ALBUM MODAL ==================== */
+    /* Album Modal (fotos dentro del album) */
     .album-modal {
       display: none;
       position: fixed;
@@ -688,7 +915,7 @@
       bottom: 0;
       background: var(--overlay);
       backdrop-filter: blur(20px);
-      z-index: 2000;
+      z-index: 3000;
       padding: 2rem;
       overflow-y: auto;
     }
@@ -758,6 +985,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     /* ==================== IMAGE ZOOM MODAL ==================== */
@@ -768,8 +996,8 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.95);
-      z-index: 3000;
+      background: rgba(0, 0, 0, 0.97);
+      z-index: 5000;
       align-items: center;
       justify-content: center;
       padding: 2rem;
@@ -782,7 +1010,7 @@
 
     .zoom-modal img {
       max-width: 90%;
-      max-height: 90%;
+      max-height: 90vh;
       object-fit: contain;
       border-radius: 8px;
     }
@@ -792,13 +1020,115 @@
       top: 2rem;
       right: 2rem;
       background: none;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
       color: var(--foreground);
-      font-size: 2rem;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      font-size: 1.25rem;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
     }
 
-    /* ==================== VIDEOS SECTION ==================== */
+    .zoom-modal-close:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ==================== VIDEOS PAGE ==================== */
+    .videos-open-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.1rem 3rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--crystal-aqua) 100%);
+      border: none;
+      color: var(--background);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(125, 211, 252, 0.3);
+    }
+
+    .videos-open-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(125, 211, 252, 0.5);
+    }
+
+    .videos-open-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Videos Page */
+    .videos-page {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--background);
+      z-index: 2000;
+      overflow-y: auto;
+      animation: pageSlideIn 0.4s ease;
+    }
+
+    .videos-page.active {
+      display: block;
+    }
+
+    .videos-page-header {
+      position: sticky;
+      top: 0;
+      background: rgba(10, 22, 40, 0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+    }
+
+    .videos-page-title {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      color: var(--crystal-blue);
+    }
+
+    .videos-page-close {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--foreground);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .videos-page-close:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .videos-page-body {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ==================== VIDEO MODAL ==================== */
     .video-principal {
       position: relative;
       aspect-ratio: 16/9;
@@ -807,12 +1137,14 @@
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
     }
 
-    .video-principal img {
+    .video-principal video {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     .video-play-btn {
@@ -849,23 +1181,13 @@
       color: var(--background);
     }
 
-    .videos-carousel {
-      display: flex;
+    .videos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
-      overflow-x: auto;
-      padding: 1rem 0;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .videos-carousel::-webkit-scrollbar {
-      height: 4px;
     }
 
     .video-card {
-      flex-shrink: 0;
-      width: 280px;
-      scroll-snap-align: start;
       border-radius: 12px;
       overflow: hidden;
       position: relative;
@@ -877,10 +1199,11 @@
       transform: translateY(-5px);
     }
 
-    .video-card img {
+    .video-card video {
       width: 100%;
       aspect-ratio: 16/9;
       object-fit: cover;
+      display: block;
     }
 
     .video-card-overlay {
@@ -913,6 +1236,53 @@
       height: 20px;
       color: var(--background);
       margin-left: 3px;
+    }
+
+    .video-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.96);
+      z-index: 6000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .video-modal.active {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .video-modal-inner {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+    }
+
+    .video-modal-inner video {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .video-modal-close {
+      position: absolute;
+      top: -2.5rem;
+      right: 0;
+      background: none;
+      border: none;
+      color: var(--foreground);
+      font-size: 2rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .video-modal-close:hover {
+      color: var(--primary);
     }
 
     /* ==================== ENTERTAINMENT SECTION ==================== */
@@ -1446,16 +1816,28 @@
 
     /* ==================== RESPONSIVE ==================== */
     @media (max-width: 1024px) {
-      .albums-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
       .entertainment-grid {
         grid-template-columns: repeat(2, 1fr);
       }
 
       .entertainment-logo {
         grid-column: span 2;
+      }
+
+      .albums-page-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .videos-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .slide-arrow-prev {
+        left: 0.5rem;
+      }
+
+      .slide-arrow-next {
+        right: 0.5rem;
       }
 
       .lang-switch {
@@ -1478,19 +1860,6 @@
       .about-grid,
       .contact-grid {
         grid-template-columns: 1fr;
-      }
-
-      .about-images {
-        height: 350px;
-      }
-
-      .albums-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .carousel-slide {
-        width: 280px;
-        height: 360px;
       }
 
       .entertainment-grid {
@@ -1521,11 +1890,35 @@
       }
 
       .hero-bg {
-        height: 65%;
+        height: 68%;
       }
 
       .hero-overlay {
-        height: 65%;
+        height: 68%;
+      }
+
+      .hero-header-wrapper {
+        bottom: 32%;
+      }
+
+      .slideshow-track {
+        height: 380px;
+      }
+
+      .slide-caption {
+        padding: 1.5rem;
+      }
+
+      .slide-zoom-hint {
+        display: none;
+      }
+
+      .albums-page-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .videos-grid {
+        grid-template-columns: 1fr;
       }
 
       .lang-switch {
@@ -1542,7 +1935,13 @@
       }
 
       .hero-title {
-        font-size: 2rem;
+        font-size: 1.9rem;
+      }
+
+      .hero-service-tag {
+        font-size: 0.6rem;
+        letter-spacing: 1px;
+        padding: 0 0.5rem;
       }
 
       .entertainment-grid {
@@ -1567,54 +1966,14 @@
         padding: 0.4rem 0.75rem;
         font-size: 0.65rem;
       }
-    }
 
-    /* ==================== VIDEO MODAL ==================== */
-    .video-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.96);
-      z-index: 4000;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-    }
+      .albums-page-grid {
+        grid-template-columns: 1fr;
+      }
 
-    .video-modal.active {
-      display: flex;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .video-modal-inner {
-      position: relative;
-      width: 100%;
-      max-width: 960px;
-    }
-
-    .video-modal-inner video {
-      width: 100%;
-      border-radius: 12px;
-      display: block;
-    }
-
-    .video-modal-close {
-      position: absolute;
-      top: -2.5rem;
-      right: 0;
-      background: none;
-      border: none;
-      color: var(--foreground);
-      font-size: 2rem;
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
-
-    .video-modal-close:hover {
-      color: var(--primary);
+      .slideshow-track {
+        height: 300px;
+      }
     }
   </style>
 </head>
@@ -1634,60 +1993,62 @@
     <button class="lang-btn" id="langEn" onclick="setLanguage('en')">EN</button>
   </div>
 
-  <!-- ==================== HEADER ==================== -->
-  <header class="header" id="header">
-    <div class="header-content">
-      <a href="#inicio">
-        <img src="assets/logoCreative.png" alt="Creative Art Video" class="header-logo">
-      </a>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="#inicio" data-es="Inicio" data-en="Home">Inicio</a></li>
-          <li><a href="#nosotros" data-es="Nosotros" data-en="About">Nosotros</a></li>
-          <li><a href="#galeria" data-es="Galeria" data-en="Gallery">Galeria</a></li>
-          <li><a href="#videos" data-es="Videos" data-en="Videos">Videos</a></li>
-          <li><a href="#entretenimiento" data-es="Entretenimiento" data-en="Entertainment">Entretenimiento</a></li>
-          <li><a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li>
-        </ul>
-      </nav>
-      <button class="mobile-menu-btn" id="mobileMenuBtn">&#9776;</button>
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="hero" id="inicio">
+    <img src="assets/hero-principal.jpg" alt="Wedding" class="hero-bg">
+    <div class="hero-overlay"></div>
+
+    <!-- HEADER DENTRO DEL HERO, al borde inferior de la foto -->
+    <div class="hero-header-wrapper" id="heroHeaderWrapper">
+      <header class="header" id="header">
+        <div class="header-content">
+          <a href="#inicio">
+            <img src="assets/logoCreative.png" alt="Creative Art Video" class="header-logo">
+          </a>
+          <nav>
+            <ul class="nav-links">
+              <li><a href="#inicio" data-es="Inicio" data-en="Home">Inicio</a></li>
+              <li><a href="#nosotros" data-es="Nosotros" data-en="About">Nosotros</a></li>
+              <li><a href="#galeria" data-es="Galería" data-en="Gallery">Galería</a></li>
+              <li><a href="#videos-section" data-es="Videos" data-en="Videos">Videos</a></li>
+              <li><a href="#entretenimiento" data-es="Entretenimiento" data-en="Entertainment">Entretenimiento</a></li>
+              <li><a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li>
+            </ul>
+          </nav>
+          <button class="mobile-menu-btn" id="mobileMenuBtn">&#9776;</button>
+        </div>
+      </header>
     </div>
-  </header>
+
+    <!-- Contenido hero (zona azul) -->
+    <div class="hero-content">
+      <p class="hero-subtitle" data-es="Cinematografía de Bodas · XV Años · Cumpleaños · Aniversarios"
+        data-en="Weddings · Quinceañeras · Birthdays · Anniversaries">
+        Cinematografía de Bodas · XV Años · Cumpleaños · Aniversarios
+      </p>
+      <h1 class="hero-title" data-es="Cada Momento Merece Ser Eterno" data-en="Every Moment Deserves to Last Forever">
+        Cada Momento Merece Ser Eterno
+      </h1>
+      <p class="hero-description"
+        data-es="Convertimos los instantes más íntimos de tu celebración en obras cinematográficas que emocionarán a las generaciones por venir."
+        data-en="We transform the most intimate moments of your celebration into cinematic works that will move generations to come.">
+        Convertimos los instantes más íntimos de tu celebración en obras cinematográficas que emocionarán a las
+        generaciones por venir.
+      </p>
+      <a href="#contacto" class="hero-btn" data-es="Reserva Tu Fecha" data-en="Reserve Your Date">Reserva Tu Fecha</a>
+    </div>
+  </section>
 
   <!-- Mobile Navigation -->
   <div class="mobile-nav" id="mobileNav">
     <button class="close-mobile-menu" id="closeMobileMenu">&times;</button>
     <a href="#inicio" data-es="Inicio" data-en="Home">Inicio</a>
     <a href="#nosotros" data-es="Nosotros" data-en="About">Nosotros</a>
-    <a href="#galeria" data-es="Galeria" data-en="Gallery">Galeria</a>
-    <a href="#videos" data-es="Videos" data-en="Videos">Videos</a>
+    <a href="#galeria" data-es="Galería" data-en="Gallery">Galería</a>
+    <a href="#videos-section" data-es="Videos" data-en="Videos">Videos</a>
     <a href="#entretenimiento" data-es="Entretenimiento" data-en="Entertainment">Entretenimiento</a>
     <a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a>
   </div>
-
-  <!-- ==================== HERO SECTION ==================== -->
-  <section class="hero" id="inicio">
-    <img src="assets/hero-principal.jpg" alt="Wedding" class="hero-bg">
-    <div class="hero-overlay"></div>
-    <div class="scroll-indicator">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-      </svg>
-    </div>
-    <div class="hero-content">
-      <p class="hero-subtitle" data-es="Cinematografia de Bodas" data-en="Wedding Cinematography">Cinematografia de
-        Bodas</p>
-      <h1 class="hero-title" data-es="Capturamos Tu Historia de Amor" data-en="We Capture Your Love Story">Capturamos Tu
-        Historia de Amor</h1>
-      <p class="hero-description"
-        data-es="Transformamos los momentos mas preciosos de tu boda en obras de arte cinematograficas que perduraran por siempre."
-        data-en="We transform the most precious moments of your wedding into cinematic works of art that will last forever.">
-        Transformamos los momentos mas preciosos de tu boda en obras de arte cinematograficas que perduraran por
-        siempre.
-      </p>
-      <a href="#contacto" class="hero-btn" data-es="Reserva Tu Cita" data-en="Book Your Appointment">Reserva Tu Cita</a>
-    </div>
-  </section>
 
   <!-- ==================== ABOUT SECTION ==================== -->
   <section class="section" id="nosotros">
@@ -1697,24 +2058,19 @@
       <div class="section-line"></div>
     </div>
     <div class="about-grid">
-      <div class="about-images">
-        <div class="about-img about-img-1" onclick="openZoom('assets/about-foto1.jpg')">
-          <img src="assets/about-foto1.jpg" alt="Nuestro trabajo">
-        </div>
-        <div class="about-img about-img-2" onclick="openZoom('assets/about-foto2.jpg')">
-          <img src="assets/about-foto2.jpg" alt="Nuestro equipo">
-        </div>
+      <div class="about-image-single" onclick="openZoom('assets/about-foto1.jpg')">
+        <img src="assets/about-foto1.jpg" alt="Nuestro trabajo">
       </div>
       <div class="about-content">
-        <h3 data-es="Arte y Pasion en Cada Toma" data-en="Art and Passion in Every Shot">Arte y Pasion en Cada Toma</h3>
-        <p data-es="En Creative Art Video, nos dedicamos a capturar la esencia de cada momento especial. Con anos de experiencia en la industria, hemos perfeccionado el arte de contar historias a traves del lente."
+        <h3 data-es="Arte y Pasión en Cada Toma" data-en="Art and Passion in Every Shot">Arte y Pasión en Cada Toma</h3>
+        <p data-es="En Creative Art Video, nos dedicamos a capturar la esencia de cada momento especial. Con años de experiencia en la industria, hemos perfeccionado el arte de contar historias a través del lente."
           data-en="At Creative Art Video, we dedicate ourselves to capturing the essence of every special moment. With years of experience in the industry, we have perfected the art of storytelling through the lens.">
-          En Creative Art Video, nos dedicamos a capturar la esencia de cada momento especial. Con anos de experiencia
-          en la industria, hemos perfeccionado el arte de contar historias a traves del lente.
+          En Creative Art Video, nos dedicamos a capturar la esencia de cada momento especial. Con años de experiencia
+          en la industria, hemos perfeccionado el arte de contar historias a través del lente.
         </p>
-        <p data-es="Nuestro equipo de profesionales combina tecnica, creatividad y pasion para crear videos cinematograficos que emocionan y perduran en el tiempo."
+        <p data-es="Nuestro equipo de profesionales combina técnica, creatividad y pasión para crear videos cinematográficos que emocionan y perduran en el tiempo."
           data-en="Our team of professionals combines technique, creativity and passion to create cinematic videos that move and endure through time.">
-          Nuestro equipo de profesionales combina tecnica, creatividad y pasion para crear videos cinematograficos que
+          Nuestro equipo de profesionales combina técnica, creatividad y pasión para crear videos cinematográficos que
           emocionan y perduran en el tiempo.
         </p>
         <div class="about-stats">
@@ -1736,93 +2092,232 @@
     </div>
   </section>
 
-  <!-- ==================== CAROUSEL SECTION ==================== -->
-  <section class="carousel-section" id="galeria">
-    <div class="section-header" style="padding: 0 2rem;">
-      <p class="section-subtitle" data-es="Nuestro Trabajo" data-en="Our Work">Nuestro Trabajo</p>
-      <h2 class="section-title" data-es="Galeria" data-en="Gallery">Galeria</h2>
+  <!-- ==================== SLIDESHOW SECTION ==================== -->
+  <section class="slideshow-section" id="galeria">
+    <div class="section-header">
+      <p class="section-subtitle" data-es="Momentos que Perduran" data-en="Moments That Last">Momentos que Perduran</p>
+      <h2 class="section-title" data-es="Galería" data-en="Gallery">Galería</h2>
       <div class="section-line"></div>
     </div>
-    <div class="carousel-container" id="carouselContainer" style="margin-top: 3rem;">
-      <div class="carousel-track" id="carouselTrack">
-        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto1.jpg')"><img src="assets/carousel-foto1.jpg" alt="Boda 1">
+
+    <div class="slideshow-wrapper">
+      <div class="slideshow-track" id="slideshowTrack">
+
+        <div class="slide-item active">
+          <img src="assets/carousel-foto1.jpg" alt="Boda">
+          <div class="slide-overlay"></div>
+          <div class="slide-caption">
+            <span class="slide-caption-tag" data-es="Bodas" data-en="Weddings">Bodas</span>
+            <p class="slide-caption-text"
+              data-es="El día que prometieron amarse para siempre, nosotros lo guardamos para siempre."
+              data-en="The day they promised to love each other forever — we kept it forever.">
+              El día que prometieron amarse para siempre, nosotros lo guardamos para siempre.
+            </p>
+          </div>
+          <div class="slide-zoom-hint">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+            </svg>
+            <span data-es="Ver foto" data-en="View photo">Ver foto</span>
+          </div>
         </div>
-        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto2.jpg')"><img src="assets/carousel-foto2.jpg" alt="Boda 2">
+
+        <div class="slide-item">
+          <img src="assets/carousel-foto2.jpg" alt="XV Años">
+          <div class="slide-overlay"></div>
+          <div class="slide-caption">
+            <span class="slide-caption-tag" data-es="XV Años" data-en="Quinceañera">XV Años</span>
+            <p class="slide-caption-text"
+              data-es="Quince años de sueños, de gracia y de una princesa que apenas comienza su historia."
+              data-en="Fifteen years of dreams, grace, and a princess just beginning her story.">
+              Quince años de sueños, de gracia y de una princesa que apenas comienza su historia.
+            </p>
+          </div>
+          <div class="slide-zoom-hint">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+            </svg>
+            <span data-es="Ver foto" data-en="View photo">Ver foto</span>
+          </div>
         </div>
-        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto3.jpg')"><img src="assets/carousel-foto3.jpg" alt="Boda 3">
+
+        <div class="slide-item">
+          <img src="assets/carousel-foto3.jpg" alt="Aniversario">
+          <div class="slide-overlay"></div>
+          <div class="slide-caption">
+            <span class="slide-caption-tag" data-es="Aniversarios" data-en="Anniversaries">Aniversarios</span>
+            <p class="slide-caption-text"
+              data-es="Cada aniversario es una nueva razón para celebrar lo que construyeron juntos."
+              data-en="Every anniversary is a new reason to celebrate what you built together.">
+              Cada aniversario es una nueva razón para celebrar lo que construyeron juntos.
+            </p>
+          </div>
+          <div class="slide-zoom-hint">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+            </svg>
+            <span data-es="Ver foto" data-en="View photo">Ver foto</span>
+          </div>
         </div>
-        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto4.jpg')"><img src="assets/carousel-foto4.jpg" alt="Boda 4">
+
+        <div class="slide-item">
+          <img src="assets/carousel-foto4.jpg" alt="Cumpleaños">
+          <div class="slide-overlay"></div>
+          <div class="slide-caption">
+            <span class="slide-caption-tag" data-es="Cumpleaños" data-en="Birthdays">Cumpleaños</span>
+            <p class="slide-caption-text"
+              data-es="La alegría de un cumpleaños merece ser recordada con la misma intensidad con que se vivió."
+              data-en="The joy of a birthday deserves to be remembered with the same intensity as it was lived.">
+              La alegría de un cumpleaños merece ser recordada con la misma intensidad con que se vivió.
+            </p>
+          </div>
+          <div class="slide-zoom-hint">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+            </svg>
+            <span data-es="Ver foto" data-en="View photo">Ver foto</span>
+          </div>
         </div>
-        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto5.jpg')"><img src="assets/carousel-foto5.jpg" alt="Boda 5">
+
+        <div class="slide-item">
+          <img src="assets/carousel-foto5.jpg" alt="Boda">
+          <div class="slide-overlay"></div>
+          <div class="slide-caption">
+            <span class="slide-caption-tag" data-es="Bodas" data-en="Weddings">Bodas</span>
+            <p class="slide-caption-text"
+              data-es="Un primer baile, una mirada, un susurro. Instantes que merecen vivir para siempre."
+              data-en="A first dance, a glance, a whisper. Moments that deserve to live forever.">
+              Un primer baile, una mirada, un susurro. Instantes que merecen vivir para siempre.
+            </p>
+          </div>
+          <div class="slide-zoom-hint">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+            </svg>
+            <span data-es="Ver foto" data-en="View photo">Ver foto</span>
+          </div>
         </div>
-        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto6.jpg')"><img src="assets/carousel-foto6.jpg" alt="Boda 6">
+
+        <div class="slide-item">
+          <img src="assets/carousel-foto6.jpg" alt="XV Años">
+          <div class="slide-overlay"></div>
+          <div class="slide-caption">
+            <span class="slide-caption-tag" data-es="XV Años" data-en="Quinceañera">XV Años</span>
+            <p class="slide-caption-text" data-es="Juventud, belleza y el inicio de un capítulo que nunca olvidarás."
+              data-en="Youth, beauty and the beginning of a chapter you will never forget.">
+              Juventud, belleza y el inicio de un capítulo que nunca olvidarás.
+            </p>
+          </div>
+          <div class="slide-zoom-hint">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+            </svg>
+            <span data-es="Ver foto" data-en="View photo">Ver foto</span>
+          </div>
         </div>
-        <!-- Duplicados para loop infinito -->
-        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto1.jpg')"><img src="assets/carousel-foto1.jpg" alt="Boda 1">
-        </div>
-        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto2.jpg')"><img src="assets/carousel-foto2.jpg" alt="Boda 2">
-        </div>
-        <div class="carousel-slide" onclick="openZoom('assets/carousel-foto3.jpg')"><img src="assets/carousel-foto3.jpg" alt="Boda 3">
-        </div>
+
+        <!-- Flechas -->
+        <button class="slide-arrow slide-arrow-prev" id="slidePrev" onclick="changeSlide(-1)">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <button class="slide-arrow slide-arrow-next" id="slideNext" onclick="changeSlide(1)">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </button>
       </div>
+
+      <!-- Dots -->
+      <div class="slide-dots" id="slideDots"></div>
     </div>
   </section>
 
   <!-- ==================== ALBUMS SECTION ==================== -->
-  <section class="section" id="albums">
+  <section class="section albums-cta-section" id="albums">
     <div class="section-header">
       <p class="section-subtitle" data-es="Colecciones Completas" data-en="Complete Collections">Colecciones Completas
       </p>
-      <h2 class="section-title" data-es="Albums" data-en="Albums">Albums</h2>
+      <h2 class="section-title" data-es="Álbums" data-en="Albums">Álbums</h2>
       <div class="section-line"></div>
     </div>
-    <div class="albums-grid">
-      <div class="album-card" onclick="openAlbum(1, 'CreativeArtVideo')">
-        <img src="assets/album1-foto1.jpg" alt="Album 1">
-        <div class="album-overlay">
-          <h3 class="album-title">Album</h3>
-          <p class="album-count">4 fotos</p>
-        </div>
-      </div>
-      <div class="album-card" onclick="openAlbum(2, 'CreativeArtVideo')">
-        <img src="assets/album2-foto1.jpg" alt="Album 2">
-        <div class="album-overlay">
-          <h3 class="album-title">Album</h3>
-          <p class="album-count">4 fotos</p>
-        </div>
-      </div>
-      <div class="album-card" onclick="openAlbum(3, 'CreativeArtVideo')">
-        <img src="assets/album3-foto1.jpg" alt="Album 3">
-        <div class="album-overlay">
-          <h3 class="album-title">Album</h3>
-          <p class="album-count">4 fotos</p>
-        </div>
-      </div>
-      <div class="album-card" onclick="openAlbum(4, 'CreativeArtVideo')">
-        <img src="assets/album4-foto1.jpg" alt="Album 4">
-        <div class="album-overlay">
-          <h3 class="album-title">Album</h3>
-          <p class="album-count">4 fotos</p>
-        </div>
-      </div>
-      <div class="album-card" onclick="openAlbum(5, 'CreativeArtVideo')">
-        <img src="assets/album5-foto1.jpg" alt="Album 5">
-        <div class="album-overlay">
-          <h3 class="album-title">Album</h3>
-          <p class="album-count">4 fotos</p>
-        </div>
-      </div>
-      <div class="album-card" onclick="openAlbum(6, 'CreativeArtVideo')">
-        <img src="assets/album6-foto1.jpg" alt="Album 6">
-        <div class="album-overlay">
-          <h3 class="album-title">Album</h3>
-          <p class="album-count">4 fotos</p>
-        </div>
-      </div>
+    <p style="text-align:center; color: var(--muted); max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.8;"
+      data-es="Cada álbum cuenta una historia completa. Explora nuestras colecciones de bodas, XV años y eventos especiales."
+      data-en="Each album tells a complete story. Explore our collections of weddings, quinceañeras and special events.">
+      Cada álbum cuenta una historia completa. Explora nuestras colecciones de bodas, XV años y eventos especiales.
+    </p>
+    <div style="text-align:center;">
+      <button class="albums-open-btn" onclick="openAlbumsPage()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        <span data-es="Ver Álbums" data-en="View Albums">Ver Álbums</span>
+      </button>
     </div>
   </section>
 
-  <!-- Album Modal -->
+  <!-- ==================== ALBUMS PAGE ==================== -->
+  <div class="albums-page" id="albumsPage">
+    <div class="albums-page-header">
+      <h2 class="albums-page-title" data-es="Nuestros Álbums" data-en="Our Albums">Nuestros Álbums</h2>
+      <button class="albums-page-close" onclick="closeAlbumsPage()">&times;</button>
+    </div>
+    <div class="albums-page-body">
+      <div class="albums-page-grid">
+        <div class="album-thumb" onclick="openAlbum(1, 'Álbum 1')">
+          <img src="assets/album1-foto1.jpg" alt="Album 1">
+          <div class="album-thumb-overlay">
+            <h3 class="album-thumb-title" data-es="Álbum 1" data-en="Album 1">Álbum 1</h3>
+            <p class="album-thumb-count">4 fotos</p>
+          </div>
+        </div>
+        <div class="album-thumb" onclick="openAlbum(2, 'Álbum 2')">
+          <img src="assets/album2-foto1.jpg" alt="Album 2">
+          <div class="album-thumb-overlay">
+            <h3 class="album-thumb-title" data-es="Álbum 2" data-en="Album 2">Álbum 2</h3>
+            <p class="album-thumb-count">4 fotos</p>
+          </div>
+        </div>
+        <div class="album-thumb" onclick="openAlbum(3, 'Álbum 3')">
+          <img src="assets/album3-foto1.jpg" alt="Album 3">
+          <div class="album-thumb-overlay">
+            <h3 class="album-thumb-title" data-es="Álbum 3" data-en="Album 3">Álbum 3</h3>
+            <p class="album-thumb-count">4 fotos</p>
+          </div>
+        </div>
+        <div class="album-thumb" onclick="openAlbum(4, 'Álbum 4')">
+          <img src="assets/album4-foto1.jpg" alt="Album 4">
+          <div class="album-thumb-overlay">
+            <h3 class="album-thumb-title" data-es="Álbum 4" data-en="Album 4">Álbum 4</h3>
+            <p class="album-thumb-count">4 fotos</p>
+          </div>
+        </div>
+        <div class="album-thumb" onclick="openAlbum(5, 'Álbum 5')">
+          <img src="assets/album5-foto1.jpg" alt="Album 5">
+          <div class="album-thumb-overlay">
+            <h3 class="album-thumb-title" data-es="Álbum 5" data-en="Album 5">Álbum 5</h3>
+            <p class="album-thumb-count">4 fotos</p>
+          </div>
+        </div>
+        <div class="album-thumb" onclick="openAlbum(6, 'Álbum 6')">
+          <img src="assets/album6-foto1.jpg" alt="Album 6">
+          <div class="album-thumb-overlay">
+            <h3 class="album-thumb-title" data-es="Álbum 6" data-en="Album 6">Álbum 6</h3>
+            <p class="album-thumb-count">4 fotos</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Album Modal (fotos dentro) -->
   <div class="album-modal" id="albumModal">
     <div class="album-modal-header">
       <h2 class="album-modal-title" id="albumModalTitle"></h2>
@@ -1846,97 +2341,112 @@
   </div>
 
   <!-- ==================== VIDEOS SECTION ==================== -->
-  <section class="section" id="videos">
+  <section class="section" id="videos-section" style="text-align:center;">
     <div class="section-header">
       <p class="section-subtitle" data-es="Nuestros Films" data-en="Our Films">Nuestros Films</p>
       <h2 class="section-title" data-es="Videos" data-en="Videos">Videos</h2>
       <div class="section-line"></div>
     </div>
-
-    <!-- Video Principal -->
-    <div class="video-principal" onclick="openVideoModal('assets/video-principal.mp4')">
-      <video src="assets/video-principal.mp4" muted playsinline preload="metadata"
-        style="width:100%;height:100%;object-fit:cover;display:block;"></video>
-      <div class="video-play-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M8 5v14l11-7z" />
-        </svg>
-      </div>
-    </div>
-
-    <!-- Videos Carousel -->
-    <h3
-      style="text-align: center; font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 2rem; color: var(--crystal-blue);"
-      data-es="Mas Videos" data-en="More Videos">Mas Videos</h3>
-    <div class="videos-carousel">
-      <div class="video-card" onclick="openVideoModal('assets/video-carousel1.mp4')">
-        <video src="assets/video-carousel1.mp4" muted playsinline preload="metadata"
-          style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;"></video>
-        <div class="video-card-overlay">
-          <div class="video-card-play">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div class="video-card" onclick="openVideoModal('assets/video-carousel2.mp4')">
-        <video src="assets/video-carousel2.mp4" muted playsinline preload="metadata"
-          style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;"></video>
-        <div class="video-card-overlay">
-          <div class="video-card-play">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div class="video-card" onclick="openVideoModal('assets/video-carousel3.mp4')">
-        <video src="assets/video-carousel3.mp4" muted playsinline preload="metadata"
-          style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;"></video>
-        <div class="video-card-overlay">
-          <div class="video-card-play">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div class="video-card" onclick="openVideoModal('assets/video-carousel4.mp4')">
-        <video src="assets/video-carousel4.mp4" muted playsinline preload="metadata"
-          style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;"></video>
-        <div class="video-card-overlay">
-          <div class="video-card-play">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div class="video-card" onclick="openVideoModal('assets/video-carousel5.mp4')">
-        <video src="assets/video-carousel5.mp4" muted playsinline preload="metadata"
-          style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;"></video>
-        <div class="video-card-overlay">
-          <div class="video-card-play">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div class="video-card" onclick="openVideoModal('assets/video-carousel6.mp4')">
-        <video src="assets/video-carousel6.mp4" muted playsinline preload="metadata"
-          style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;"></video>
-        <div class="video-card-overlay">
-          <div class="video-card-play">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
+    <p style="color: var(--muted); max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.8;"
+      data-es="Descubre nuestros trabajos cinematográficos. Cada video es una historia contada con luz, música y emoción."
+      data-en="Discover our cinematic work. Each video is a story told with light, music and emotion.">
+      Descubre nuestros trabajos cinematográficos. Cada video es una historia contada con luz, música y emoción.
+    </p>
+    <button class="videos-open-btn" onclick="openVideosPage()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <span data-es="Ver Videos" data-en="Watch Videos">Ver Videos</span>
+    </button>
   </section>
+
+  <!-- ==================== VIDEOS PAGE ==================== -->
+  <div class="videos-page" id="videosPage">
+    <div class="videos-page-header">
+      <h2 class="videos-page-title" data-es="Nuestros Films" data-en="Our Films">Nuestros Films</h2>
+      <button class="videos-page-close" onclick="closeVideosPage()">&times;</button>
+    </div>
+    <div class="videos-page-body">
+      <!-- Video Principal -->
+      <div class="video-principal" onclick="openVideoModal('assets/video-principal.mp4')" style="margin-bottom:3rem;">
+        <video src="assets/video-principal.mp4" muted playsinline preload="metadata"
+          style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+        <div class="video-play-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </div>
+      </div>
+
+      <h3
+        style="text-align:center; font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 2rem; color: var(--crystal-blue);"
+        data-es="Más Videos" data-en="More Videos">Más Videos</h3>
+
+      <div class="videos-grid">
+        <div class="video-card" onclick="openVideoModal('assets/video-carousel1.mp4')">
+          <video src="assets/video-carousel1.mp4" muted playsinline preload="metadata"></video>
+          <div class="video-card-overlay">
+            <div class="video-card-play">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="video-card" onclick="openVideoModal('assets/video-carousel2.mp4')">
+          <video src="assets/video-carousel2.mp4" muted playsinline preload="metadata"></video>
+          <div class="video-card-overlay">
+            <div class="video-card-play">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="video-card" onclick="openVideoModal('assets/video-carousel3.mp4')">
+          <video src="assets/video-carousel3.mp4" muted playsinline preload="metadata"></video>
+          <div class="video-card-overlay">
+            <div class="video-card-play">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="video-card" onclick="openVideoModal('assets/video-carousel4.mp4')">
+          <video src="assets/video-carousel4.mp4" muted playsinline preload="metadata"></video>
+          <div class="video-card-overlay">
+            <div class="video-card-play">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="video-card" onclick="openVideoModal('assets/video-carousel5.mp4')">
+          <video src="assets/video-carousel5.mp4" muted playsinline preload="metadata"></video>
+          <div class="video-card-overlay">
+            <div class="video-card-play">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="video-card" onclick="openVideoModal('assets/video-carousel6.mp4')">
+          <video src="assets/video-carousel6.mp4" muted playsinline preload="metadata"></video>
+          <div class="video-card-overlay">
+            <div class="video-card-play">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ==================== ENTERTAINMENT SECTION ==================== -->
   <section class="section entertainment-section" id="entretenimiento">
@@ -1973,10 +2483,10 @@
     </div>
     <div class="contact-grid">
       <div class="contact-info">
-        <h3 data-es="Hagamos Realidad Tu Sueno" data-en="Let's Make Your Dream Come True">Hagamos Realidad Tu Sueno</h3>
-        <p data-es="Estamos listos para capturar los momentos mas especiales de tu vida. Contactanos para conocer mas sobre nuestros servicios y paquetes personalizados."
+        <h3 data-es="Hagamos Realidad Tu Sueño" data-en="Let's Make Your Dream Come True">Hagamos Realidad Tu Sueño</h3>
+        <p data-es="Estamos listos para capturar los momentos más especiales de tu vida. Contáctanos para conocer más sobre nuestros servicios y paquetes personalizados."
           data-en="We are ready to capture the most special moments of your life. Contact us to learn more about our services and personalized packages.">
-          Estamos listos para capturar los momentos mas especiales de tu vida. Contactanos para conocer mas sobre
+          Estamos listos para capturar los momentos más especiales de tu vida. Contáctanos para conocer más sobre
           nuestros servicios y paquetes personalizados.
         </p>
         <div class="contact-details">
@@ -1988,7 +2498,7 @@
               </svg>
             </div>
             <div>
-              <div class="contact-label" data-es="Telefono" data-en="Phone">Telefono</div>
+              <div class="contact-label" data-es="Teléfono" data-en="Phone">Teléfono</div>
               <div class="contact-text"><a href="tel:+12135870282">+1 213-587-0282</a></div>
             </div>
           </div>
@@ -2014,7 +2524,7 @@
               </svg>
             </div>
             <div>
-              <div class="contact-label" data-es="Ubicacion" data-en="Location">Ubicacion</div>
+              <div class="contact-label" data-es="Ubicación" data-en="Location">Ubicación</div>
               <div class="contact-text"><a
                   href="https://maps.google.com/?q=11490+Burbank+Blvd+%233A,+North+Hollywood,+CA+91601"
                   target="_blank">11490 Burbank Blvd #3A, North Hollywood, CA 91601</a></div>
@@ -2026,27 +2536,30 @@
         <form class="contact-form" id="contactForm">
           <div class="form-group">
             <label class="form-label" data-es="Nombre" data-en="Name">Nombre</label>
-            <input type="text" class="form-input" name="nombre" id="formNombre" placeholder="Tu nombre completo" data-placeholder-es="Tu nombre completo" data-placeholder-en="Your full name" required>
+            <input type="text" class="form-input" name="nombre" id="formNombre" placeholder="Tu nombre completo"
+              data-placeholder-es="Tu nombre completo" data-placeholder-en="Your full name" required>
           </div>
           <div class="form-group">
             <label class="form-label">Email</label>
             <input type="email" class="form-input" name="email" id="formEmail" placeholder="tu@email.com" required>
           </div>
           <div class="form-group">
-            <label class="form-label" data-es="Telefono" data-en="Phone">Telefono</label>
+            <label class="form-label" data-es="Teléfono" data-en="Phone">Teléfono</label>
             <input type="tel" class="form-input" name="telefono" id="formTelefono" placeholder="+1 213-587-0282">
           </div>
           <div class="form-group">
             <label class="form-label" data-es="Mensaje" data-en="Message">Mensaje</label>
-            <textarea class="form-input" name="mensaje" id="formMensaje" placeholder="Cuentanos sobre tu evento..." data-placeholder-es="Cuentanos sobre tu evento..." data-placeholder-en="Tell us about your event..."></textarea>
+            <textarea class="form-input" name="mensaje" id="formMensaje" placeholder="Cuéntanos sobre tu evento..."
+              data-placeholder-es="Cuéntanos sobre tu evento..." data-placeholder-en="Tell us about your event..."></textarea>
           </div>
           <button type="submit" class="form-btn" id="formBtn" data-es="Enviar Mensaje" data-en="Send Message">Enviar Mensaje</button>
         </form>
         <div class="form-success" id="formSuccess">
-          <h3 data-es="Mensaje Enviado!" data-en="Message Sent!">Mensaje Enviado!</h3>
+          <h3 data-es="¡Mensaje Enviado!" data-en="Message Sent!">¡Mensaje Enviado!</h3>
           <p data-es="Gracias por contactarnos. Nos pondremos en contacto contigo pronto."
-            data-en="Thank you for contacting us. We will get back to you soon.">Gracias por contactarnos. Nos pondremos
-            en contacto contigo pronto.</p>
+            data-en="Thank you for contacting us. We will get back to you soon.">
+            Gracias por contactarnos. Nos pondremos en contacto contigo pronto.
+          </p>
         </div>
       </div>
     </div>
@@ -2058,8 +2571,8 @@
     <div class="footer-links">
       <a href="#inicio" data-es="Inicio" data-en="Home">Inicio</a>
       <a href="#nosotros" data-es="Nosotros" data-en="About">Nosotros</a>
-      <a href="#galeria" data-es="Galeria" data-en="Gallery">Galeria</a>
-      <a href="#videos" data-es="Videos" data-en="Videos">Videos</a>
+      <a href="#galeria" data-es="Galería" data-en="Gallery">Galería</a>
+      <a href="#videos-section" data-es="Videos" data-en="Videos">Videos</a>
       <a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a>
     </div>
     <div class="footer-social">
@@ -2112,10 +2625,11 @@
       </div>
     </div>
     <div class="woow-input-container">
-      <input type="text" class="woow-input" id="woowInput" placeholder="Escribe un mensaje..." data-placeholder-es="Escribe un mensaje..." data-placeholder-en="Type a message...">
+      <input type="text" class="woow-input" id="woowInput" placeholder="Escribe un mensaje..."
+        data-placeholder-es="Escribe un mensaje..." data-placeholder-en="Type a message...">
       <button class="woow-send" id="woowSend">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
         </svg>
       </button>
     </div>
@@ -2131,51 +2645,48 @@
       document.getElementById('langEs').classList.toggle('active', lang === 'es');
       document.getElementById('langEn').classList.toggle('active', lang === 'en');
       document.getElementById('htmlRoot').setAttribute('lang', lang);
-      
-      // Update all text elements
+
       document.querySelectorAll('[data-es]').forEach(el => {
         el.textContent = el.getAttribute('data-' + lang);
       });
-      
-      // Update placeholders
+
       document.querySelectorAll('[data-placeholder-es]').forEach(el => {
         el.placeholder = el.getAttribute('data-placeholder-' + lang);
       });
 
-      // Update Woow greeting
       const greeting = document.getElementById('woowGreeting');
       if (lang === 'es') {
         greeting.textContent = 'Hola! Soy Woow, tu asistente virtual de Creative Art Video. Estoy aqui para ayudarte a reservar tu cita y resolver tus dudas sobre nuestros servicios de videografia. Como puedo ayudarte hoy?';
       } else {
-        greeting.textContent = 'Hello! I\'m Woow, your virtual assistant at Creative Art Video. I\'m here to help you book your appointment and answer questions about our videography services. How can I help you today?';
+        greeting.textContent = "Hello! I'm Woow, your virtual assistant at Creative Art Video. I'm here to help you book your appointment and answer questions about our videography services. How can I help you today?";
       }
-      
+
       localStorage.setItem('preferredLang', lang);
     }
 
-    // Load saved language preference
     const savedLang = localStorage.getItem('preferredLang');
-    if (savedLang) {
-      setLanguage(savedLang);
-    }
+    if (savedLang) setLanguage(savedLang);
 
     // ==================== LOADING SCREEN ====================
-    window.addEventListener('load', function() {
-      setTimeout(function() {
+    window.addEventListener('load', function () {
+      setTimeout(function () {
         document.getElementById('loadingScreen').classList.add('hidden');
       }, 2800);
     });
 
-    // ==================== HEADER SCROLL ====================
-    let lastScroll = 0;
-    window.addEventListener('scroll', function() {
-      const header = document.getElementById('header');
-      if (window.scrollY > 100) {
-        header.classList.add('scrolled');
+    // ==================== HEADER SCROLL (se vuelve fijo) ====================
+    const header = document.getElementById('header');
+    const heroHeaderWrapper = document.getElementById('heroHeaderWrapper');
+
+    window.addEventListener('scroll', function () {
+      const heroHeight = document.querySelector('.hero').offsetHeight;
+      if (window.scrollY > heroHeight - 80) {
+        header.classList.add('header-fixed');
+        heroHeaderWrapper.style.position = 'static'; // evita hueco
       } else {
-        header.classList.remove('scrolled');
+        header.classList.remove('header-fixed');
+        heroHeaderWrapper.style.position = '';
       }
-      lastScroll = window.scrollY;
     }, { passive: true });
 
     // ==================== MOBILE MENU ====================
@@ -2183,128 +2694,105 @@
     const mobileNav = document.getElementById('mobileNav');
     const closeMobileMenu = document.getElementById('closeMobileMenu');
 
-    mobileMenuBtn.addEventListener('click', function() {
-      mobileNav.classList.add('active');
-    });
-
-    closeMobileMenu.addEventListener('click', function() {
-      mobileNav.classList.remove('active');
-    });
-
+    mobileMenuBtn.addEventListener('click', () => mobileNav.classList.add('active'));
+    closeMobileMenu.addEventListener('click', () => mobileNav.classList.remove('active'));
     mobileNav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', function() {
-        mobileNav.classList.remove('active');
-      });
+      link.addEventListener('click', () => mobileNav.classList.remove('active'));
     });
 
-    // ==================== CAROUSEL ====================
-    const carouselTrack = document.getElementById('carouselTrack');
-    const carouselContainer = document.getElementById('carouselContainer');
-    let carouselPosition = 0;
-    let isDragging = false;
-    let startX = 0;
-    let scrollLeft = 0;
-    let autoScrollInterval;
-    let isPaused = false;
+    // ==================== SLIDESHOW ====================
+    const slides = document.querySelectorAll('.slide-item');
+    const dotsContainer = document.getElementById('slideDots');
+    let currentSlide = 0;
+    let slideTimer;
 
-    function startAutoScroll() {
-      autoScrollInterval = setInterval(() => {
-        if (!isPaused && !isDragging) {
-          carouselPosition -= 0.8;
-          carouselTrack.style.transform = `translateX(${carouselPosition}px)`;
-          
-          const slideWidth = 350 + 24;
-          const resetPoint = -slideWidth * 6;
-          if (carouselPosition <= resetPoint) {
-            carouselPosition = 0;
-            carouselTrack.style.transition = 'none';
-            carouselTrack.style.transform = `translateX(${carouselPosition}px)`;
-            requestAnimationFrame(() => {
-              carouselTrack.style.transition = 'transform 0.3s ease';
-            });
-          }
-        }
-      }, 30);
+    // Build dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    function goToSlide(n) {
+      slides[currentSlide].classList.remove('active');
+      document.querySelectorAll('.slide-dot')[currentSlide].classList.remove('active');
+      currentSlide = (n + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+      document.querySelectorAll('.slide-dot')[currentSlide].classList.add('active');
+      resetTimer();
     }
 
-    startAutoScroll();
+    function changeSlide(dir) {
+      goToSlide(currentSlide + dir);
+    }
 
-    carouselContainer.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      isPaused = true;
-      startX = e.pageX;
-      scrollLeft = carouselPosition;
+    function resetTimer() {
+      clearInterval(slideTimer);
+      slideTimer = setInterval(() => changeSlide(1), 5000);
+    }
+
+    // Click en la foto = abrir zoom
+    document.getElementById('slideshowTrack').addEventListener('click', function (e) {
+      if (e.target.closest('.slide-arrow')) return;
+      const activeSlide = document.querySelector('.slide-item.active img');
+      if (activeSlide) openZoom(activeSlide.src);
     });
 
-    carouselContainer.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      e.preventDefault();
-      const x = e.pageX;
-      const walk = (x - startX);
-      carouselPosition = scrollLeft + walk;
-      carouselTrack.style.transform = `translateX(${carouselPosition}px)`;
-    });
+    resetTimer();
 
-    carouselContainer.addEventListener('mouseup', () => {
-      isDragging = false;
-      setTimeout(() => { isPaused = false; }, 2000);
-    });
+    // ==================== ALBUMS PAGE ====================
+    function openAlbumsPage() {
+      document.getElementById('albumsPage').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
 
-    carouselContainer.addEventListener('mouseleave', () => {
-      isDragging = false;
-      setTimeout(() => { isPaused = false; }, 2000);
-    });
+    function closeAlbumsPage() {
+      document.getElementById('albumsPage').classList.remove('active');
+      document.body.style.overflow = '';
+    }
 
-    carouselContainer.addEventListener('touchstart', (e) => {
-      isDragging = true;
-      isPaused = true;
-      startX = e.touches[0].pageX;
-      scrollLeft = carouselPosition;
-    }, { passive: true });
+    // ==================== VIDEOS PAGE ====================
+    function openVideosPage() {
+      document.getElementById('videosPage').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
 
-    carouselContainer.addEventListener('touchmove', (e) => {
-      if (!isDragging) return;
-      const x = e.touches[0].pageX;
-      const walk = (x - startX);
-      carouselPosition = scrollLeft + walk;
-      carouselTrack.style.transform = `translateX(${carouselPosition}px)`;
-    }, { passive: true });
+    function closeVideosPage() {
+      document.getElementById('videosPage').classList.remove('active');
+      document.body.style.overflow = '';
+    }
 
-    carouselContainer.addEventListener('touchend', () => {
-      isDragging = false;
-      setTimeout(() => { isPaused = false; }, 2000);
-    });
-
-    // ==================== ALBUMS ====================
+    // ==================== ALBUM MODAL ====================
     function openAlbum(albumNum, title) {
       const modal = document.getElementById('albumModal');
       const modalTitle = document.getElementById('albumModalTitle');
       const modalGrid = document.getElementById('albumModalGrid');
-      
+
       modalTitle.textContent = title;
       modalGrid.innerHTML = '';
-      
+
       for (let i = 1; i <= 4; i++) {
         const div = document.createElement('div');
         div.className = 'album-modal-img';
-        div.onclick = function() { openZoom(`assets/album${albumNum}-foto${i}.jpg`); };
-        div.innerHTML = `<img src="assets/album${albumNum}-foto${i}.jpg" alt="Foto ${i}" loading="lazy">`;
+        div.onclick = function () { openZoom('assets/album' + albumNum + '-foto' + i + '.jpg'); };
+        div.innerHTML = '<img src="assets/album' + albumNum + '-foto' + i + '.jpg" alt="Foto ' + i + '" loading="lazy">';
         modalGrid.appendChild(div);
       }
-      
+
       modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
     }
 
     function closeAlbum() {
       document.getElementById('albumModal').classList.remove('active');
-      document.body.style.overflow = '';
     }
 
     // ==================== ZOOM ====================
     function openZoom(src) {
       const modal = document.getElementById('zoomModal');
       const img = document.getElementById('zoomImage');
+      // Use the path without the full URL if it came from a blob
       img.src = src;
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -2344,12 +2832,6 @@
     const woowSend = document.getElementById('woowSend');
     const woowMessages = document.getElementById('woowMessages');
 
-    /*
-    =====================================================
-    CONFIGURACION DE GROQ API
-    =====================================================
-    Pega tu API Key de Groq aqui:
-    */
     const GROQ_API_KEY = (typeof CONFIG !== 'undefined') ? CONFIG.GROQ_API_KEY : 'TU_LLAVE_DE_GROQ_AQUI';
 
     const WOOW_IDENTITY = `Eres Woow, la inteligencia artificial creada por la empresa Teocalli. Eres el asistente virtual de Creative Art Video, una empresa de videografia cinematografica de bodas ubicada en 11490 Burbank Blvd #3A, North Hollywood, CA 91601, Siempre contestas breve no des respuestas tan largas a menos qu elo requiera la situacion ¡IMPORTANTE¡ solo dices hola soy woow solo una vez y despues solo fluyes sin presentarte en cada mensaje.
@@ -2383,13 +2865,8 @@ TU PERSONALIDAD:
 OBJETIVO PRINCIPAL:
 Tu objetivo es ayudar a los visitantes a reservar su cita para sus servicios de videografia. Siempre cierra con una invitacion a contactar por telefono, email o llenar el formulario.`;
 
-    woowBtn.addEventListener('click', function() {
-      woowChat.classList.toggle('active');
-    });
-
-    woowClose.addEventListener('click', function() {
-      woowChat.classList.remove('active');
-    });
+    woowBtn.addEventListener('click', () => woowChat.classList.toggle('active'));
+    woowClose.addEventListener('click', () => woowChat.classList.remove('active'));
 
     function addMessage(text, isUser) {
       const div = document.createElement('div');
@@ -2415,9 +2892,9 @@ Tu objetivo es ayudar a los visitantes a reservar su cita para sus servicios de 
 
     async function sendToGroq(message) {
       if (GROQ_API_KEY === 'TU_LLAVE_DE_GROQ_AQUI') {
-        return currentLang === 'es' 
-          ? 'Hola! Soy Woow, tu asistente de Creative Art Video. Para activar mi inteligencia artificial completa, el administrador debe agregar la llave de Groq. Mientras tanto, puedes contactarnos al +1 213-587-0282 o escribir a info@creativeartvideo.com. Tambien puedes llenar el formulario de contacto en esta pagina!'
-          : 'Hello! I\'m Woow, your Creative Art Video assistant. To activate my full AI, the administrator needs to add the Groq API key. Meanwhile, you can contact us at +1 213-587-0282 or email info@creativeartvideo.com. You can also fill out the contact form on this page!';
+        return currentLang === 'es'
+          ? 'Hola! Soy Woow, tu asistente de Creative Art Video. Para activar mi inteligencia artificial completa, el administrador debe agregar la llave de Groq. Mientras tanto, puedes contactarnos al +1 213-587-0282 o escribir a info@creativeartvideo.com.'
+          : "Hello! I'm Woow, your Creative Art Video assistant. To activate my full AI, the administrator needs to add the Groq API key. Meanwhile, you can contact us at +1 213-587-0282 or email info@creativeartvideo.com.";
       }
 
       try {
@@ -2442,7 +2919,7 @@ Tu objetivo es ayudar a los visitantes a reservar su cita para sus servicios de 
         return data.choices[0].message.content;
       } catch (error) {
         return currentLang === 'es'
-          ? 'Disculpa, hubo un problema. Por favor contactanos directamente al +1 213-587-0282 o escribe a info@creativeartvideo.com'
+          ? 'Disculpa, hubo un problema. Por favor contáctanos directamente al +1 213-587-0282 o escribe a info@creativeartvideo.com'
           : 'Sorry, there was an issue. Please contact us directly at +1 213-587-0282 or email info@creativeartvideo.com';
       }
     }
@@ -2450,40 +2927,32 @@ Tu objetivo es ayudar a los visitantes a reservar su cita para sus servicios de 
     async function handleSend() {
       const message = woowInput.value.trim();
       if (!message) return;
-
       addMessage(message, true);
       woowInput.value = '';
       showTyping();
-
       const response = await sendToGroq(message);
-      
       hideTyping();
       addMessage(response, false);
     }
 
     woowSend.addEventListener('click', handleSend);
-    woowInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') handleSend();
-    });
+    woowInput.addEventListener('keypress', e => { if (e.key === 'Enter') handleSend(); });
 
     // ==================== CONTACT FORM ====================
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
       e.preventDefault();
-      
       const btn = document.getElementById('formBtn');
       const form = this;
       const success = document.getElementById('formSuccess');
-      
+
       btn.disabled = true;
       btn.textContent = currentLang === 'es' ? 'Enviando...' : 'Sending...';
-      
-      // Get form data
+
       const nombre = document.getElementById('formNombre').value;
       const email = document.getElementById('formEmail').value;
       const telefono = document.getElementById('formTelefono').value;
       const mensaje = document.getElementById('formMensaje').value;
-      
-      // Create mailto link and open it
+
       const subject = encodeURIComponent('Nueva consulta de ' + nombre);
       const body = encodeURIComponent(
         'Nombre: ' + nombre + '\n' +
@@ -2491,10 +2960,9 @@ Tu objetivo es ayudar a los visitantes a reservar su cita para sus servicios de 
         'Telefono: ' + telefono + '\n\n' +
         'Mensaje:\n' + mensaje
       );
-      
+
       window.location.href = 'mailto:info@creativeartvideo.com?subject=' + subject + '&body=' + body;
-      
-      // Show success message
+
       setTimeout(() => {
         form.style.display = 'none';
         success.classList.add('show');
@@ -2505,21 +2973,15 @@ Tu objetivo es ayudar a los visitantes a reservar su cita para sus servicios de 
 
     // ==================== SMOOTH SCROLL ====================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
+      anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
 
-    // ==================== INTERSECTION OBSERVER FOR ANIMATIONS ====================
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
+    // ==================== INTERSECTION OBSERVER ====================
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
