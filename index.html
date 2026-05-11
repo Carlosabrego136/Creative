@@ -187,13 +187,20 @@
 
     /* ==================== HEADER ==================== */
     .header {
-      position: absolute;
-      bottom: 0;
+      position: fixed;
+      top: 0;
       left: 0;
       right: 0;
-      z-index: 100;
+      z-index: 1000;
       padding: 0 2rem;
       background: transparent;
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .header.scrolled {
+      background: rgba(10, 22, 40, 0.97);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
     }
 
     .header-content {
@@ -202,27 +209,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.75rem 0;
-      border-top: 1px solid rgba(125, 211, 252, 0.15);
-    }
-
-    /* Header fijo al hacer scroll */
-    .header-fixed {
-      position: fixed;
-      top: 0;
-      bottom: auto;
-      background: rgba(10, 22, 40, 0.97);
-      backdrop-filter: blur(20px);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-      z-index: 1000;
-    }
-
-    .header-fixed .header-content {
-      border-top: none;
+      height: 70px;
     }
 
     .header-logo {
-      height: 45px;
+      height: 42px;
+      flex-shrink: 0;
       transition: all 0.3s ease;
       filter: drop-shadow(0 0 10px rgba(125, 211, 252, 0.3));
     }
@@ -232,49 +224,67 @@
       filter: drop-shadow(0 0 20px rgba(125, 211, 252, 0.5));
     }
 
-    .nav-links {
+    /* Nav centrado */
+    .header-nav {
+      flex: 1;
       display: flex;
-      gap: 2rem;
-      list-style: none;
+      justify-content: center;
     }
 
-    .nav-links a {
+    .nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+      flex-wrap: nowrap;
+    }
+
+    .nav-links li a {
       color: var(--foreground);
       text-decoration: none;
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       font-weight: 500;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
       transition: color 0.3s ease;
       position: relative;
+      padding: 0.5rem 0.85rem;
+      display: block;
+      white-space: nowrap;
     }
 
-    .nav-links a::after {
+    .nav-links li a::after {
       content: '';
       position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
+      bottom: 0;
+      left: 0.85rem;
+      right: 0.85rem;
       height: 1px;
       background: linear-gradient(90deg, var(--primary), var(--crystal-aqua));
-      transition: width 0.3s ease;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
     }
 
-    .nav-links a:hover {
+    .nav-links li a:hover {
       color: var(--primary);
     }
 
-    .nav-links a:hover::after {
-      width: 100%;
+    .nav-links li a:hover::after {
+      transform: scaleX(1);
     }
 
     .mobile-menu-btn {
       display: none;
       background: none;
-      border: none;
+      border: 1px solid rgba(125, 211, 252, 0.3);
       color: var(--foreground);
-      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      font-size: 1.2rem;
       cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
 
     .mobile-nav {
@@ -301,7 +311,9 @@
       color: var(--foreground);
       text-decoration: none;
       font-family: var(--font-heading);
-      font-size: 2rem;
+      font-size: 2.2rem;
+      font-weight: 300;
+      letter-spacing: 2px;
       transition: color 0.3s ease;
     }
 
@@ -314,10 +326,16 @@
       top: 2rem;
       right: 2rem;
       background: none;
-      border: none;
+      border: 1px solid rgba(125, 211, 252, 0.3);
       color: var(--foreground);
-      font-size: 2rem;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      font-size: 1.5rem;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     /* ==================== HERO SECTION ==================== */
@@ -350,15 +368,6 @@
           rgba(10, 22, 40, 0.1) 0%,
           rgba(10, 22, 40, 0.15) 60%,
           rgba(10, 22, 40, 1) 100%);
-    }
-
-    /* Contenedor del header dentro del hero */
-    .hero-header-wrapper {
-      position: absolute;
-      bottom: 28%;
-      left: 0;
-      right: 0;
-      z-index: 50;
     }
 
     .hero-content {
@@ -1815,6 +1824,27 @@
     }
 
     /* ==================== RESPONSIVE ==================== */
+    /* Tablet: reducir gap del nav */
+    @media (max-width: 1100px) {
+      .nav-links li a {
+        padding: 0.5rem 0.55rem;
+        font-size: 0.67rem;
+        letter-spacing: 0.8px;
+      }
+    }
+
+    @media (max-width: 900px) {
+
+      /* Ocultar nav, mostrar hamburguesa */
+      .header-nav {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+    }
+
     @media (max-width: 1024px) {
       .entertainment-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1849,13 +1879,6 @@
     }
 
     @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-
-      .mobile-menu-btn {
-        display: block;
-      }
 
       .about-grid,
       .contact-grid {
@@ -1890,15 +1913,11 @@
       }
 
       .hero-bg {
-        height: 68%;
+        height: 65%;
       }
 
       .hero-overlay {
-        height: 68%;
-      }
-
-      .hero-header-wrapper {
-        bottom: 32%;
+        height: 65%;
       }
 
       .slideshow-track {
@@ -1923,7 +1942,7 @@
 
       .lang-switch {
         top: 0.75rem;
-        right: 4rem;
+        right: 3.5rem;
         bottom: auto;
         left: auto;
       }
@@ -1938,10 +1957,13 @@
         font-size: 1.9rem;
       }
 
-      .hero-service-tag {
-        font-size: 0.6rem;
-        letter-spacing: 1px;
-        padding: 0 0.5rem;
+      .hero-subtitle {
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+      }
+
+      .hero-content {
+        padding: 1.75rem 1.25rem;
       }
 
       .entertainment-grid {
@@ -1974,6 +1996,10 @@
       .slideshow-track {
         height: 300px;
       }
+
+      .slide-caption-text {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
@@ -1993,32 +2019,41 @@
     <button class="lang-btn" id="langEn" onclick="setLanguage('en')">EN</button>
   </div>
 
+  <!-- ==================== HEADER (fijo, fuera del hero) ==================== -->
+  <header class="header" id="header">
+    <div class="header-content">
+      <a href="#inicio">
+        <img src="assets/logoCreative.png" alt="Creative Art Video" class="header-logo">
+      </a>
+      <nav class="header-nav">
+        <ul class="nav-links">
+          <li><a href="#inicio" data-es="Inicio" data-en="Home">Inicio</a></li>
+          <li><a href="#nosotros" data-es="Nosotros" data-en="About">Nosotros</a></li>
+          <li><a href="#galeria" data-es="Galería" data-en="Gallery">Galería</a></li>
+          <li><a href="#videos-section" data-es="Videos" data-en="Videos">Videos</a></li>
+          <li><a href="#entretenimiento" data-es="Entretenimiento" data-en="Entertainment">Entretenimiento</a></li>
+          <li><a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">&#9776;</button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav" id="mobileNav">
+    <button class="close-mobile-menu" id="closeMobileMenu">&times;</button>
+    <a href="#inicio" data-es="Inicio" data-en="Home">Inicio</a>
+    <a href="#nosotros" data-es="Nosotros" data-en="About">Nosotros</a>
+    <a href="#galeria" data-es="Galería" data-en="Gallery">Galería</a>
+    <a href="#videos-section" data-es="Videos" data-en="Videos">Videos</a>
+    <a href="#entretenimiento" data-es="Entretenimiento" data-en="Entertainment">Entretenimiento</a>
+    <a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a>
+  </div>
+
   <!-- ==================== HERO SECTION ==================== -->
   <section class="hero" id="inicio">
     <img src="assets/hero-principal.jpg" alt="Wedding" class="hero-bg">
     <div class="hero-overlay"></div>
-
-    <!-- HEADER DENTRO DEL HERO, al borde inferior de la foto -->
-    <div class="hero-header-wrapper" id="heroHeaderWrapper">
-      <header class="header" id="header">
-        <div class="header-content">
-          <a href="#inicio">
-            <img src="assets/logoCreative.png" alt="Creative Art Video" class="header-logo">
-          </a>
-          <nav>
-            <ul class="nav-links">
-              <li><a href="#inicio" data-es="Inicio" data-en="Home">Inicio</a></li>
-              <li><a href="#nosotros" data-es="Nosotros" data-en="About">Nosotros</a></li>
-              <li><a href="#galeria" data-es="Galería" data-en="Gallery">Galería</a></li>
-              <li><a href="#videos-section" data-es="Videos" data-en="Videos">Videos</a></li>
-              <li><a href="#entretenimiento" data-es="Entretenimiento" data-en="Entertainment">Entretenimiento</a></li>
-              <li><a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li>
-            </ul>
-          </nav>
-          <button class="mobile-menu-btn" id="mobileMenuBtn">&#9776;</button>
-        </div>
-      </header>
-    </div>
 
     <!-- Contenido hero (zona azul) -->
     <div class="hero-content">
@@ -2038,17 +2073,6 @@
       <a href="#contacto" class="hero-btn" data-es="Reserva Tu Fecha" data-en="Reserve Your Date">Reserva Tu Fecha</a>
     </div>
   </section>
-
-  <!-- Mobile Navigation -->
-  <div class="mobile-nav" id="mobileNav">
-    <button class="close-mobile-menu" id="closeMobileMenu">&times;</button>
-    <a href="#inicio" data-es="Inicio" data-en="Home">Inicio</a>
-    <a href="#nosotros" data-es="Nosotros" data-en="About">Nosotros</a>
-    <a href="#galeria" data-es="Galería" data-en="Gallery">Galería</a>
-    <a href="#videos-section" data-es="Videos" data-en="Videos">Videos</a>
-    <a href="#entretenimiento" data-es="Entretenimiento" data-en="Entertainment">Entretenimiento</a>
-    <a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a>
-  </div>
 
   <!-- ==================== ABOUT SECTION ==================== -->
   <section class="section" id="nosotros">
@@ -2674,18 +2698,14 @@
       }, 2800);
     });
 
-    // ==================== HEADER SCROLL (se vuelve fijo) ====================
+    // ==================== HEADER SCROLL ====================
     const header = document.getElementById('header');
-    const heroHeaderWrapper = document.getElementById('heroHeaderWrapper');
 
     window.addEventListener('scroll', function () {
-      const heroHeight = document.querySelector('.hero').offsetHeight;
-      if (window.scrollY > heroHeight - 80) {
-        header.classList.add('header-fixed');
-        heroHeaderWrapper.style.position = 'static'; // evita hueco
+      if (window.scrollY > 60) {
+        header.classList.add('scrolled');
       } else {
-        header.classList.remove('header-fixed');
-        heroHeaderWrapper.style.position = '';
+        header.classList.remove('scrolled');
       }
     }, { passive: true });
 
