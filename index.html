@@ -9,6 +9,10 @@
     content="Capturamos los momentos mas preciosos de tu boda con arte y elegancia. Videografia cinematografica profesional.">
   <meta name="theme-color" content="#0a1628">
 
+  <!-- Preload critical assets -->
+  <link rel="preload" href="assets/logoCreative.png" as="image">
+  <link rel="preload" href="assets/hero-principal.jpg" as="image">
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -93,7 +97,7 @@
       align-items: center;
       justify-content: center;
       z-index: 9999;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
     }
 
     .loading-screen.hidden {
@@ -102,7 +106,8 @@
     }
 
     .loading-logo {
-      width: 220px;
+      width: 320px;
+      max-width: 80vw;
       animation: logo-glow 2.5s ease-in-out infinite;
     }
 
@@ -134,7 +139,7 @@
       height: 100%;
       background: linear-gradient(90deg, var(--primary), var(--crystal-aqua), var(--crystal-blue-light));
       width: 0%;
-      animation: loading 2.5s ease-out forwards;
+      animation: loading 1.2s ease-out forwards;
     }
 
     @keyframes loading {
@@ -2074,7 +2079,7 @@
 <body>
   <!-- ==================== LOADING SCREEN ==================== -->
   <div class="loading-screen" id="loadingScreen">
-    <img src="assets/logoCreative.png" alt="Creative Art Video" class="loading-logo">
+    <img src="assets/logoCreative.png" alt="Creative Art Video" class="loading-logo" fetchpriority="high">
     <div class="loading-bar">
       <div class="loading-bar-fill"></div>
     </div>
@@ -2119,7 +2124,7 @@
 
   <!-- ==================== HERO SECTION ==================== -->
   <section class="hero" id="inicio">
-    <img src="assets/hero-principal.jpg" alt="Wedding" class="hero-bg">
+    <img src="assets/hero-principal.jpg" alt="Wedding" class="hero-bg" fetchpriority="high">
     <div class="hero-overlay"></div>
 
     <!-- Contenido hero (zona azul) -->
@@ -2759,10 +2764,32 @@
     if (savedLang) setLanguage(savedLang);
 
     // ==================== LOADING SCREEN ====================
+    const loadingScreen = document.getElementById('loadingScreen');
+    const loadingLogo = loadingScreen ? loadingScreen.querySelector('img') : null;
+
+    function hideLoader() {
+      if (loadingScreen) loadingScreen.classList.add('hidden');
+    }
+
+    // Si el logo ya está cacheado (complete), cerrar en 800ms máximo
+    // Si no, cerrar cuando cargue o a los 1200ms, lo que ocurra primero
+    const maxWait = setTimeout(hideLoader, 1200);
+
+    if (loadingLogo) {
+      if (loadingLogo.complete) {
+        clearTimeout(maxWait);
+        setTimeout(hideLoader, 600);
+      } else {
+        loadingLogo.addEventListener('load', function () {
+          clearTimeout(maxWait);
+          setTimeout(hideLoader, 400);
+        });
+      }
+    }
+
     window.addEventListener('load', function () {
-      setTimeout(function () {
-        document.getElementById('loadingScreen').classList.add('hidden');
-      }, 2800);
+      clearTimeout(maxWait);
+      setTimeout(hideLoader, 300);
     });
 
     // ==================== HEADER SCROLL ====================
