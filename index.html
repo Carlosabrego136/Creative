@@ -2417,7 +2417,7 @@
   <div class="video-modal" id="videoModal" onclick="closeVideoModal(event)">
     <div class="video-modal-inner">
       <button class="video-modal-close" onclick="closeVideoModal()">&times;</button>
-      <video id="videoModalPlayer" controls playsinline style="background:#000;"></video>
+      <div id="videoModalContent" style="width:100%;border-radius:12px;overflow:hidden;background:#000;"></div>
     </div>
   </div>
 
@@ -2456,8 +2456,8 @@
     </div>
     <div class="videos-page-body">
       <!-- Video Principal -->
-      <div class="video-principal" onclick="openVideoModal('assets/video-principal.mp4')" style="margin-bottom:3rem;">
-        <video src="assets/video-principal.mp4" muted playsinline preload="metadata"
+      <div class="video-principal" style="margin-bottom:3rem;">
+        <video src="" muted playsinline preload="metadata"
           style="width:100%;height:100%;object-fit:cover;display:block;"></video>
         <div class="video-play-btn">
           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -2471,8 +2471,8 @@
         data-es="Más Videos" data-en="More Videos">Más Videos</h3>
 
       <div class="videos-grid">
-        <div class="video-card" onclick="openVideoModal('assets/video-carousel1.mp4')">
-          <video src="assets/video-carousel1.mp4" muted playsinline preload="metadata"></video>
+        <div class="video-card">
+          <video src="" muted playsinline preload="metadata"></video>
           <div class="video-card-overlay">
             <div class="video-card-play">
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -2481,8 +2481,8 @@
             </div>
           </div>
         </div>
-        <div class="video-card" onclick="openVideoModal('assets/video-carousel2.mp4')">
-          <video src="assets/video-carousel2.mp4" muted playsinline preload="metadata"></video>
+        <div class="video-card">
+          <video src="" muted playsinline preload="metadata"></video>
           <div class="video-card-overlay">
             <div class="video-card-play">
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -2491,8 +2491,8 @@
             </div>
           </div>
         </div>
-        <div class="video-card" onclick="openVideoModal('assets/video-carousel3.mp4')">
-          <video src="assets/video-carousel3.mp4" muted playsinline preload="metadata"></video>
+        <div class="video-card">
+          <video src="" muted playsinline preload="metadata"></video>
           <div class="video-card-overlay">
             <div class="video-card-play">
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -2501,8 +2501,8 @@
             </div>
           </div>
         </div>
-        <div class="video-card" onclick="openVideoModal('assets/video-carousel4.mp4')">
-          <video src="assets/video-carousel4.mp4" muted playsinline preload="metadata"></video>
+        <div class="video-card">
+          <video src="" muted playsinline preload="metadata"></video>
           <div class="video-card-overlay">
             <div class="video-card-play">
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -2511,8 +2511,8 @@
             </div>
           </div>
         </div>
-        <div class="video-card" onclick="openVideoModal('assets/video-carousel5.mp4')">
-          <video src="assets/video-carousel5.mp4" muted playsinline preload="metadata"></video>
+        <div class="video-card">
+          <video src="" muted playsinline preload="metadata"></video>
           <div class="video-card-overlay">
             <div class="video-card-play">
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -2521,8 +2521,8 @@
             </div>
           </div>
         </div>
-        <div class="video-card" onclick="openVideoModal('assets/video-carousel6.mp4')">
-          <video src="assets/video-carousel6.mp4" muted playsinline preload="metadata"></video>
+        <div class="video-card">
+          <video src="" muted playsinline preload="metadata"></video>
           <div class="video-card-overlay">
             <div class="video-card-play">
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -2887,25 +2887,78 @@
     }
 
     // ==================== VIDEOS ====================
+    // ==================== VIDEOS: URLs CENTRALIZADAS ====================
+    // Cambia aqui las URLs. Soporta:
+    //   MP4 directo GoDaddy:  'https://creativeartvideo.com/videos/mi-video.mp4'
+    //   Vimeo:                'https://vimeo.com/123456789'
+    const VIDEO_URLS = {
+      principal: 'https://vimeo.com/909282564',
+      carousel1: 'https://vimeo.com/909263459',
+      carousel2: 'https://vimeo.com/913103631',
+      carousel3: 'https://vimeo.com/913420518',
+      carousel4: 'https://vimeo.com/914064445',
+      carousel5: 'https://vimeo.com/909283502',
+      carousel6: 'https://vimeo.com/222308196',
+    };
+
+    function getVimeoId(url) {
+      const m = url.match(/vimeo\.com\/(\d+)/);
+      return m ? m[1] : null;
+    }
+    function isVimeo(url) { return /vimeo\.com/.test(url); }
+
+    function applyVideoURLs() {
+      const cards = document.querySelectorAll('.video-card');
+      const keys = ['carousel1','carousel2','carousel3','carousel4','carousel5','carousel6'];
+      keys.forEach((key, i) => {
+        const url = VIDEO_URLS[key];
+        if (!url || !cards[i]) return;
+        cards[i].setAttribute('onclick', "openVideoModal('" + url + "')");
+        const videoTag = cards[i].querySelector('video');
+        if (videoTag) {
+          if (isVimeo(url)) {
+            const vimeoId = getVimeoId(url);
+            const thumb = document.createElement('div');
+            thumb.style.cssText = 'width:100%;aspect-ratio:16/9;background:#111;display:flex;align-items:center;justify-content:center;position:relative;';
+            thumb.innerHTML = '<img src="https://vumbnail.com/' + vimeoId + '.jpg" onerror="this.style.display=\'none\'" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"><svg xmlns=\"http://www.w3.org/2000/svg\" style=\"position:relative;z-index:1;width:40px;height:40px;opacity:0.8\" fill=\"white\" viewBox=\"0 0 24 24\"><path d=\"M8 5v14l11-7z\"/></svg>';
+            videoTag.replaceWith(thumb);
+          } else {
+            videoTag.src = url;
+            videoTag.load();
+          }
+        }
+      });
+      // Video principal
+      const vp = document.querySelector('.video-principal');
+      if (vp) {
+        vp.setAttribute('onclick', "openVideoModal('" + VIDEO_URLS.principal + "')");
+        const vpvid = vp.querySelector('video');
+        if (vpvid) { vpvid.src = VIDEO_URLS.principal; vpvid.load(); }
+      }
+    }
+    applyVideoURLs();
+
     function openVideoModal(src) {
       const modal = document.getElementById('videoModal');
-      const player = document.getElementById('videoModalPlayer');
-      player.src = src;
-      player.load();
-      player.play();
+      const content = document.getElementById('videoModalContent');
+      content.innerHTML = '';
+      if (isVimeo(src)) {
+        const vimeoId = getVimeoId(src);
+        content.innerHTML = '<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/' + vimeoId + '?autoplay=1&color=64d2ff&title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>';
+      } else {
+        content.innerHTML = '<video controls autoplay playsinline style="width:100%;display:block;background:#000;border-radius:12px;" src="' + src + '"></video>';
+      }
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
 
     function closeVideoModal(e) {
       if (e && e.target !== document.getElementById('videoModal') && !e.target.classList.contains('video-modal-close')) return;
-      const modal = document.getElementById('videoModal');
-      const player = document.getElementById('videoModalPlayer');
-      player.pause();
-      player.src = '';
-      modal.classList.remove('active');
+      document.getElementById('videoModalContent').innerHTML = '';
+      document.getElementById('videoModal').classList.remove('active');
       document.body.style.overflow = '';
     }
+
 
     // ==================== WOOW CHATBOT ====================
     const woowBtn = document.getElementById('woowBtn');
