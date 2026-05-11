@@ -192,19 +192,18 @@
       - Al hacer scroll: se vuelve fijo arriba con fondo oscuro
     */
     .header {
-      position: absolute;
-      /* Se posiciona dentro del hero, al 72% = donde termina la foto */
-      top: calc(72% - 58px);
+      position: fixed;
+      top: 0;
       left: 0;
       right: 0;
       z-index: 200;
       padding: 0 2rem;
-      background: rgba(10, 22, 40, 0.55);
-      backdrop-filter: blur(8px);
-      border-top: 1px solid rgba(125, 211, 252, 0.12);
-      border-bottom: 1px solid rgba(125, 211, 252, 0.08);
+      background: linear-gradient(to bottom, rgba(10, 22, 40, 0.7) 0%, transparent 100%);
+      backdrop-filter: blur(0px);
+      border-top: none;
+      border-bottom: none;
       transition: background 0.4s ease, box-shadow 0.4s ease,
-        top 0.01s, backdrop-filter 0.4s ease;
+        backdrop-filter 0.4s ease;
     }
 
     /* Cuando está fijo al hacer scroll */
@@ -376,7 +375,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 72%;
+      height: 80%;
       object-fit: cover;
       filter: brightness(0.9) saturate(1.1);
     }
@@ -386,7 +385,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 72%;
+      height: 80%;
       background: linear-gradient(to bottom,
           rgba(10, 22, 40, 0.1) 0%,
           rgba(10, 22, 40, 0.15) 60%,
