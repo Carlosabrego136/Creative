@@ -1036,24 +1036,63 @@
       background: rgba(125, 211, 252, 0.15);
     }
 
+    /* Fila central: flecha | foto | flecha */
     .album-carousel-area {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      overflow: hidden;
+      gap: 0;
+      min-height: 0;
+      padding: 0.5rem 0;
+    }
+
+    .carousel-btn {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(10, 22, 40, 0.85);
+      border: 1px solid rgba(125, 211, 252, 0.3);
+      color: var(--foreground);
+      font-size: 1.8rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+      z-index: 10;
+      margin: 0 0.6rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .carousel-btn:hover {
+      background: rgba(100, 210, 255, 0.2);
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: scale(1.1);
+    }
+
+    /* Contenedor de imagen + boton pantalla completa */
+    .carousel-img-wrap {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
       min-height: 0;
     }
 
     .album-carousel-img {
-      max-width: 90%;
-      max-height: 100%;
+      width: 100%;
+      max-height: calc(100vh - 280px);
       object-fit: contain;
       border-radius: 10px;
-      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 16px 60px rgba(0, 0, 0, 0.6);
       user-select: none;
       transition: opacity 0.22s ease, transform 0.22s ease;
+      display: block;
     }
 
     .album-carousel-img.fade-out {
@@ -1061,39 +1100,28 @@
       transform: scale(0.97);
     }
 
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(10, 22, 40, 0.75);
-      border: 1px solid rgba(125, 211, 252, 0.25);
-      color: var(--foreground);
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      font-size: 1.4rem;
-      cursor: pointer;
-      display: flex;
+    .carousel-fullscreen-btn {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      z-index: 10;
-      backdrop-filter: blur(8px);
+      gap: 0.45rem;
+      padding: 0.45rem 1.2rem;
+      background: rgba(100, 210, 255, 0.1);
+      border: 1px solid rgba(125, 211, 252, 0.3);
+      color: var(--crystal-blue);
+      border-radius: 25px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: var(--font-body);
     }
 
-    .carousel-btn:hover {
-      background: rgba(100, 210, 255, 0.18);
+    .carousel-fullscreen-btn:hover {
+      background: rgba(100, 210, 255, 0.2);
       border-color: var(--primary);
       color: var(--primary);
-      transform: translateY(-50%) scale(1.08);
-    }
-
-    .carousel-btn.prev {
-      left: 1.5rem;
-    }
-
-    .carousel-btn.next {
-      right: 1.5rem;
     }
 
     .album-thumbnails {
@@ -1153,8 +1181,10 @@
     }
 
     .zoom-modal img {
-      max-width: 90%;
-      max-height: 90vh;
+      max-width: 96%;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
       object-fit: contain;
       border-radius: 8px;
     }
@@ -2618,7 +2648,12 @@
     </div>
     <div class="album-carousel-area" id="albumCarouselArea">
       <button class="carousel-btn prev" onclick="carouselNav(-1)">&#8249;</button>
-      <img class="album-carousel-img" id="albumCarouselImg" src="" alt="">
+      <div class="carousel-img-wrap">
+        <img class="album-carousel-img" id="albumCarouselImg" src="" alt="">
+        <button class="carousel-fullscreen-btn" onclick="carouselFullscreen()">
+          &#x26F6; Ver pantalla completa
+        </button>
+      </div>
       <button class="carousel-btn next" onclick="carouselNav(1)">&#8250;</button>
     </div>
     <div class="album-thumbnails" id="albumThumbnails"></div>
@@ -3220,6 +3255,12 @@
     function carouselGoTo(i) {
       _carouselIndex = i;
       _carouselRender(true);
+    }
+
+    function carouselFullscreen() {
+      const src = _carouselPhotos[_carouselIndex];
+      if (!src) return;
+      openZoom(src);
     }
 
     function closeAlbum() {
