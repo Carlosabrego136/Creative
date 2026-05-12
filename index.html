@@ -586,11 +586,21 @@
 
     .slideshow-track {
       position: relative;
-      height: 580px;
-      border-radius: 20px;
+      border-radius: 20px 20px 0 0;
       overflow: hidden;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
       cursor: pointer;
+      height: 480px;
+    }
+
+    .slide-caption-box {
+      background: var(--card);
+      border-radius: 0 0 20px 20px;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border);
+      border-top: none;
+      min-height: 90px;
     }
 
     .slide-item {
@@ -598,55 +608,35 @@
       inset: 0;
       opacity: 0;
       transition: opacity 0.8s ease;
-      display: flex;
-      flex-direction: column;
     }
 
     .slide-item.active {
       opacity: 1;
     }
 
-    .slide-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
-      display: block;
-      background: #060f1c;
-    }
-
     .slide-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(10, 22, 40, 0.88) 0%, rgba(10, 22, 40, 0.15) 45%, transparent 100%);
-      pointer-events: none;
+      display: none;
     }
 
     .slide-caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 2rem 2.5rem;
-      z-index: 10;
+      display: none;
     }
 
     .slide-caption-tag {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       letter-spacing: 4px;
       text-transform: uppercase;
       color: var(--crystal-aqua);
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
       display: block;
     }
 
     .slide-caption-text {
       font-family: var(--font-heading);
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
       font-weight: 300;
       color: var(--foreground);
-      line-height: 1.3;
-      max-width: 600px;
+      line-height: 1.4;
     }
 
     .slide-zoom-hint {
@@ -2019,11 +2009,11 @@
       }
 
       .slideshow-track {
-        height: 420px;
+        height: 320px;
       }
 
-      .slide-caption {
-        padding: 1.25rem 1.5rem;
+      .slide-caption-box {
+        padding: 1rem 1.25rem;
       }
 
       .slide-zoom-hint {
@@ -2086,7 +2076,7 @@
       }
 
       .slideshow-track {
-        height: 340px;
+        height: 240px;
       }
 
       .slide-caption-text {
@@ -2287,6 +2277,12 @@
         </button>
       </div>
       <div class="slide-dots" id="slideDots"></div>
+      <!-- Caption externo debajo de la foto -->
+      <div class="slide-caption-box" id="slideCaptionBox">
+        <span class="slide-caption-tag" id="slideCaptionTag">XV Años</span>
+        <p class="slide-caption-text" id="slideCaptionText">Quince años de sueños, de gracia y de una princesa que
+          apenas comienza su historia.</p>
+      </div>
     </div>
   </section>
 
@@ -2887,6 +2883,7 @@
         ? 'Hola! Soy Woow, tu asistente virtual de Creative Art Video. Estoy aqui para ayudarte a reservar tu cita y resolver tus dudas sobre nuestros servicios de videografia. Como puedo ayudarte hoy?'
         : "Hello! I'm Woow, your virtual assistant at Creative Art Video. I'm here to help you book your appointment and answer questions about our videography services. How can I help you today?";
       localStorage.setItem('preferredLang', lang);
+      updateCaptionBox(currentSlide);
     }
     const savedLang = localStorage.getItem('preferredLang');
     if (savedLang) setLanguage(savedLang);
@@ -2920,6 +2917,24 @@
     const slides = document.querySelectorAll('.slide-item');
     const dotsContainer = document.getElementById('slideDots');
     let currentSlide = 0, slideTimer;
+
+    // Datos de cada slide para el caption externo
+    const SLIDE_CAPTIONS = [
+      { tag: { es: 'XV Años', en: 'Quinceañera' }, text: { es: 'Quince años de sueños, de gracia y de una princesa que apenas comienza su historia.', en: 'Fifteen years of dreams, grace, and a princess just beginning her story.' } },
+      { tag: { es: 'XV Años', en: 'Quinceañera' }, text: { es: 'Cada momento, una obra de arte capturada con pasión y elegancia.', en: 'Every moment, a work of art captured with passion and elegance.' } },
+      { tag: { es: 'XV Años', en: 'Quinceañera' }, text: { es: 'La magia de sus quince, guardada para siempre en cada imagen.', en: 'The magic of her quinceañera, forever preserved in every image.' } },
+      { tag: { es: 'Bodas', en: 'Weddings' }, text: { es: 'El día que prometieron amarse para siempre, nosotros lo guardamos para siempre.', en: 'The day they promised to love each other forever — we kept it forever.' } },
+    ];
+
+    function updateCaptionBox(index) {
+      const lang = currentLang || 'es';
+      const c = SLIDE_CAPTIONS[index];
+      if (!c) return;
+      const tagEl = document.getElementById('slideCaptionTag');
+      const textEl = document.getElementById('slideCaptionText');
+      if (tagEl) tagEl.textContent = c.tag[lang];
+      if (textEl) textEl.textContent = c.text[lang];
+    }
     slides.forEach((_, i) => {
       const dot = document.createElement('button');
       dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
@@ -2933,6 +2948,7 @@
       currentSlide = (n + slides.length) % slides.length;
       slides[currentSlide].classList.add('active');
       document.querySelectorAll('.slide-dot')[currentSlide].classList.add('active');
+      updateCaptionBox(currentSlide);
       resetTimer();
     }
     function changeSlide(dir) { goToSlide(currentSlide + dir); }
@@ -2943,6 +2959,7 @@
       if (activeSlide) openZoom(activeSlide.src);
     });
     resetTimer();
+    updateCaptionBox(0);
 
     // ALBUMS PAGE
     function openAlbumsPage() { document.getElementById('albumsPage').classList.add('active'); document.body.style.overflow = 'hidden'; }
