@@ -590,7 +590,7 @@
       overflow: hidden;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
       cursor: pointer;
-      height: 480px;
+      height: 500px;
     }
 
     .slide-caption-box {
@@ -612,6 +612,14 @@
 
     .slide-item.active {
       opacity: 1;
+    }
+
+    .slide-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
     }
 
     .slide-overlay {
@@ -2869,7 +2877,7 @@
 
   <!-- JAVASCRIPT -->
   <script>
-    // LANGUAGE
+    // LANGUAGE — global para que los onclick del HTML funcionen
     let currentLang = 'es';
     function setLanguage(lang) {
       currentLang = lang;
@@ -2883,10 +2891,13 @@
         ? 'Hola! Soy Woow, tu asistente virtual de Creative Art Video. Estoy aqui para ayudarte a reservar tu cita y resolver tus dudas sobre nuestros servicios de videografia. Como puedo ayudarte hoy?'
         : "Hello! I'm Woow, your virtual assistant at Creative Art Video. I'm here to help you book your appointment and answer questions about our videography services. How can I help you today?";
       localStorage.setItem('preferredLang', lang);
-      updateCaptionBox(currentSlide);
+      if (typeof updateCaptionBox === 'function') updateCaptionBox(currentSlide || 0);
     }
     const savedLang = localStorage.getItem('preferredLang');
     if (savedLang) setLanguage(savedLang);
+
+    // Todo lo demás dentro de DOMContentLoaded para garantizar que el DOM esté listo en móvil
+    document.addEventListener('DOMContentLoaded', function() {
 
     // LOADING
     const loadingScreen = document.getElementById('loadingScreen');
@@ -3150,6 +3161,23 @@
       section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
       observer.observe(section);
     });
+
+    // Exponer funciones globales para los onclick del HTML
+    window.changeSlide = changeSlide;
+    window.openAlbumsPage = openAlbumsPage;
+    window.closeAlbumsPage = closeAlbumsPage;
+    window.openVideosPage = openVideosPage;
+    window.closeVideosPage = closeVideosPage;
+    window.openZoom = openZoom;
+    window.closeZoom = closeZoom;
+    window.switchVideoTab = switchVideoTab;
+    window.openAlbum = openAlbum;
+    window.closeAlbum = closeAlbum;
+    window.openVideoModal = openVideoModal;
+    window.closeVideoModal = closeVideoModal;
+    window.filterFotos = filterFotos;
+
+    }); // fin DOMContentLoaded
   </script>
 </body>
 
