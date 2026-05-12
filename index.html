@@ -2600,7 +2600,7 @@
           <hr>
         </div>
         <div class="album-thumb" onclick="openAlbum('alma', 'Álbum XV · Alma')">
-          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Album15%3A1/28x11_album_ALMA_01.jpg" alt="Alma XV">
+          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Album15%3A1/28x11_album_ALMA_01.jpg" alt="Alma XV" loading="lazy" decoding="async">
           <div class="album-thumb-overlay">
             <div class="album-thumb-badge xv">XV Años</div>
             <h3 class="album-thumb-title">Alma</h3>
@@ -2608,7 +2608,7 @@
           </div>
         </div>
         <div class="album-thumb" onclick="openAlbum('paulina', 'Álbum XV · Paulina')">
-          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Album15%3A2/PAULINA_01.jpg" alt="Paulina XV">
+          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Album15%3A2/PAULINA_01.jpg" alt="Paulina XV" loading="lazy" decoding="async">
           <div class="album-thumb-overlay">
             <div class="album-thumb-badge xv">XV Años</div>
             <h3 class="album-thumb-title">Paulina</h3>
@@ -2616,7 +2616,7 @@
           </div>
         </div>
         <div class="album-thumb" onclick="openAlbum('guestbook', 'Guestbooks · XV Años')">
-          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Guestbootk/Serenity%20Valerie%20guest%20book%20A%20copy.jpg" alt="Guestbook">
+          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Guestbootk/Serenity%20Valerie%20guest%20book%20A%20copy.jpg" alt="Guestbook" loading="lazy" decoding="async">
           <div class="album-thumb-overlay">
             <div class="album-thumb-badge guest">Guestbook</div>
             <h3 class="album-thumb-title">Guestbooks</h3>
@@ -2628,7 +2628,7 @@
           <hr>
         </div>
         <div class="album-thumb" onclick="openAlbum('yvette', 'Álbum Boda · Yvette & Fernando')">
-          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/Albums%20Bodas/AlbumWedding/Yvette%20and%20Fernando%20Page%201.jpg" alt="Yvette y Fernando">
+          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/Albums%20Bodas/AlbumWedding/Yvette%20and%20Fernando%20Page%201.jpg" alt="Yvette y Fernando" loading="lazy" decoding="async">
           <div class="album-thumb-overlay">
             <div class="album-thumb-badge boda">Boda</div>
             <h3 class="album-thumb-title">Yvette & Fernando</h3>
@@ -2649,7 +2649,7 @@
     <div class="album-carousel-area" id="albumCarouselArea">
       <button class="carousel-btn prev" onclick="carouselNav(-1)">&#8249;</button>
       <div class="carousel-img-wrap">
-        <img class="album-carousel-img" id="albumCarouselImg" src="" alt="">
+        <img class="album-carousel-img" id="albumCarouselImg" src="" alt="" decoding="async">
         <button class="carousel-fullscreen-btn" onclick="carouselFullscreen()">
           &#x26F6; Ver pantalla completa
         </button>
@@ -3216,6 +3216,7 @@
         const img = document.createElement('img');
         img.src = src; img.className = 'album-thumb-mini' + (i === 0 ? ' active' : '');
         img.loading = 'lazy';
+        img.decoding = 'async';
         img.onclick = () => carouselGoTo(i);
         thumbs.appendChild(img);
       });
@@ -3245,6 +3246,17 @@
       } else {
         img.src = _carouselPhotos[_carouselIndex];
       }
+
+      // Precargar siguiente y anterior en segundo plano
+      const nextIdx = (_carouselIndex + 1) % _carouselPhotos.length;
+      const prevIdx = (_carouselIndex - 1 + _carouselPhotos.length) % _carouselPhotos.length;
+      [nextIdx, prevIdx].forEach(idx => {
+        if (_carouselPhotos[idx]) {
+          const pre = new Image();
+          pre.decoding = 'async';
+          pre.src = _carouselPhotos[idx];
+        }
+      });
     }
 
     function carouselNav(dir) {
