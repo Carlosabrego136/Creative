@@ -845,19 +845,60 @@
       gap: 1.25rem;
     }
 
+    .albums-category-label {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 0.5rem 0 0.25rem;
+    }
+
+    .albums-category-label:first-child {
+      margin-top: 0;
+    }
+
+    .albums-category-label span {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      padding: 0.3rem 0.9rem;
+      border-radius: 20px;
+    }
+
+    .albums-category-label span.xv {
+      color: #e8b9f2;
+      background: rgba(232, 185, 242, 0.1);
+      border: 1px solid rgba(232, 185, 242, 0.3);
+    }
+
+    .albums-category-label span.boda {
+      color: var(--crystal-aqua);
+      background: rgba(100, 210, 255, 0.08);
+      border: 1px solid rgba(100, 210, 255, 0.25);
+    }
+
+    .albums-category-label hr {
+      flex: 1;
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(125, 211, 252, 0.2), transparent);
+    }
+
     .album-thumb {
       position: relative;
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
       cursor: pointer;
       transition: transform 0.35s ease, box-shadow 0.35s ease;
-      /* Ratio más compacto: las imágenes de álbum son panorámicas */
       aspect-ratio: 3/2;
+      border: 1px solid rgba(125, 211, 252, 0.1);
     }
 
     .album-thumb:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(125, 211, 252, 0.25);
     }
 
     .album-thumb img {
@@ -870,7 +911,7 @@
     }
 
     .album-thumb:hover img {
-      transform: scale(1.06);
+      transform: scale(1.08);
     }
 
     .album-thumb-overlay {
@@ -878,28 +919,53 @@
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 1rem 1.25rem;
-      background: linear-gradient(transparent, rgba(10, 22, 40, 0.92));
-      transform: translateY(100%);
-      transition: transform 0.4s ease;
+      padding: 1.25rem 1.1rem 1rem;
+      background: linear-gradient(transparent, rgba(5, 14, 30, 0.96));
+      transition: opacity 0.35s ease;
     }
 
-    .album-thumb:hover .album-thumb-overlay {
-      transform: translateY(0);
+    .album-thumb-badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 20px;
+      margin-bottom: 0.4rem;
+    }
+
+    .album-thumb-badge.xv {
+      background: rgba(232, 185, 242, 0.2);
+      color: #e8b9f2;
+      border: 1px solid rgba(232, 185, 242, 0.35);
+    }
+
+    .album-thumb-badge.boda {
+      background: rgba(100, 210, 255, 0.15);
+      color: var(--crystal-aqua);
+      border: 1px solid rgba(100, 210, 255, 0.3);
+    }
+
+    .album-thumb-badge.guest {
+      background: rgba(232, 213, 163, 0.15);
+      color: var(--accent-gold);
+      border: 1px solid rgba(232, 213, 163, 0.3);
     }
 
     .album-thumb-title {
       font-family: var(--font-heading);
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       margin-bottom: 0.2rem;
+      color: var(--foreground);
     }
 
     .album-thumb-count {
-      font-size: 0.75rem;
-      color: var(--crystal-aqua);
+      font-size: 0.72rem;
+      color: var(--muted);
     }
 
-    /* ALBUM MODAL */
+    /* ALBUM MODAL — CARRUSEL */
     .album-modal {
       display: none;
       position: fixed;
@@ -907,15 +973,14 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: var(--overlay);
-      backdrop-filter: blur(20px);
+      background: rgba(5, 12, 25, 0.98);
+      backdrop-filter: blur(24px);
       z-index: 3000;
-      padding: 2rem;
-      overflow-y: auto;
+      flex-direction: column;
     }
 
     .album-modal.active {
-      display: block;
+      display: flex;
       animation: fadeIn 0.3s ease;
     }
 
@@ -933,52 +998,138 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 1200px;
-      margin: 0 auto 2rem;
+      padding: 1.1rem 2rem;
+      border-bottom: 1px solid rgba(125, 211, 252, 0.12);
+      flex-shrink: 0;
     }
 
     .album-modal-title {
       font-family: var(--font-heading);
-      font-size: 2rem;
+      font-size: 1.7rem;
+      color: var(--crystal-blue);
+    }
+
+    .album-modal-counter {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 1px;
     }
 
     .album-modal-close {
-      background: none;
-      border: none;
+      background: rgba(125, 211, 252, 0.08);
+      border: 1px solid rgba(125, 211, 252, 0.2);
       color: var(--foreground);
-      font-size: 2rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.3rem;
       cursor: pointer;
-      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
     }
 
     .album-modal-close:hover {
+      border-color: var(--primary);
       color: var(--primary);
+      background: rgba(125, 211, 252, 0.15);
     }
 
-    /* Grid de fotos dentro del álbum */
-    .album-modal-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 0.75rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .album-modal-item {
-      border-radius: 8px;
+    .album-carousel-area {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
       overflow: hidden;
+      min-height: 0;
+    }
+
+    .album-carousel-img {
+      max-width: 90%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7);
+      user-select: none;
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+
+    .album-carousel-img.fade-out {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(10, 22, 40, 0.75);
+      border: 1px solid rgba(125, 211, 252, 0.25);
+      color: var(--foreground);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      font-size: 1.4rem;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 10;
+      backdrop-filter: blur(8px);
     }
 
-    .album-modal-item:hover {
-      transform: scale(1.02);
+    .carousel-btn:hover {
+      background: rgba(100, 210, 255, 0.18);
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-50%) scale(1.08);
     }
 
-    .album-modal-item img {
-      width: 100%;
-      display: block;
+    .carousel-btn.prev {
+      left: 1.5rem;
+    }
+
+    .carousel-btn.next {
+      right: 1.5rem;
+    }
+
+    .album-thumbnails {
+      display: flex;
+      gap: 6px;
+      padding: 0.75rem 1.5rem;
+      overflow-x: auto;
+      flex-shrink: 0;
+      border-top: 1px solid rgba(125, 211, 252, 0.1);
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    .album-thumb-mini {
+      width: 64px;
+      height: 44px;
       object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      opacity: 0.55;
+      transition: all 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .album-thumb-mini.active {
+      border-color: var(--primary);
+      opacity: 1;
+    }
+
+    .album-thumb-mini:hover {
+      opacity: 0.9;
+    }
+
+    .album-modal-grid {
+      display: none;
     }
 
     /* ZOOM MODAL */
@@ -2414,44 +2565,63 @@
     </div>
     <div class="albums-page-body">
       <div class="albums-page-grid">
+        <!-- XV AÑOS -->
+        <div class="albums-category-label"><span class="xv">✦ XV Años</span>
+          <hr>
+        </div>
         <div class="album-thumb" onclick="openAlbum('alma', 'Álbum XV · Alma')">
           <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Album15%3A1/28x11_album_ALMA_01.jpg" alt="Alma XV">
           <div class="album-thumb-overlay">
-            <h3 class="album-thumb-title">Alma · XV Años</h3>
+            <div class="album-thumb-badge xv">XV Años</div>
+            <h3 class="album-thumb-title">Alma</h3>
             <p class="album-thumb-count">12 páginas</p>
           </div>
         </div>
         <div class="album-thumb" onclick="openAlbum('paulina', 'Álbum XV · Paulina')">
           <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Album15%3A2/PAULINA_01.jpg" alt="Paulina XV">
           <div class="album-thumb-overlay">
-            <h3 class="album-thumb-title">Paulina · XV Años</h3>
+            <div class="album-thumb-badge xv">XV Años</div>
+            <h3 class="album-thumb-title">Paulina</h3>
             <p class="album-thumb-count">17 páginas</p>
-          </div>
-        </div>
-        <div class="album-thumb" onclick="openAlbum('yvette', 'Álbum Boda · Yvette & Fernando')">
-          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/Albums%20Bodas/AlbumWedding/Yvette%20and%20Fernando%20Page%201.jpg" alt="Yvette y Fernando">
-          <div class="album-thumb-overlay">
-            <h3 class="album-thumb-title">Yvette & Fernando · Boda</h3>
-            <p class="album-thumb-count">26 páginas</p>
           </div>
         </div>
         <div class="album-thumb" onclick="openAlbum('guestbook', 'Guestbooks · XV Años')">
           <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Guestbootk/Serenity%20Valerie%20guest%20book%20A%20copy.jpg" alt="Guestbook">
           <div class="album-thumb-overlay">
+            <div class="album-thumb-badge guest">Guestbook</div>
             <h3 class="album-thumb-title">Guestbooks</h3>
             <p class="album-thumb-count">10 fotos</p>
+          </div>
+        </div>
+        <!-- BODAS -->
+        <div class="albums-category-label"><span class="boda">♦ Bodas</span>
+          <hr>
+        </div>
+        <div class="album-thumb" onclick="openAlbum('yvette', 'Álbum Boda · Yvette & Fernando')">
+          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/Albums%20Bodas/AlbumWedding/Yvette%20and%20Fernando%20Page%201.jpg" alt="Yvette y Fernando">
+          <div class="album-thumb-overlay">
+            <div class="album-thumb-badge boda">Boda</div>
+            <h3 class="album-thumb-title">Yvette & Fernando</h3>
+            <p class="album-thumb-count">26 páginas</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ALBUM MODAL -->
+  <!-- ALBUM MODAL — CARRUSEL -->
   <div class="album-modal" id="albumModal">
     <div class="album-modal-header">
       <h2 class="album-modal-title" id="albumModalTitle"></h2>
+      <span class="album-modal-counter" id="albumModalCounter"></span>
       <button class="album-modal-close" onclick="closeAlbum()">&times;</button>
     </div>
+    <div class="album-carousel-area" id="albumCarouselArea">
+      <button class="carousel-btn prev" onclick="carouselNav(-1)">&#8249;</button>
+      <img class="album-carousel-img" id="albumCarouselImg" src="" alt="">
+      <button class="carousel-btn next" onclick="carouselNav(1)">&#8250;</button>
+    </div>
+    <div class="album-thumbnails" id="albumThumbnails"></div>
     <div class="album-modal-grid" id="albumModalGrid"></div>
   </div>
 
@@ -2996,24 +3166,85 @@
       guestbook: ['https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Guestbootk/Serenity%20Valerie%20guest%20book%20A%20copy.jpg','https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Guestbootk/Serenity%20Valerie%20guest%20book%20C%20copy.jpg','https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Guestbootk/Serenity%20Valerie%20guest%20book%20D%20copy.jpg','https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Guestbootk/Serenity%20Valerie%20guest%20book%20E%20copy.jpg','https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Guestbootk/Serenity%20Valerie%20guest%20book%20bb%20copy.jpg','https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Guestbootk/Victorian%20Blue%20copy.jpg','https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Guestbootk/Victorian%20Blue%203%20copy.jpg','https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Guestbootk/Victorian%20Blue%204%20copy.jpg','https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Guestbootk/Victorian%20Blue%205%20copy.jpg','https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/AlbumsQuinceanera/Guestbootk/13x10%20clear%20acrilic%20copy.jpg'],
     };
 
+    // ALBUM CARRUSEL
+    let _carouselPhotos = [];
+    let _carouselIndex = 0;
+
     function openAlbum(albumKey, title) {
-      const photos = ALBUM_DATA[albumKey] || [];
+      _carouselPhotos = ALBUM_DATA[albumKey] || [];
+      _carouselIndex = 0;
       document.getElementById('albumModalTitle').textContent = title;
-      const grid = document.getElementById('albumModalGrid');
-      grid.innerHTML = '';
-      photos.forEach(src => {
-        const div = document.createElement('div');
-        div.className = 'album-modal-item';
-        div.onclick = () => openZoom(src);
+      // Miniaturas
+      const thumbs = document.getElementById('albumThumbnails');
+      thumbs.innerHTML = '';
+      _carouselPhotos.forEach((src, i) => {
         const img = document.createElement('img');
-        img.src = src; img.alt = title; img.loading = 'lazy';
-        div.appendChild(img);
-        grid.appendChild(div);
+        img.src = src; img.className = 'album-thumb-mini' + (i === 0 ? ' active' : '');
+        img.loading = 'lazy';
+        img.onclick = () => carouselGoTo(i);
+        thumbs.appendChild(img);
       });
+      _carouselRender(false);
       document.getElementById('albumModal').classList.add('active');
       document.body.style.overflow = 'hidden';
     }
-    function closeAlbum() { document.getElementById('albumModal').classList.remove('active'); document.body.style.overflow = ''; }
+
+    function _carouselRender(animate) {
+      const img = document.getElementById('albumCarouselImg');
+      const counter = document.getElementById('albumModalCounter');
+      counter.textContent = (_carouselIndex + 1) + ' / ' + _carouselPhotos.length;
+      // Actualizar miniaturas activas
+      document.querySelectorAll('.album-thumb-mini').forEach((el, i) => {
+        el.classList.toggle('active', i === _carouselIndex);
+      });
+      // Scroll miniatura activa a la vista
+      const activeMini = document.querySelectorAll('.album-thumb-mini')[_carouselIndex];
+      if (activeMini) activeMini.scrollIntoView({ inline: 'nearest', behavior: 'smooth' });
+
+      if (animate) {
+        img.classList.add('fade-out');
+        setTimeout(() => {
+          img.src = _carouselPhotos[_carouselIndex];
+          img.classList.remove('fade-out');
+        }, 220);
+      } else {
+        img.src = _carouselPhotos[_carouselIndex];
+      }
+    }
+
+    function carouselNav(dir) {
+      _carouselIndex = (_carouselIndex + dir + _carouselPhotos.length) % _carouselPhotos.length;
+      _carouselRender(true);
+    }
+
+    function carouselGoTo(i) {
+      _carouselIndex = i;
+      _carouselRender(true);
+    }
+
+    function closeAlbum() {
+      document.getElementById('albumModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Teclado
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('albumModal').classList.contains('active')) return;
+      if (e.key === 'ArrowRight') carouselNav(1);
+      if (e.key === 'ArrowLeft') carouselNav(-1);
+      if (e.key === 'Escape') closeAlbum();
+    });
+
+    // Swipe touch
+    (function() {
+      let startX = 0;
+      const area = document.getElementById('albumModal');
+      area.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      area.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 50) carouselNav(dx < 0 ? 1 : -1);
+      }, { passive: true });
+    })();
 
     // VIDEO MODAL — soporta Vimeo y MP4 directo
     function openVideoModal(src) {
