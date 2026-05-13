@@ -1669,8 +1669,8 @@
 
     /* Album modal móvil: ocultar nav, foto más grande */
     @media (max-width: 768px) {
-      .album-modal-header nav {
-        display: none;
+      .album-modal-nav {
+        display: none !important;
       }
 
       .album-modal-header {
@@ -3062,7 +3062,7 @@
     <div class="album-modal-header">
       <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/WEBLOGO.png" alt="Logo" style="height:32px;width:auto;filter:drop-shadow(0 0 6px rgba(125,211,252,0.3));flex-shrink:0;">
       <h2 class="album-modal-title" id="albumModalTitle" style="display:none;"></h2>
-      <nav style="flex:1;display:flex;justify-content:center;">
+      <nav class="album-modal-nav" style="flex:1;display:flex;justify-content:center;">
         <ul style="display:flex;gap:0;list-style:none;flex-wrap:nowrap;">
           <li><a href="#inicio" onclick="closeAlbum()"
               style="color:rgba(240,246,252,0.85);text-decoration:none;font-size:0.68rem;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;padding:0.4rem 0.75rem;display:block;transition:color 0.3s;"
