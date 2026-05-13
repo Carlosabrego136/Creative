@@ -417,8 +417,11 @@
       .hero-slideshow {
         position: relative;
         width: 100%;
-        height: auto;
+        height: 56vw;
+        min-height: 220px;
+        max-height: 400px;
         flex-shrink: 0;
+        overflow: hidden;
       }
 
       .hero-overlay {
@@ -426,23 +429,51 @@
       }
 
       .hero-bg {
-        position: relative;
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        height: auto;
-        object-fit: contain;
+        height: 100%;
+        object-fit: cover;
         object-position: center center;
-        display: block;
       }
 
-      .hero-slide-principal,
-      .hero-slide-1,
-      .hero-slide-2,
-      .hero-slide-3,
-      .hero-slide-4,
-      .hero-slide-5,
-      .hero-slide-6,
-      .hero-slide-7,
-      .hero-slide-8,
+      .hero-slide-principal {
+        object-position: center 30%;
+      }
+
+      .hero-slide-1 {
+        object-position: 40% center;
+      }
+
+      .hero-slide-2 {
+        object-position: center center;
+      }
+
+      .hero-slide-3 {
+        object-position: center 30%;
+      }
+
+      .hero-slide-4 {
+        object-position: center center;
+      }
+
+      .hero-slide-5 {
+        object-position: center 20%;
+      }
+
+      .hero-slide-6 {
+        object-position: center 25%;
+      }
+
+      .hero-slide-7 {
+        object-position: center center;
+      }
+
+      .hero-slide-8 {
+        object-position: center 30%;
+      }
+
       .hero-slide-9 {
         object-position: center center;
       }
