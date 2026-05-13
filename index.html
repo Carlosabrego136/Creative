@@ -886,9 +886,26 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: var(--background);
+      background: var(--background) url('assets/fondovideos.jpg') center center / cover no-repeat fixed;
       z-index: 2000;
       overflow-y: auto;
+    }
+
+    .albums-page::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 18, 35, 0.80);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .albums-top-nav,
+    .albums-hero-banner,
+    .albums-page-body,
+    .albums-page-footer-logo {
+      position: relative;
+      z-index: 1;
     }
 
     .albums-page.active {
@@ -1003,17 +1020,19 @@
 
     .album-thumb {
       position: relative;
-      border-radius: 16px;
+      border-radius: 12px;
       overflow: hidden;
       cursor: pointer;
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
       aspect-ratio: 3/2;
-      border: 1px solid rgba(125, 211, 252, 0.1);
+      border: 1px solid rgba(125, 211, 252, 0.15);
+      background: rgba(5, 14, 30, 0.6);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     }
 
     .album-thumb:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(125, 211, 252, 0.25);
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(125, 211, 252, 0.4), 0 0 40px rgba(125, 211, 252, 0.12);
     }
 
     .album-thumb img {
@@ -1034,9 +1053,17 @@
       bottom: 0;
       left: 0;
       right: 0;
+      top: 0;
       padding: 1.25rem 1.1rem 1rem;
-      background: linear-gradient(transparent, rgba(5, 14, 30, 0.96));
-      transition: opacity 0.35s ease;
+      background: linear-gradient(to bottom, transparent 30%, rgba(3, 10, 22, 0.55) 60%, rgba(3, 10, 22, 0.97) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      transition: background 0.35s ease;
+    }
+
+    .album-thumb:hover .album-thumb-overlay {
+      background: linear-gradient(to bottom, transparent 20%, rgba(3, 10, 22, 0.5) 55%, rgba(3, 10, 22, 0.99) 100%);
     }
 
     .album-thumb-badge {
@@ -1070,14 +1097,36 @@
 
     .album-thumb-title {
       font-family: var(--font-heading);
-      font-size: 1.05rem;
+      font-size: 1.15rem;
+      font-weight: 500;
       margin-bottom: 0.2rem;
       color: var(--foreground);
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
     }
 
     .album-thumb-count {
       font-size: 0.72rem;
-      color: var(--muted);
+      color: var(--crystal-blue);
+      letter-spacing: 1px;
+    }
+
+    .albums-page-footer-logo {
+      text-align: center;
+      padding: 2.5rem 1rem 3rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .albums-footer-logo-img {
+      width: clamp(80px, 18vw, 140px);
+      opacity: 0.55;
+      filter: drop-shadow(0 0 12px rgba(125, 211, 252, 0.2));
+      transition: opacity 0.3s ease;
+    }
+
+    .albums-footer-logo-img:hover {
+      opacity: 0.8;
     }
 
     /* ALBUM MODAL — CARRUSEL */
@@ -3111,11 +3160,14 @@
             <p class="album-thumb-count">26 páginas</p>
           </div>
         </div>
-        <div class="album-logo-cell">
-          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/2logo%20CAV2024.png" alt="Creative Art Video" class="album-logo-decoration">
-        </div>
       </div>
     </div>
+
+    <!-- Logo centrado al pie -->
+    <div class="albums-page-footer-logo">
+      <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/2logo%20CAV2024.png" alt="Creative Art Video" class="albums-footer-logo-img">
+    </div>
+
   </div>
 
   <!-- ALBUM MODAL — CARRUSEL -->
