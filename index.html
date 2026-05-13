@@ -2711,8 +2711,7 @@
   <!-- SLIDESHOW -->
   <section class="slideshow-section" id="galeria">
     <div class="section-header">
-      <p class="section-subtitle" data-es="Momentos que Perduran" data-en="Moments That Last">Momentos que Perduran</p>
-      <h2 class="section-title" data-es="Galería" data-en="Gallery">Galería</h2>
+      <h2 class="section-title" data-es="Momentos que Perduran" data-en="Moments That Last">Momentos que Perduran</h2>
       <div class="section-line"></div>
     </div>
     <div class="slideshow-wrapper">
@@ -2950,8 +2949,19 @@
   <!-- VIDEOS PAGE -->
   <div class="videos-page" id="videosPage">
     <div class="videos-page-header">
-      <h2 class="videos-page-title" data-es="Nuestros Films" data-en="Our Films">Nuestros Films</h2>
-      <button class="videos-page-close" onclick="closeVideosPage()">&times;</button>
+      <nav class="albums-top-nav" style="position:static;border-bottom:none;padding:0.85rem 2rem;">
+        <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/WEBLOGO.png" alt="Logo" class="albums-nav-logo">
+        <ul class="albums-nav-links">
+          <li><a href="#inicio" onclick="closeVideosPage()" data-es="Inicio" data-en="Home">Inicio</a></li>
+          <li><a href="#nosotros" onclick="closeVideosPage()" data-es="Nosotros" data-en="About">Nosotros</a></li>
+          <li><a href="#galeria" onclick="closeVideosPage()" data-es="Galería" data-en="Gallery">Galería</a></li>
+          <li><a href="#videos-section" onclick="closeVideosPage()" data-es="Videos" data-en="Videos">Videos</a></li>
+          <li><a href="https://cavent.creativeartvideo.com/ent" target="_blank" data-es="Entretenimiento"
+              data-en="Entertainment">Entretenimiento</a></li>
+          <li><a href="#contacto" onclick="closeVideosPage()" data-es="Contacto" data-en="Contact">Contacto</a></li>
+        </ul>
+        <button class="albums-page-close" onclick="closeVideosPage()">&times;</button>
+      </nav>
     </div>
     <div class="videos-page-body">
 
@@ -3465,7 +3475,6 @@
       _carouselPhotos = ALBUM_DATA[albumKey] || [];
       _carouselIndex = 0;
       document.getElementById('albumModalTitle').textContent = title;
-      // Miniaturas
       const thumbs = document.getElementById('albumThumbnails');
       thumbs.innerHTML = '';
       _carouselPhotos.forEach((src, i) => {
@@ -3473,12 +3482,28 @@
         img.src = src; img.className = 'album-thumb-mini' + (i === 0 ? ' active' : '');
         img.loading = 'lazy';
         img.decoding = 'async';
-        img.onclick = () => carouselGoTo(i);
+        img.onclick = () => { carouselGoTo(i); _resetCarouselTimer(); };
         thumbs.appendChild(img);
       });
       _carouselRender(false);
       document.getElementById('albumModal').classList.add('active');
       document.body.style.overflow = 'hidden';
+      _startCarouselTimer();
+    }
+
+    let _carouselTimer = null;
+
+    function _startCarouselTimer() {
+      _clearCarouselTimer();
+      _carouselTimer = setInterval(() => carouselNav(1), 4000);
+    }
+
+    function _clearCarouselTimer() {
+      if (_carouselTimer) { clearInterval(_carouselTimer); _carouselTimer = null; }
+    }
+
+    function _resetCarouselTimer() {
+      _startCarouselTimer();
     }
 
     function _carouselRender(animate) {
@@ -3518,11 +3543,13 @@
     function carouselNav(dir) {
       _carouselIndex = (_carouselIndex + dir + _carouselPhotos.length) % _carouselPhotos.length;
       _carouselRender(true);
+      _resetCarouselTimer();
     }
 
     function carouselGoTo(i) {
       _carouselIndex = i;
       _carouselRender(true);
+      _resetCarouselTimer();
     }
 
     function carouselFullscreen() {
@@ -3534,6 +3561,7 @@
     function closeAlbum() {
       document.getElementById('albumModal').classList.remove('active');
       document.body.style.overflow = '';
+      _clearCarouselTimer();
     }
 
     // Teclado
