@@ -3027,9 +3027,33 @@
   <!-- ALBUM MODAL — CARRUSEL -->
   <div class="album-modal" id="albumModal">
     <div class="album-modal-header">
-      <h2 class="album-modal-title" id="albumModalTitle"></h2>
-      <span class="album-modal-counter" id="albumModalCounter"></span>
-      <button class="album-modal-close" onclick="closeAlbum()">&times;</button>
+      <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/WEBLOGO.png" alt="Logo" style="height:32px;width:auto;filter:drop-shadow(0 0 6px rgba(125,211,252,0.3));flex-shrink:0;">
+      <nav style="flex:1;display:flex;justify-content:center;">
+        <ul style="display:flex;gap:0;list-style:none;flex-wrap:nowrap;">
+          <li><a href="#inicio" onclick="closeAlbum()"
+              style="color:rgba(240,246,252,0.85);text-decoration:none;font-size:0.68rem;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;padding:0.4rem 0.75rem;display:block;transition:color 0.3s;"
+              data-es="Inicio" data-en="Home">Inicio</a></li>
+          <li><a href="#nosotros" onclick="closeAlbum()"
+              style="color:rgba(240,246,252,0.85);text-decoration:none;font-size:0.68rem;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;padding:0.4rem 0.75rem;display:block;transition:color 0.3s;"
+              data-es="Nosotros" data-en="About">Nosotros</a></li>
+          <li><a href="#galeria" onclick="closeAlbum()"
+              style="color:rgba(240,246,252,0.85);text-decoration:none;font-size:0.68rem;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;padding:0.4rem 0.75rem;display:block;transition:color 0.3s;"
+              data-es="Galería" data-en="Gallery">Galería</a></li>
+          <li><a href="#videos-section" onclick="closeAlbum()"
+              style="color:rgba(240,246,252,0.85);text-decoration:none;font-size:0.68rem;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;padding:0.4rem 0.75rem;display:block;transition:color 0.3s;"
+              data-es="Videos" data-en="Videos">Videos</a></li>
+          <li><a href="https://cavent.creativeartvideo.com/ent" target="_blank"
+              style="color:rgba(240,246,252,0.85);text-decoration:none;font-size:0.68rem;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;padding:0.4rem 0.75rem;display:block;transition:color 0.3s;"
+              data-es="Entretenimiento" data-en="Entertainment">Entretenimiento</a></li>
+          <li><a href="#contacto" onclick="closeAlbum()"
+              style="color:rgba(240,246,252,0.85);text-decoration:none;font-size:0.68rem;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;padding:0.4rem 0.75rem;display:block;transition:color 0.3s;"
+              data-es="Contacto" data-en="Contact">Contacto</a></li>
+        </ul>
+      </nav>
+      <div style="display:flex;align-items:center;gap:0.75rem;flex-shrink:0;">
+        <span id="albumModalCounter" style="font-size:0.8rem;color:var(--muted);letter-spacing:1px;"></span>
+        <button class="album-modal-close" onclick="closeAlbum()">&times;</button>
+      </div>
     </div>
     <div class="album-carousel-area" id="albumCarouselArea">
       <button class="carousel-btn prev" onclick="carouselNav(-1)">&#8249;</button>
