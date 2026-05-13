@@ -1203,6 +1203,25 @@
       flex-shrink: 0;
     }
 
+    .album-logo-cell {
+      aspect-ratio: 3/2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      border: 1px solid rgba(125, 211, 252, 0.08);
+      background: rgba(10, 22, 40, 0.4);
+      grid-column: span 2;
+    }
+
+    .album-logo-decoration {
+      width: 85%;
+      max-width: 380px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 24px rgba(125, 211, 252, 0.12));
+      opacity: 0.92;
+    }
+
     /* ZOOM MODAL */
     .zoom-modal {
       display: none;
@@ -2633,7 +2652,6 @@
   <!-- ALBUMS PAGE -->
   <div class="albums-page" id="albumsPage">
     <div class="albums-page-header">
-      <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/2logo%20CAV2024.png" alt="Creative Art Video" class="albums-header-logo">
       <h2 class="albums-page-title" data-es="Nuestros Álbums" data-en="Our Albums">Nuestros Álbums</h2>
       <button class="albums-page-close" onclick="closeAlbumsPage()">&times;</button>
     </div>
@@ -2678,6 +2696,9 @@
             <h3 class="album-thumb-title">Yvette & Fernando</h3>
             <p class="album-thumb-count">26 páginas</p>
           </div>
+        </div>
+        <div class="album-logo-cell">
+          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/2logo%20CAV2024.png" alt="Creative Art Video" class="album-logo-decoration">
         </div>
       </div>
     </div>
