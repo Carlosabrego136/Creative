@@ -3055,8 +3055,11 @@
 
   <!-- ZOOM MODAL -->
   <div class="zoom-modal" id="zoomModal" onclick="closeZoom()">
-    <button class="zoom-modal-close">&times;</button>
-    <img src="" alt="Zoom" id="zoomImage">
+    <button class="zoom-modal-close" onclick="closeZoom()">&times;</button>
+    <span id="zoomCounter" style="position:absolute;top:2rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.6);font-size:0.8rem;letter-spacing:2px;font-family:var(--font-body);z-index:10;pointer-events:none;"></span>
+    <button onclick="event.stopPropagation(); zoomNav(-1);" style="position:absolute;left:1.5rem;top:50%;transform:translateY(-50%);background:rgba(10,22,40,0.7);border:1px solid rgba(125,211,252,0.3);color:#f0f6fc;width:52px;height:52px;border-radius:50%;font-size:2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;backdrop-filter:blur(10px);transition:all 0.25s ease;">&#8249;</button>
+    <img src="" alt="Zoom" id="zoomImage" style="transition: opacity 0.18s ease, transform 0.18s ease;">
+    <button onclick="event.stopPropagation(); zoomNav(1);" style="position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);background:rgba(10,22,40,0.7);border:1px solid rgba(125,211,252,0.3);color:#f0f6fc;width:52px;height:52px;border-radius:50%;font-size:2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;backdrop-filter:blur(10px);transition:all 0.25s ease;">&#8250;</button>
   </div>
 
   <!-- VIDEOS SECTION -->
@@ -3601,14 +3604,81 @@
     function openVideosPage() { document.getElementById('videosPage').classList.add('active'); document.body.style.overflow = 'hidden'; }
     function closeVideosPage() { document.getElementById('videosPage').classList.remove('active'); document.body.style.overflow = ''; }
 
-    // ZOOM
+    // ZOOM con navegación y autoplay
+    let _zoomPhotos = [];
+    let _zoomIndex = 0;
+    let _zoomTimer = null;
+
+    function _zoomGetPhotos() {
+      // Recopila fotos visibles de la galería de fotografía (.foto-item)
+      const items = document.querySelectorAll('.foto-item:not(.hidden) img');
+      if (items.length > 0) return Array.from(items).map(img => img.src);
+      // Fallback: cualquier foto en el slideshow principal
+      return Array.from(document.querySelectorAll('.slide-item img')).map(img => img.src);
+    }
+
+    function _zoomRender(animate) {
+      const img = document.getElementById('zoomImage');
+      const counter = document.getElementById('zoomCounter');
+      if (counter) counter.textContent = (_zoomIndex + 1) + ' / ' + _zoomPhotos.length;
+      if (animate) {
+        img.style.opacity = '0';
+        img.style.transform = 'scale(0.97)';
+        setTimeout(() => {
+          img.src = _zoomPhotos[_zoomIndex];
+          img.style.opacity = '1';
+          img.style.transform = 'scale(1)';
+        }, 180);
+      } else {
+        img.src = _zoomPhotos[_zoomIndex];
+      }
+    }
+
+    function _zoomNav(dir) {
+      _zoomIndex = (_zoomIndex + dir + _zoomPhotos.length) % _zoomPhotos.length;
+      _zoomRender(true);
+      _zoomResetTimer();
+    }
+
+    function _zoomStartTimer() {
+      _zoomClearTimer();
+      _zoomTimer = setInterval(() => _zoomNav(1), 4000);
+    }
+
+    function _zoomClearTimer() {
+      if (_zoomTimer) { clearInterval(_zoomTimer); _zoomTimer = null; }
+    }
+
+    function _zoomResetTimer() { _zoomStartTimer(); }
+
     function openZoom(src) {
+      _zoomPhotos = _zoomGetPhotos();
+      // Buscar índice de la foto clickeada
+      const idx = _zoomPhotos.findIndex(s => s === src || s.endsWith(src.split('/').pop()));
+      _zoomIndex = idx >= 0 ? idx : 0;
       const modal = document.getElementById('zoomModal');
-      document.getElementById('zoomImage').src = src;
+      _zoomRender(false);
       modal.classList.add('active');
       document.body.style.overflow = 'hidden';
+      _zoomStartTimer();
     }
-    function closeZoom() { document.getElementById('zoomModal').classList.remove('active'); document.body.style.overflow = ''; }
+
+    function closeZoom() {
+      document.getElementById('zoomModal').classList.remove('active');
+      document.body.style.overflow = '';
+      _zoomClearTimer();
+    }
+
+    // Teclado para zoom
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('zoomModal').classList.contains('active')) return;
+      if (e.key === 'ArrowRight') _zoomNav(1);
+      if (e.key === 'ArrowLeft') _zoomNav(-1);
+      if (e.key === 'Escape') closeZoom();
+    });
+
+    // Exponer navegación del zoom globalmente
+    window.zoomNav = _zoomNav;
 
     // VIDEO TABS
     function switchVideoTab(tab) {
