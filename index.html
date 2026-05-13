@@ -1195,6 +1195,14 @@
       filter: drop-shadow(0 0 40px rgba(125, 211, 252, 0.3));
     }
 
+    .albums-header-logo {
+      height: 42px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px rgba(125, 211, 252, 0.2));
+      flex-shrink: 0;
+    }
+
     /* ZOOM MODAL */
     .zoom-modal {
       display: none;
@@ -2625,6 +2633,7 @@
   <!-- ALBUMS PAGE -->
   <div class="albums-page" id="albumsPage">
     <div class="albums-page-header">
+      <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/2logo%20CAV2024.png" alt="Creative Art Video" class="albums-header-logo">
       <h2 class="albums-page-title" data-es="Nuestros Álbums" data-en="Our Albums">Nuestros Álbums</h2>
       <button class="albums-page-close" onclick="closeAlbumsPage()">&times;</button>
     </div>
@@ -2684,7 +2693,6 @@
           <li><a href="#contacto" data-es="Contacto" data-en="Contact" onclick="closeAlbumsPage()">Contacto</a></li>
         </ul>
       </nav>
-      <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/2logo_CAV2024.png" alt="Creative Art Video" class="albums-page-logo">
     </div>
   </div>
 
