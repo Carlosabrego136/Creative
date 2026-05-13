@@ -3058,7 +3058,7 @@
     <button class="zoom-modal-close" onclick="closeZoom()">&times;</button>
     <span id="zoomCounter" style="position:absolute;top:2rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.6);font-size:0.8rem;letter-spacing:2px;font-family:var(--font-body);z-index:10;pointer-events:none;"></span>
     <button onclick="event.stopPropagation(); zoomNav(-1);" style="position:absolute;left:1.5rem;top:50%;transform:translateY(-50%);background:rgba(10,22,40,0.7);border:1px solid rgba(125,211,252,0.3);color:#f0f6fc;width:52px;height:52px;border-radius:50%;font-size:2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;backdrop-filter:blur(10px);transition:all 0.25s ease;">&#8249;</button>
-    <img src="" alt="Zoom" id="zoomImage" style="transition: opacity 0.18s ease, transform 0.18s ease;">
+    <img src="" alt="Zoom" id="zoomImage" style="transition: opacity 0.5s ease, transform 0.5s ease;">
     <button onclick="event.stopPropagation(); zoomNav(1);" style="position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);background:rgba(10,22,40,0.7);border:1px solid rgba(125,211,252,0.3);color:#f0f6fc;width:52px;height:52px;border-radius:50%;font-size:2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;backdrop-filter:blur(10px);transition:all 0.25s ease;">&#8250;</button>
   </div>
 
@@ -3610,12 +3610,12 @@
       if (counter) counter.textContent = (_zoomIndex + 1) + ' / ' + _zoomPhotos.length;
       if (animate) {
         img.style.opacity = '0';
-        img.style.transform = 'scale(0.97)';
+        img.style.transform = 'scale(0.98)';
         setTimeout(() => {
           img.src = _zoomPhotos[_zoomIndex];
           img.style.opacity = '1';
           img.style.transform = 'scale(1)';
-        }, 180);
+        }, 500);
       } else {
         img.src = _zoomPhotos[_zoomIndex];
       }
