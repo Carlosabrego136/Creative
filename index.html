@@ -363,6 +363,12 @@
       overflow: hidden;
     }
 
+    .hero-slideshow {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
     .hero-bg {
       position: absolute;
       top: 0;
@@ -372,6 +378,15 @@
       object-fit: cover;
       object-position: center 35%;
       filter: brightness(0.9) saturate(1.1);
+    }
+
+    .hero-slide {
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
     }
 
     .hero-overlay {
@@ -1164,15 +1179,122 @@
       display: none;
     }
 
-    /* ALBUMS PAGE — footer con nav y logo */
-    .albums-page-footer {
+    /* ALBUMS PAGE — nav superior + hero banner */
+    .albums-top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 2rem;
-      padding: 3rem 2rem 4rem;
-      border-top: 1px solid rgba(125, 211, 252, 0.1);
-      margin-top: 2rem;
+      gap: 1.5rem;
+      padding: 0.85rem 2rem;
+      background: rgba(8, 18, 35, 0.97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(125, 211, 252, 0.12);
+    }
+
+    .albums-nav-logo {
+      height: 36px;
+      width: auto;
+      flex-shrink: 0;
+    }
+
+    .albums-nav-links {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      gap: 0.25rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .albums-nav-links a {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      transition: color 0.25s ease, background 0.25s ease;
+    }
+
+    .albums-nav-links a:hover {
+      color: var(--crystal-blue);
+      background: rgba(125, 211, 252, 0.08);
+    }
+
+    /* Hero banner decorativo */
+    .albums-hero-banner {
+      position: relative;
+      text-align: center;
+      padding: 3.5rem 2rem 2.5rem;
+      overflow: hidden;
+    }
+
+    .albums-hero-glow {
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 200px;
+      background: radial-gradient(ellipse, rgba(100, 210, 255, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .albums-hero-sub {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      color: var(--crystal-blue);
+      margin-bottom: 0.75rem;
+    }
+
+    .albums-hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--foreground);
+      margin-bottom: 0.75rem;
+    }
+
+    .albums-hero-line {
+      width: 50px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      margin: 0 auto 1rem;
+    }
+
+    .albums-hero-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Quitar footer viejo */
+    .albums-page-footer {
+      display: none;
+    }
+
+    .albums-page-header {
+      display: none;
+    }
+
+    /* Albums page body sin padding-top extra */
+    .albums-page-body {
+      padding-top: 0.5rem;
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 3rem 2rem 4rem;
+    border-top: 1px solid rgba(125, 211, 252, 0.1);
+    margin-top: 2rem;
     }
 
     .albums-page-nav .nav-links {
@@ -2369,7 +2491,8 @@
           <li><a href="#nosotros" data-es="Nosotros" data-en="About">Nosotros</a></li>
           <li><a href="#galeria" data-es="Galería" data-en="Gallery">Galería</a></li>
           <li><a href="#videos-section" data-es="Videos" data-en="Videos">Videos</a></li>
-          <li><a href="#entretenimiento" data-es="Entretenimiento" data-en="Entertainment">Entretenimiento</a></li>
+          <li><a href="https://cavent.creativeartvideo.com/ent" target="_blank" data-es="Entretenimiento"
+              data-en="Entertainment">Entretenimiento</a></li>
           <li><a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a></li>
         </ul>
       </nav>
@@ -2384,13 +2507,25 @@
     <a href="#nosotros" data-es="Nosotros" data-en="About">Nosotros</a>
     <a href="#galeria" data-es="Galería" data-en="Gallery">Galería</a>
     <a href="#videos-section" data-es="Videos" data-en="Videos">Videos</a>
-    <a href="#entretenimiento" data-es="Entretenimiento" data-en="Entertainment">Entretenimiento</a>
+    <a href="https://cavent.creativeartvideo.com/ent" target="_blank" data-es="Entretenimiento"
+      data-en="Entertainment">Entretenimiento</a>
     <a href="#contacto" data-es="Contacto" data-en="Contact">Contacto</a>
   </div>
 
   <!-- HERO -->
   <section class="hero" id="inicio">
-    <img src="assets/hero-principal.jpg" alt="Wedding" class="hero-bg" fetchpriority="high">
+    <div class="hero-slideshow" id="heroSlideshow">
+      <img src="assets/hero-principal.jpg" alt="Hero" class="hero-bg hero-slide active" fetchpriority="high">
+      <img src="assets/1.jpg" alt="Hero 1" class="hero-bg hero-slide" loading="lazy">
+      <img src="assets/2.jpg" alt="Hero 2" class="hero-bg hero-slide" loading="lazy">
+      <img src="assets/3.jpg" alt="Hero 3" class="hero-bg hero-slide" loading="lazy">
+      <img src="assets/4.jpg" alt="Hero 4" class="hero-bg hero-slide" loading="lazy">
+      <img src="assets/5.jpg" alt="Hero 5" class="hero-bg hero-slide" loading="lazy">
+      <img src="assets/6.jpg" alt="Hero 6" class="hero-bg hero-slide" loading="lazy">
+      <img src="assets/7.jpg" alt="Hero 7" class="hero-bg hero-slide" loading="lazy">
+      <img src="assets/8.jpg" alt="Hero 8" class="hero-bg hero-slide" loading="lazy">
+      <img src="assets/9.jpg" alt="Hero 9" class="hero-bg hero-slide" loading="lazy">
+    </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <p class="hero-subtitle" data-es="Cinematografía de Bodas · XV Años · Cumpleaños · Aniversarios"
@@ -2549,7 +2684,7 @@
       <div class="slideshow-track" id="slideshowTrack">
         <div class="slide-item active"
           onclick="openZoom('https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/FOTOS%20NOTAS%20LOVE/1500.jpg')">
-          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/FOTOS%20NOTAS%20LOVE/1500.jpg" alt="XV Años">
+          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/FOTOS%20NOTAS%20LOVE/1500.jpg" alt="XV Años" style="object-position: center 20%;">
           <div class="slide-overlay"></div>
           <div class="slide-caption">
             <span class="slide-caption-tag" data-es="XV Años" data-en="Quinceañera">XV Años</span>
@@ -2651,10 +2786,31 @@
 
   <!-- ALBUMS PAGE -->
   <div class="albums-page" id="albumsPage">
-    <div class="albums-page-header">
-      <h2 class="albums-page-title" data-es="Nuestros Álbums" data-en="Our Albums">Nuestros Álbums</h2>
+    <!-- Nav arriba -->
+    <nav class="albums-top-nav">
+      <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/WEBLOGO.png" alt="Logo" class="albums-nav-logo">
+      <ul class="albums-nav-links">
+        <li><a href="#inicio" onclick="closeAlbumsPage()" data-es="Inicio" data-en="Home">Inicio</a></li>
+        <li><a href="#nosotros" onclick="closeAlbumsPage()" data-es="Nosotros" data-en="About">Nosotros</a></li>
+        <li><a href="#galeria" onclick="closeAlbumsPage()" data-es="Galería" data-en="Gallery">Galería</a></li>
+        <li><a href="#videos-section" onclick="closeAlbumsPage()" data-es="Videos" data-en="Videos">Videos</a></li>
+        <li><a href="https://cavent.creativeartvideo.com/ent" target="_blank" data-es="Entretenimiento"
+            data-en="Entertainment">Entretenimiento</a></li>
+        <li><a href="#contacto" onclick="closeAlbumsPage()" data-es="Contacto" data-en="Contact">Contacto</a></li>
+      </ul>
       <button class="albums-page-close" onclick="closeAlbumsPage()">&times;</button>
+    </nav>
+
+    <!-- Hero banner de albums -->
+    <div class="albums-hero-banner">
+      <div class="albums-hero-glow"></div>
+      <p class="albums-hero-sub" data-es="EVENTOS ESPECIALES" data-en="SPECIAL EVENTS">EVENTOS ESPECIALES</p>
+      <h2 class="albums-hero-title" data-es="Nuestros Álbums" data-en="Our Albums">Nuestros Álbums</h2>
+      <div class="albums-hero-line"></div>
+      <p class="albums-hero-desc" data-es="Cada álbum cuenta una historia completa."
+        data-en="Each album tells a complete story.">Cada álbum cuenta una historia completa.</p>
     </div>
+
     <div class="albums-page-body">
       <div class="albums-page-grid">
         <!-- XV AÑOS -->
@@ -2701,19 +2857,6 @@
           <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/2logo%20CAV2024.png" alt="Creative Art Video" class="album-logo-decoration">
         </div>
       </div>
-    </div>
-    <div class="albums-page-footer">
-      <nav class="albums-page-nav">
-        <ul class="nav-links">
-          <li><a href="#inicio" data-es="Inicio" data-en="Home" onclick="closeAlbumsPage()">Inicio</a></li>
-          <li><a href="#nosotros" data-es="Nosotros" data-en="About" onclick="closeAlbumsPage()">Nosotros</a></li>
-          <li><a href="#galeria" data-es="Galería" data-en="Gallery" onclick="closeAlbumsPage()">Galería</a></li>
-          <li><a href="#videos-section" data-es="Videos" data-en="Videos" onclick="closeAlbumsPage()">Videos</a></li>
-          <li><a href="#entretenimiento" data-es="Entretenimiento" data-en="Entertainment"
-              onclick="closeAlbumsPage()">Entretenimiento</a></li>
-          <li><a href="#contacto" data-es="Contacto" data-en="Contact" onclick="closeAlbumsPage()">Contacto</a></li>
-        </ul>
-      </nav>
     </div>
   </div>
 
@@ -3524,6 +3667,18 @@
       section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
       observer.observe(section);
     });
+
+    // HERO SLIDESHOW — cambia cada 6 segundos
+    (function() {
+      const slides = document.querySelectorAll('.hero-slide');
+      if (!slides.length) return;
+      let current = 0;
+      setInterval(() => {
+        slides[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+      }, 6000);
+    })();
 
     // Exponer funciones globales para los onclick del HTML
     window.changeSlide = changeSlide;
