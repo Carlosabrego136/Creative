@@ -410,17 +410,13 @@
       .hero {
         height: auto;
         min-height: unset;
-        display: flex;
-        flex-direction: column;
+        display: block;
       }
 
       .hero-slideshow {
         position: relative;
         width: 100%;
-        height: 56vw;
-        min-height: 220px;
-        max-height: 400px;
-        flex-shrink: 0;
+        aspect-ratio: 16 / 9;
         overflow: hidden;
       }
 
