@@ -408,65 +408,75 @@
 
     @media (max-width: 768px) {
       .hero {
-        min-height: 100svh;
+        height: auto;
+        min-height: unset;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .hero-slideshow {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 3/4;
+        flex-shrink: 0;
+      }
+
+      .hero-overlay {
+        display: none;
       }
 
       .hero-bg {
         width: 100%;
         height: 100%;
-        object-fit: contain;
-        object-position: center top;
-        background-color: var(--background);
+        object-fit: cover;
+        object-position: center 20%;
       }
 
       .hero-slide-principal {
-        object-fit: contain;
-        object-position: center top;
+        object-position: center 20%;
       }
 
       .hero-slide-1 {
-        object-fit: contain;
-        object-position: center top;
+        object-position: center 25%;
       }
 
       .hero-slide-2 {
-        object-fit: contain;
-        object-position: center top;
+        object-position: center 20%;
       }
 
       .hero-slide-3 {
-        object-fit: contain;
-        object-position: center top;
+        object-position: center 15%;
       }
 
       .hero-slide-4 {
-        object-fit: contain;
-        object-position: center top;
+        object-position: center 25%;
       }
 
       .hero-slide-5 {
-        object-fit: contain;
-        object-position: center top;
+        object-position: center 15%;
       }
 
       .hero-slide-6 {
-        object-fit: contain;
-        object-position: center top;
+        object-position: center 15%;
       }
 
       .hero-slide-7 {
-        object-fit: contain;
-        object-position: center top;
+        object-position: center 20%;
       }
 
       .hero-slide-8 {
-        object-fit: contain;
-        object-position: center top;
+        object-position: center 20%;
       }
 
       .hero-slide-9 {
-        object-fit: contain;
-        object-position: center top;
+        object-position: center 20%;
+      }
+
+      .hero-content {
+        position: relative;
+        bottom: unset;
+        left: unset;
+        right: unset;
       }
     }
 
