@@ -1630,13 +1630,26 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: 20% center;
       display: block;
       transition: transform 0.6s ease;
     }
 
     .video-hero-layout:hover .video-hero-bg-img {
       transform: scale(1.04);
+    }
+
+    .video-hero-right::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right,
+          rgba(6, 14, 28, 0.85) 0%,
+          rgba(6, 14, 28, 0.45) 25%,
+          rgba(6, 14, 28, 0.08) 55%,
+          transparent 100%);
+      pointer-events: none;
+      z-index: 1;
     }
 
     @media (max-width: 768px) {
