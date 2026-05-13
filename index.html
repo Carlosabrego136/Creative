@@ -1465,9 +1465,24 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: var(--background);
+      background: var(--background) url('assets/fondovideos.jpg') center center / cover no-repeat fixed;
       z-index: 2000;
       overflow-y: auto;
+    }
+
+    .videos-page::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 16, 32, 0.82);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .videos-page-header,
+    .videos-page-body {
+      position: relative;
+      z-index: 1;
     }
 
     .videos-page.active {
@@ -1521,24 +1536,122 @@
     }
 
     /* VIDEO PRINCIPAL */
-    .video-principal {
-      position: relative;
-      width: 100%;
-      max-width: 1000px;
-      margin: 0 auto 3rem;
-      border-radius: 16px;
+    /* VIDEO HERO LAYOUT — estilo ejemplo */
+    .video-hero-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 480px;
+      margin-bottom: 3rem;
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
-      cursor: pointer;
-      /* Aspect ratio 16:9 */
-      aspect-ratio: 16/9;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
     }
 
-    .video-principal img {
+    .video-hero-left {
+      background: rgba(6, 14, 28, 0.92);
+      padding: 2.5rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .video-hero-tag {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: var(--accent-gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .video-hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--foreground);
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    .video-hero-title-italic {
+      font-family: var(--font-heading);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--accent-gold);
+      font-style: italic;
+      line-height: 1.1;
+      margin: 0 0 0.5rem;
+    }
+
+    .video-hero-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--accent-gold);
+      margin: 0.5rem 0 0.75rem;
+    }
+
+    .video-hero-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 320px;
+    }
+
+    .video-hero-small {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 16/9;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .video-hero-small:hover {
+      transform: scale(1.02);
+    }
+
+    .video-hero-small img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+    }
+
+    .video-hero-small .video-play-btn {
+      width: 52px;
+      height: 52px;
+    }
+
+    .video-hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-hero-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .video-hero-layout:hover .video-hero-bg-img {
+      transform: scale(1.04);
+    }
+
+    @media (max-width: 768px) {
+      .video-hero-layout {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .video-hero-right {
+        display: none;
+      }
+
+      .video-hero-left {
+        padding: 1.5rem;
+      }
     }
 
     .video-play-btn {
@@ -2974,12 +3087,30 @@
       <!-- TAB QUINCES -->
       <div id="panelQuinces">
         <!-- VIDEO PRINCIPAL QUINCES — link del RTF: https://vimeo.com/909282564 -->
-        <div class="video-principal" onclick="openVideoModal('https://vimeo.com/909282564')">
-          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Banner%20Quinceanera.jpg" alt="Quinces Promo">
-          <div class="video-play-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
+        <div class="video-hero-layout">
+          <div class="video-hero-left">
+            <div class="video-hero-text">
+              <p class="video-hero-tag" data-es="XV AÑOS · CINEMATOGRAFÍA" data-en="QUINCEAÑERA · CINEMATOGRAPHY">XV
+                AÑOS · CINEMATOGRAFÍA</p>
+              <h2 class="video-hero-title" data-es="Momentos que" data-en="Moments that">Momentos que</h2>
+              <h2 class="video-hero-title-italic" data-es="no se repiten" data-en="don't repeat">no se repiten</h2>
+              <div class="video-hero-divider"></div>
+              <p class="video-hero-desc"
+                data-es="Capturamos la esencia de tu historia con imágenes que perduran para siempre."
+                data-en="We capture the essence of your story with images that last forever.">Capturamos la esencia de
+                tu historia con imágenes que perduran para siempre.</p>
+            </div>
+            <div class="video-hero-small" onclick="openVideoModal('https://vimeo.com/909282564')">
+              <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Banner%20Quinceanera.jpg" alt="Quinces Promo">
+              <div class="video-play-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="video-hero-right">
+            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Banner%20Quinceanera.jpg" alt="Quinces" class="video-hero-bg-img">
           </div>
         </div>
 
@@ -3082,12 +3213,30 @@
       <!-- TAB WEDDINGS -->
       <div id="panelWeddings" style="display:none;">
         <!-- VIDEO PRINCIPAL WEDDINGS — https://vimeo.com/913103631 -->
-        <div class="video-principal" onclick="openVideoModal('https://vimeo.com/913103631')">
-          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/BannerBODA.jpg" alt="Weddings Promo">
-          <div class="video-play-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
+        <div class="video-hero-layout">
+          <div class="video-hero-left">
+            <div class="video-hero-text">
+              <p class="video-hero-tag" data-es="BODAS · CINEMATOGRAFÍA" data-en="WEDDINGS · CINEMATOGRAPHY">BODAS ·
+                CINEMATOGRAFÍA</p>
+              <h2 class="video-hero-title" data-es="Momentos que" data-en="Moments that">Momentos que</h2>
+              <h2 class="video-hero-title-italic" data-es="no se repiten" data-en="don't repeat">no se repiten</h2>
+              <div class="video-hero-divider"></div>
+              <p class="video-hero-desc"
+                data-es="Capturamos la esencia de tu historia con imágenes que perduran para siempre."
+                data-en="We capture the essence of your story with images that last forever.">Capturamos la esencia de
+                tu historia con imágenes que perduran para siempre.</p>
+            </div>
+            <div class="video-hero-small" onclick="openVideoModal('https://vimeo.com/913103631')">
+              <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/BannerBODA.jpg" alt="Bodas Promo">
+              <div class="video-play-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="video-hero-right">
+            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/BannerBODA.jpg" alt="Bodas" class="video-hero-bg-img">
           </div>
         </div>
 
