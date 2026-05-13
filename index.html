@@ -19,9 +19,13 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://player.vimeo.com">
+  <link rel="dns-prefetch" href="https://api.groq.com">
+  <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+    rel="stylesheet" media="print" onload="this.media='all'">
 
   <script src="config.js"></script>
 
@@ -85,7 +89,7 @@
       background: var(--primary);
     }
 
-    /* LOADING */
+
     .loading-screen {
       position: fixed;
       top: 0;
@@ -152,7 +156,7 @@
       }
     }
 
-    /* LANG SWITCH */
+
     .lang-switch {
       position: fixed;
       top: 1rem;
@@ -190,7 +194,7 @@
       color: var(--foreground);
     }
 
-    /* HEADER */
+
     .header {
       position: fixed;
       top: 0;
@@ -353,7 +357,7 @@
       color: var(--primary);
     }
 
-    /* HERO */
+
     .hero {
       position: relative;
       height: 100vh;
@@ -383,13 +387,14 @@
     .hero-slide {
       opacity: 0;
       transition: opacity 1.2s ease;
+      will-change: opacity;
     }
 
     .hero-slide.active {
       opacity: 1;
     }
 
-    /* Posicion individual por foto del hero */
+
     .hero-slide-principal {
       object-position: center 30%;
     }
@@ -568,11 +573,13 @@
       box-shadow: 0 10px 40px rgba(125, 211, 252, 0.5);
     }
 
-    /* SECTIONS */
+
     .section {
       padding: 6rem 2rem;
       max-width: 1400px;
       margin: 0 auto;
+      content-visibility: auto;
+      contain-intrinsic-size: 0 600px;
     }
 
     .section-header {
@@ -607,7 +614,7 @@
       border-radius: 1px;
     }
 
-    /* ABOUT */
+
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -681,7 +688,7 @@
       letter-spacing: 1px;
     }
 
-    /* SLIDESHOW */
+
     .slideshow-section {
       position: relative;
       padding: 6rem 0;
@@ -846,7 +853,7 @@
       border-radius: 4px;
     }
 
-    /* ALBUMS CTA */
+
     .albums-cta-section {
       text-align: center;
     }
@@ -881,7 +888,7 @@
       height: 18px;
     }
 
-    /* ALBUMS PAGE */
+
     .albums-page {
       display: none;
       position: fixed;
@@ -970,7 +977,7 @@
       margin: 0 auto;
     }
 
-    /* ===== ALBUMS GRID — CORREGIDO ===== */
+
     .albums-page-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1028,6 +1035,7 @@
       border: 1px solid rgba(125, 211, 252, 0.15);
       background: rgba(5, 14, 30, 0.6);
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      will-change: transform;
     }
 
     .album-thumb:hover {
@@ -1129,7 +1137,7 @@
       opacity: 0.8;
     }
 
-    /* ALBUM MODAL — CARRUSEL */
+
     .album-modal {
       display: none;
       position: fixed;
@@ -1200,7 +1208,7 @@
       background: rgba(125, 211, 252, 0.15);
     }
 
-    /* Fila central: flecha | foto | flecha */
+
     .album-carousel-area {
       flex: 1;
       display: flex;
@@ -1237,7 +1245,7 @@
       transform: scale(1.1);
     }
 
-    /* Contenedor de imagen + boton pantalla completa */
+
     .carousel-img-wrap {
       flex: 1;
       min-width: 0;
@@ -1324,7 +1332,7 @@
       display: none;
     }
 
-    /* ALBUMS PAGE — nav superior + hero banner */
+
     .albums-top-nav {
       position: sticky;
       top: 0;
@@ -1370,7 +1378,7 @@
       background: rgba(125, 211, 252, 0.08);
     }
 
-    /* Hero banner decorativo */
+
     .albums-hero-banner {
       position: relative;
       text-align: center;
@@ -1419,7 +1427,7 @@
       line-height: 1.7;
     }
 
-    /* Quitar footer viejo */
+
     .albums-page-footer {
       display: none;
     }
@@ -1428,7 +1436,7 @@
       display: none;
     }
 
-    /* Albums page body sin padding-top extra */
+
     .albums-page-body {
       padding-top: 0.5rem;
     }
@@ -1489,7 +1497,7 @@
       opacity: 0.92;
     }
 
-    /* ZOOM MODAL */
+
     .zoom-modal {
       display: none;
       position: fixed;
@@ -1541,7 +1549,7 @@
       color: var(--primary);
     }
 
-    /* VIDEOS PAGE */
+
     .videos-open-btn {
       display: inline-flex;
       align-items: center;
@@ -1645,8 +1653,8 @@
       margin: 0 auto;
     }
 
-    /* VIDEO PRINCIPAL */
-    /* VIDEO HERO LAYOUT — estilo ejemplo */
+
+
     .video-hero-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1777,7 +1785,7 @@
       }
     }
 
-    /* Album modal móvil: ocultar nav, foto más grande */
+
     @media (max-width: 768px) {
       .album-modal-nav {
         display: none !important;
@@ -1848,7 +1856,7 @@
       color: var(--background);
     }
 
-    /* ===== VIDEO CARDS GRID — CORREGIDO ===== */
+
     .videos-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -1861,7 +1869,7 @@
       overflow: hidden;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      /* Aspect ratio 16:9 para que la imagen ocupe el espacio correcto */
+
       aspect-ratio: 16/9;
     }
 
@@ -1912,7 +1920,7 @@
       margin-left: 3px;
     }
 
-    /* Etiqueta título en la card */
+
     .video-card-label {
       position: absolute;
       bottom: 0;
@@ -1928,7 +1936,7 @@
       text-align: center;
     }
 
-    /* VIDEO MODAL */
+
     .video-modal {
       display: none;
       position: fixed;
@@ -1970,7 +1978,7 @@
       color: var(--primary);
     }
 
-    /* ENTERTAINMENT */
+
     .entertainment-section {
       background: linear-gradient(180deg, var(--background) 0%, var(--background-light) 50%, var(--background) 100%);
     }
@@ -2022,7 +2030,7 @@
       animation: logo-glow 3s ease-in-out infinite;
     }
 
-    /* CONTACT */
+
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -2178,7 +2186,7 @@
       animation: fadeIn 0.5s ease;
     }
 
-    /* FOOTER */
+
     .footer {
       padding: 4rem 2rem;
       background: linear-gradient(180deg, var(--background) 0%, var(--card) 100%);
@@ -2254,7 +2262,7 @@
       font-size: 0.8rem;
     }
 
-    /* WOOW */
+
     .woow-btn {
       position: fixed;
       bottom: 2rem;
@@ -2499,7 +2507,7 @@
       }
     }
 
-    /* FOTOS GALLERY */
+
     .foto-tab-btn {
       padding: 0.45rem 1.4rem;
       border-radius: 50px;
@@ -2554,7 +2562,7 @@
       display: none;
     }
 
-    /* ===== RESPONSIVE ===== */
+
     @media (max-width: 1100px) {
       .nav-links li a {
         padding: 0.45rem 0.5rem;
@@ -2562,7 +2570,7 @@
         letter-spacing: 0.8px;
       }
 
-      /* Albums: 2 columnas en tablet */
+
       .albums-page-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -2656,7 +2664,7 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
-      /* Albums: 2 columnas en móvil */
+
       .albums-page-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.85rem;
@@ -2726,7 +2734,7 @@
         padding: 1.5rem 1rem;
       }
 
-      /* Albums: 1 columna en móvil pequeño */
+
       .albums-page-grid {
         grid-template-columns: 1fr;
       }
@@ -2791,7 +2799,7 @@
   <header class="header" id="header">
     <div class="header-content">
       <a href="#inicio">
-        <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/WEBLOGO.png" alt="Creative Art Video" class="header-logo">
+        <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/WEBLOGO.png" alt="Creative Art Video" class="header-logo">
       </a>
       <nav class="header-nav">
         <ul class="nav-links">
@@ -2991,7 +2999,7 @@
       <div class="slideshow-track" id="slideshowTrack">
         <div class="slide-item active"
           onclick="openZoom('https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/FOTOS%20NOTAS%20LOVE/1500.jpg')">
-          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/FOTOS%20NOTAS%20LOVE/1500.jpg" alt="XV Años" style="object-position: center 20%;">
+          <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/FOTOS%20NOTAS%20LOVE/1500.jpg" alt="XV Años" style="object-position: center 20%;">
           <div class="slide-overlay"></div>
           <div class="slide-caption">
             <span class="slide-caption-tag" data-es="XV Años" data-en="Quinceañera">XV Años</span>
@@ -3008,7 +3016,7 @@
         </div>
         <div class="slide-item"
           onclick="openZoom('https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/FOTOS%20NOTAS%20LOVE/1501.jpg')">
-          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/FOTOS%20NOTAS%20LOVE/1501.jpg" alt="XV Años">
+          <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/FOTOS%20NOTAS%20LOVE/1501.jpg" alt="XV Años">
           <div class="slide-overlay"></div>
           <div class="slide-caption">
             <span class="slide-caption-tag" data-es="XV Años" data-en="Quinceañera">XV Años</span>
@@ -3024,7 +3032,7 @@
         </div>
         <div class="slide-item"
           onclick="openZoom('https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/FOTOS%20NOTAS%20LOVE/1503.jpg')">
-          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/FOTOS%20NOTAS%20LOVE/1503.jpg" alt="XV Años">
+          <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/FOTOS%20NOTAS%20LOVE/1503.jpg" alt="XV Años">
           <div class="slide-overlay"></div>
           <div class="slide-caption">
             <span class="slide-caption-tag" data-es="XV Años" data-en="Quinceañera">XV Años</span>
@@ -3040,7 +3048,7 @@
         </div>
         <div class="slide-item"
           onclick="openZoom('https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/FOTOS%20NOTAS%20LOVE/BODA.jpg')">
-          <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/FOTOS%20NOTAS%20LOVE/BODA.jpg" alt="Boda">
+          <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/FOTOS%20NOTAS%20LOVE/BODA.jpg" alt="Boda">
           <div class="slide-overlay"></div>
           <div class="slide-caption"><span class="slide-caption-tag" data-es="Bodas" data-en="Weddings">Bodas</span>
             <p class="slide-caption-text"
@@ -3095,7 +3103,7 @@
   <div class="albums-page" id="albumsPage">
     <!-- Nav arriba -->
     <nav class="albums-top-nav">
-      <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/WEBLOGO.png" alt="Logo" class="albums-nav-logo">
+      <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/WEBLOGO.png" alt="Logo" class="albums-nav-logo">
       <ul class="albums-nav-links">
         <li><a href="#inicio" onclick="closeAlbumsPage()" data-es="Inicio" data-en="Home">Inicio</a></li>
         <li><a href="#nosotros" onclick="closeAlbumsPage()" data-es="Nosotros" data-en="About">Nosotros</a></li>
@@ -3165,7 +3173,7 @@
 
     <!-- Logo centrado al pie -->
     <div class="albums-page-footer-logo">
-      <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/2logo%20CAV2024.png" alt="Creative Art Video" class="albums-footer-logo-img">
+      <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/2logo%20CAV2024.png" alt="Creative Art Video" class="albums-footer-logo-img">
     </div>
 
   </div>
@@ -3173,7 +3181,7 @@
   <!-- ALBUM MODAL — CARRUSEL -->
   <div class="album-modal" id="albumModal">
     <div class="album-modal-header">
-      <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/WEBLOGO.png" alt="Logo" style="height:32px;width:auto;filter:drop-shadow(0 0 6px rgba(125,211,252,0.3));flex-shrink:0;">
+      <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/WEBLOGO.png" alt="Logo" style="height:32px;width:auto;filter:drop-shadow(0 0 6px rgba(125,211,252,0.3));flex-shrink:0;">
       <h2 class="album-modal-title" id="albumModalTitle" style="display:none;"></h2>
       <nav class="album-modal-nav" style="flex:1;display:flex;justify-content:center;">
         <ul style="display:flex;gap:0;list-style:none;flex-wrap:nowrap;">
@@ -3229,7 +3237,7 @@
     <button class="zoom-modal-close" onclick="closeZoom()">&times;</button>
     <span id="zoomCounter" style="position:absolute;top:2rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.6);font-size:0.8rem;letter-spacing:2px;font-family:var(--font-body);z-index:10;pointer-events:none;"></span>
     <button onclick="event.stopPropagation(); zoomNav(-1);" style="position:absolute;left:1.5rem;top:50%;transform:translateY(-50%);background:rgba(10,22,40,0.7);border:1px solid rgba(125,211,252,0.3);color:#f0f6fc;width:52px;height:52px;border-radius:50%;font-size:2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;backdrop-filter:blur(10px);transition:all 0.25s ease;">&#8249;</button>
-    <img src="" alt="Zoom" id="zoomImage" style="transition: opacity 0.5s ease, transform 0.5s ease;">
+    <img loading="lazy" decoding="async" src="" alt="Zoom" id="zoomImage" style="transition: opacity 0.5s ease, transform 0.5s ease;">
     <button onclick="event.stopPropagation(); zoomNav(1);" style="position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);background:rgba(10,22,40,0.7);border:1px solid rgba(125,211,252,0.3);color:#f0f6fc;width:52px;height:52px;border-radius:50%;font-size:2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;backdrop-filter:blur(10px);transition:all 0.25s ease;">&#8250;</button>
   </div>
 
@@ -3254,7 +3262,7 @@
   <div class="videos-page" id="videosPage">
     <div class="videos-page-header">
       <nav class="albums-top-nav" style="position:static;border-bottom:none;padding:0.85rem 2rem;">
-        <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/WEBLOGO.png" alt="Logo" class="albums-nav-logo">
+        <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/WEBLOGO.png" alt="Logo" class="albums-nav-logo">
         <ul class="albums-nav-links">
           <li><a href="#inicio" onclick="closeVideosPage()" data-es="Inicio" data-en="Home">Inicio</a></li>
           <li><a href="#nosotros" onclick="closeVideosPage()" data-es="Nosotros" data-en="About">Nosotros</a></li>
@@ -3292,7 +3300,8 @@
                 tu historia con imágenes que perduran para siempre.</p>
             </div>
             <div class="video-hero-small" style="cursor:default;overflow:hidden;position:relative;">
-              <iframe src="https://player.vimeo.com/video/909282564?autoplay=1&muted=1&loop=1&background=1&controls=0"
+              <iframe loading="lazy"
+                src="https://player.vimeo.com/video/909282564?autoplay=1&muted=1&loop=1&background=1&controls=0"
                 style="position:absolute;top:50%;left:50%;width:177.78%;height:177.78%;transform:translate(-50%,-50%);border:0;pointer-events:none;"
                 allow="autoplay; fullscreen" frameborder="0">
               </iframe>
@@ -3301,7 +3310,7 @@
             </div>
           </div>
           <div class="video-hero-right">
-            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Banner%20Quinceanera.jpg" alt="Quinces" class="video-hero-bg-img">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Banner%20Quinceanera.jpg" alt="Quinces" class="video-hero-bg-img">
           </div>
         </div>
 
@@ -3312,7 +3321,7 @@
         <div class="videos-grid">
           <!-- Jeanette — https://vimeo.com/908825763 -->
           <div class="video-card" onclick="openVideoModal('https://vimeo.com/908825763')">
-            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Jeanette15.jpg" alt="Jeanette">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Jeanette15.jpg" alt="Jeanette">
             <div class="video-card-overlay">
               <div class="video-card-play"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                   viewBox="0 0 24 24">
@@ -3323,7 +3332,7 @@
           </div>
           <!-- Sydney — https://vimeo.com/909263459 -->
           <div class="video-card" onclick="openVideoModal('https://vimeo.com/909263459')">
-            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Sydney.jpg" alt="Sydney">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Sydney.jpg" alt="Sydney">
             <div class="video-card-overlay">
               <div class="video-card-play"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                   viewBox="0 0 24 24">
@@ -3334,7 +3343,7 @@
           </div>
           <!-- Ashley — https://vimeo.com/913404394 -->
           <div class="video-card" onclick="openVideoModal('https://vimeo.com/913404394')">
-            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/ASHLEY.jpg" alt="Ashley">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/ASHLEY.jpg" alt="Ashley">
             <div class="video-card-overlay">
               <div class="video-card-play"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                   viewBox="0 0 24 24">
@@ -3345,7 +3354,7 @@
           </div>
           <!-- Strella — https://vimeo.com/913423792 -->
           <div class="video-card" onclick="openVideoModal('https://vimeo.com/913423792')">
-            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Strella.jpg" alt="Strella">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Strella.jpg" alt="Strella">
             <div class="video-card-overlay">
               <div class="video-card-play"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                   viewBox="0 0 24 24">
@@ -3356,7 +3365,7 @@
           </div>
           <!-- Tamara — https://vimeo.com/181943716 -->
           <div class="video-card" onclick="openVideoModal('https://vimeo.com/181943716')">
-            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Tamara.jpg" alt="Tamara">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Tamara.jpg" alt="Tamara">
             <div class="video-card-overlay">
               <div class="video-card-play"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                   viewBox="0 0 24 24">
@@ -3367,7 +3376,7 @@
           </div>
           <!-- Paris — https://vimeo.com/222308196 -->
           <div class="video-card" onclick="openVideoModal('https://vimeo.com/222308196')">
-            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Paris.jpg" alt="Paris">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Paris.jpg" alt="Paris">
             <div class="video-card-overlay">
               <div class="video-card-play"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                   viewBox="0 0 24 24">
@@ -3378,7 +3387,7 @@
           </div>
           <!-- Music Video 1 — https://vimeo.com/909286111 -->
           <div class="video-card" onclick="openVideoModal('https://vimeo.com/909286111')">
-            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Music%20Video.jpg" alt="Music Video">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Music%20Video.jpg" alt="Music Video">
             <div class="video-card-overlay">
               <div class="video-card-play"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                   viewBox="0 0 24 24">
@@ -3389,7 +3398,7 @@
           </div>
           <!-- Isabelle — https://vimeo.com/909286712 -->
           <div class="video-card" onclick="openVideoModal('https://vimeo.com/909286712')">
-            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Isabelle.jpg" alt="Isabelle">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Isabelle.jpg" alt="Isabelle">
             <div class="video-card-overlay">
               <div class="video-card-play"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                   viewBox="0 0 24 24">
@@ -3418,7 +3427,8 @@
                 tu historia con imágenes que perduran para siempre.</p>
             </div>
             <div class="video-hero-small" style="cursor:default;overflow:hidden;position:relative;">
-              <iframe src="https://player.vimeo.com/video/913103631?autoplay=1&muted=1&loop=1&background=1&controls=0"
+              <iframe loading="lazy"
+                src="https://player.vimeo.com/video/913103631?autoplay=1&muted=1&loop=1&background=1&controls=0"
                 style="position:absolute;top:50%;left:50%;width:177.78%;height:177.78%;transform:translate(-50%,-50%);border:0;pointer-events:none;"
                 allow="autoplay; fullscreen" frameborder="0">
               </iframe>
@@ -3427,7 +3437,7 @@
             </div>
           </div>
           <div class="video-hero-right">
-            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/BannerBODA.jpg" alt="Bodas" class="video-hero-bg-img video-hero-bg-img--boda">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/BannerBODA.jpg" alt="Bodas" class="video-hero-bg-img video-hero-bg-img--boda">
           </div>
         </div>
 
@@ -3438,7 +3448,7 @@
         <div class="videos-grid">
           <!-- Yvette — https://vimeo.com/908831296 -->
           <div class="video-card" onclick="openVideoModal('https://vimeo.com/908831296')">
-            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Yvette.jpg" alt="Yvette">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Yvette.jpg" alt="Yvette">
             <div class="video-card-overlay">
               <div class="video-card-play"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                   viewBox="0 0 24 24">
@@ -3449,7 +3459,7 @@
           </div>
           <!-- Anabel y Freddy — https://vimeo.com/909283502 -->
           <div class="video-card" onclick="openVideoModal('https://vimeo.com/909283502')">
-            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Anabelyfreddy.jpg" alt="Anabel y Freddy">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Anabelyfreddy.jpg" alt="Anabel y Freddy">
             <div class="video-card-overlay">
               <div class="video-card-play"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                   viewBox="0 0 24 24">
@@ -3460,7 +3470,7 @@
           </div>
           <!-- Julio — https://vimeo.com/192075723 -->
           <div class="video-card" onclick="openVideoModal('https://vimeo.com/192075723')">
-            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/julio.jpg" alt="Julio">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/julio.jpg" alt="Julio">
             <div class="video-card-overlay">
               <div class="video-card-play"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                   viewBox="0 0 24 24">
@@ -3471,7 +3481,7 @@
           </div>
           <!-- Nathaly — https://vimeo.com/909281356 -->
           <div class="video-card" onclick="openVideoModal('https://vimeo.com/909281356')">
-            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Nathaly.jpg" alt="Nathaly">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/Nathaly.jpg" alt="Nathaly">
             <div class="video-card-overlay">
               <div class="video-card-play"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                   viewBox="0 0 24 24">
@@ -3482,7 +3492,7 @@
           </div>
           <!-- Love Story — https://vimeo.com/235672142 -->
           <div class="video-card" onclick="openVideoModal('https://vimeo.com/235672142')">
-            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/wedding.jpg" alt="Love Story">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/wedding.jpg" alt="Love Story">
             <div class="video-card-overlay">
               <div class="video-card-play"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                   viewBox="0 0 24 24">
@@ -3493,7 +3503,7 @@
           </div>
           <!-- Villa Punta del Cielo — https://videos.creativeartvideo.com/VILLA2026.mp4 -->
           <div class="video-card" onclick="openVideoModal('https://videos.creativeartvideo.com/VILLA2026.mp4')">
-            <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/LOVESTORY.jpg" alt="Villa Punta del Cielo">
+            <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/VIMEO%20BANNERS/LOVESTORY.jpg" alt="Villa Punta del Cielo">
             <div class="video-card-overlay">
               <div class="video-card-play"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                   viewBox="0 0 24 24">
@@ -3516,15 +3526,15 @@
       <div class="section-line"></div>
     </div>
     <div class="entertainment-grid">
-      <div class="entertainment-item" onclick="openZoom('assets/entertainment-foto1.jpg')"><img src="assets/entertainment-foto1.jpg" alt="Entretenimiento 1">
+      <div class="entertainment-item" onclick="openZoom('assets/entertainment-foto1.jpg')"><img loading="lazy" decoding="async" src="assets/entertainment-foto1.jpg" alt="Entretenimiento 1">
       </div>
-      <div class="entertainment-item" onclick="openZoom('assets/entertainment-foto2.jpg')"><img src="assets/entertainment-foto2.jpg" alt="Entretenimiento 2">
+      <div class="entertainment-item" onclick="openZoom('assets/entertainment-foto2.jpg')"><img loading="lazy" decoding="async" src="assets/entertainment-foto2.jpg" alt="Entretenimiento 2">
       </div>
-      <div class="entertainment-logo"><img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/WEBLOGO.png" alt="Creative Art Video">
+      <div class="entertainment-logo"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/WEBLOGO.png" alt="Creative Art Video">
       </div>
-      <div class="entertainment-item" onclick="openZoom('assets/entertainment-foto3.jpg')"><img src="assets/entertainment-foto3.jpg" alt="Entretenimiento 3">
+      <div class="entertainment-item" onclick="openZoom('assets/entertainment-foto3.jpg')"><img loading="lazy" decoding="async" src="assets/entertainment-foto3.jpg" alt="Entretenimiento 3">
       </div>
-      <div class="entertainment-item" onclick="openZoom('assets/entertainment-foto4.jpg')"><img src="assets/entertainment-foto4.jpg" alt="Entretenimiento 4">
+      <div class="entertainment-item" onclick="openZoom('assets/entertainment-foto4.jpg')"><img loading="lazy" decoding="async" src="assets/entertainment-foto4.jpg" alt="Entretenimiento 4">
       </div>
     </div>
   </section>
@@ -3596,7 +3606,7 @@
 
   <!-- FOOTER -->
   <footer class="footer">
-    <img src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/WEBLOGO.png" alt="Creative Art Video" class="footer-logo">
+    <img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/Carlosabrego136/Creative/main/WEBSITE2026/About/WEBLOGO.png" alt="Creative Art Video" class="footer-logo">
     <div class="footer-links">
       <a href="#inicio" data-es="Inicio" data-en="Home">Inicio</a>
       <a href="#nosotros" data-es="Nosotros" data-en="About">Nosotros</a>
