@@ -1667,6 +1667,39 @@
       }
     }
 
+    /* Album modal móvil: ocultar nav, foto más grande */
+    @media (max-width: 768px) {
+      .album-modal-header nav {
+        display: none;
+      }
+
+      .album-modal-header {
+        justify-content: space-between;
+        padding: 0.6rem 1rem;
+      }
+
+      .album-carousel-area {
+        padding: 0;
+        gap: 0;
+      }
+
+      .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.4rem;
+        margin: 0 0.2rem;
+      }
+
+      .album-carousel-img {
+        max-height: calc(100vh - 180px);
+      }
+
+      .carousel-fullscreen-btn {
+        font-size: 0.65rem;
+        padding: 0.35rem 0.9rem;
+      }
+    }
+
     .video-hero-bg-img--boda {
       object-position: 80% center;
     }
@@ -3803,7 +3836,16 @@
     function carouselFullscreen() {
       const src = _carouselPhotos[_carouselIndex];
       if (!src) return;
-      openZoom(src);
+      // Abre la imagen directamente en el zoom sin cambiar el contexto de la galería de fotos
+      _zoomPhotos = _carouselPhotos;
+      _zoomIndex = _carouselIndex;
+      const modal = document.getElementById('zoomModal');
+      document.getElementById('zoomImage').src = src;
+      const counter = document.getElementById('zoomCounter');
+      if (counter) counter.textContent = (_zoomIndex + 1) + ' / ' + _zoomPhotos.length;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      _zoomStartTimer();
     }
 
     function closeAlbum() {
